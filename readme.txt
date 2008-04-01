@@ -14,6 +14,8 @@ This plugin provides the most popular articles, using data collected by Wordpres
 Wordpress.com Popular Posts lists the most popular posts on a wordpress powered weblog.
 This list can be used in the sidebar to show an indication of which are the most visited pages.
 
+For further info and changelog visit [plugin homepage](http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/).
+
 == Installation ==
 
 Wordpress.com Popular Posts can be installed easily:
