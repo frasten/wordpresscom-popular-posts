@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 0.2.0
+Version: 0.2.1
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -35,7 +35,7 @@ class WPPP {
 		echo "<h4>{$opzioni['title']}</h4>\n";
 		echo "<ul>\n";
 		foreach ($top_posts as $post) {
-			echo "<li><a href='{$post['post_permalink']}' title='{$post['post_title']}'>{$post['post_title']}</a></li>\n";
+			echo "<li><a href='{$post['post_permalink']}' title='".htmlentities($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
 		}
 		echo "</ul>\n";
 	}
@@ -80,7 +80,7 @@ class WPPP {
 				
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
 		echo __('Title');
-		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="'.$opzioni['title'].'" /></label></p>';
+		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="'.htmlentities($opzioni['title'],ENT_QUOTES).'" /></label></p>';
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
 		echo __('Number of posts');
 		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="'.$opzioni['numero_posts'].'" /></label></p>';
