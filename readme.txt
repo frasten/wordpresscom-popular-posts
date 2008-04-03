@@ -16,6 +16,8 @@ This list can be used in the sidebar to show an indication of which are the most
 
 For further info and changelog visit [plugin homepage](http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/).
 
+**Requires [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2**
+
 == Installation ==
 
 Wordpress.com Popular Posts can be installed easily:
@@ -31,3 +33,4 @@ Wordpress.com Popular Posts can be installed easily:
 = I added the widget, but nothing shows up =
 
 Check whether the Wordpress.com Stats plugin is installed and active.
+You must have at least version 1.2 of WP Stats.
