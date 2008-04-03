@@ -26,7 +26,7 @@ $WPPP_defaults = array('title' => __('Popular Posts')
 
 class WPPP {
 	
-	function genera_widget() {
+	function generate_widget() {
 		if (!function_exists('stats_get_options') || !function_exists('stats_get_csv'))
 			return;
 		$opzioni = WPPP::get_impostazioni();
@@ -48,7 +48,7 @@ class WPPP {
 			extract($args);
 			?>
 			<?php echo $before_widget; ?>
-			<?php echo WPPP::genera_widget(); ?>
+			<?php echo WPPP::generate_widget(); ?>
 			<?php echo $after_widget; ?>
 	<?php
 		}
@@ -87,6 +87,10 @@ class WPPP {
 	}
 	
 	
+}
+
+function WPPP_show_popular_posts() {
+	WPPP::generate_widget();
 }
 
 add_action('widgets_init', array('WPPP', 'init'));

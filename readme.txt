@@ -4,7 +4,7 @@ Donate link: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-po
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.2.0
 Tested up to: 2.5.0
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
@@ -34,3 +34,12 @@ Wordpress.com Popular Posts can be installed easily:
 
 Check whether the Wordpress.com Stats plugin is installed and active.
 You must have at least version 1.2 of WP Stats.
+
+= How can I integrate this plugin in my non-widget-ready theme? =
+Edit sidebar.php in your theme files, and place this code where you need:
+If your theme supports widgets, you can place the widget named 'Popular Posts' where you want.
+
+If it doesn't, put this code inside the file sidebar.php, in your theme files:
+
+`<?php if (function_exists('WPPP_show_popular_posts')) WPPP_show_popular_posts(); ?>`
+
