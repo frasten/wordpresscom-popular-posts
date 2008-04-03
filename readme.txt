@@ -6,7 +6,7 @@ Requires at least: 2.2.0
 Tested up to: 2.5.0
 Stable tag: 0.2.1
 
-This plugin provides a list with the most popular articles, using data collected by Wordpress.com Stats plugin.
+This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
 == Description ==
 
