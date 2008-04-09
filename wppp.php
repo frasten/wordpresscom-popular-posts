@@ -3,16 +3,13 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 0.3.0
+Version: 0.4.0
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
 
 /*
 Created by Frasten (email : frasten@gmail.com) under GPL licence.
-* 
-* Changelog:
-* - Fixed a bug with titles containing foreign characters.
 * 
 */
 
@@ -34,7 +31,20 @@ class WPPP {
 	function generate_widget() {
 		if (!function_exists('stats_get_options') || !function_exists('stats_get_csv'))
 			return;
+		
 		$opzioni = WPPP::get_impostazioni();
+		
+		if (func_num_args > 0) {
+			$args = func_get_args();
+			if (isset($args[0])) $opzioni['title'] = $args[0];
+			if (isset($args[1])) $opzioni['numero_posts'] = $args[1];
+			if (isset($args[2])) $opzioni['days'] = $args[2];
+		}
+		
+		// Check against malformed values
+		$opzioni['days'] = intval($opzioni['days']);
+		$opzioni['numero_posts'] = intval($opzioni['numero_posts']);
+		
 		if ($opzioni['days'] <= 0)
 			$opzioni['days'] = '-1';
 		
@@ -108,8 +118,27 @@ class WPPP {
 	
 }
 
-function WPPP_show_popular_posts() {
-	WPPP::generate_widget();
+/* You can call this function if you want to integrate the plugin in a theme
+ * that doesn't support widgets.
+ * 
+ * Just insert this code: 
+ * <?php if (function_exists('WPPP_show_popular_posts')) WPPP_show_popular_posts();?>
+ * 
+ * Optionally you can add these parameters to the function:
+ * WPPP_show_popular_posts(title,number,days);
+ * 
+ * title: Title of the widget
+ * number: number of links shown
+ * days: length of the time frame of the stats.
+ * */
+function WPPP_show_popular_posts($title = NULL,$number = NULL, $days = NULL) {
+	global $WPPP_defaults;
+	
+	if (!isset($title)) $title = $WPPP_defaults['title'];
+	if (!isset($number)) $number = $WPPP_defaults['numero_posts'];
+	if (!isset($days)) $days = $WPPP_defaults['days'];
+	
+	WPPP::generate_widget($title,$number,$days);
 }
 
 add_action('widgets_init', array('WPPP', 'init'));
