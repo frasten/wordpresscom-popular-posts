@@ -29,18 +29,17 @@ $WPPP_defaults = array('title' => __('Popular Posts')
 class WPPP {
 	
 	function generate_widget() {
-		if (!function_exists('stats_get_options') || !function_exists('stats_get_csv'))
+		if (false && !function_exists('stats_get_options') || !function_exists('stats_get_csv'))
 			return;
 		
 		$opzioni = WPPP::get_impostazioni();
 		
-		if (func_num_args > 0) {
+		if (func_num_args() > 0) {
 			$args = func_get_args();
 			if (isset($args[0])) $opzioni['title'] = $args[0];
 			if (isset($args[1])) $opzioni['numero_posts'] = $args[1];
 			if (isset($args[2])) $opzioni['days'] = $args[2];
 		}
-		
 		// Check against malformed values
 		$opzioni['days'] = intval($opzioni['days']);
 		$opzioni['numero_posts'] = intval($opzioni['numero_posts']);
@@ -142,6 +141,5 @@ function WPPP_show_popular_posts($title = NULL,$number = NULL, $days = NULL) {
 }
 
 add_action('widgets_init', array('WPPP', 'init'));
-
 
 ?>
