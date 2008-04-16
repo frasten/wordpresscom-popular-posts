@@ -129,7 +129,11 @@ class WPPP {
 		update_option('widget_wppp', $opzioni);
 		
 		
-		$opzioni['title'] = utf8_decode($opzioni['title']);
+		// WP < 2.5 needed this
+		global $wp_version;
+		if (version_compare($wp_version,'2.5','<')) {
+			$opzioni['title'] = utf8_decode($opzioni['title']);
+		}
 		
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
 		echo __('Title');
