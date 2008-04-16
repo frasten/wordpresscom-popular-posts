@@ -24,7 +24,7 @@ if ( !empty( $locale ) ) {
 $WPPP_defaults = array('title' => __('Popular Posts')
 	                     ,'number' => '5'
 	                     ,'days' => '0'
-	                     ,'format' => "<a href='%post_permalink%' title='%post_title%'>%post_title%</a>"
+	                     ,'format' => "<a href='%post_permalink%' title='%post_title%'>%post_title%</a>" //  (%post_views% views)
 	);
 
 class WPPP {
@@ -124,7 +124,7 @@ class WPPP {
 			$opzioni['days'] = intval($_POST['wppp-days']);
 		}
 		if (isset($_POST['wppp-days'])) {
-			$opzioni['format'] = $_POST['wppp-format'];
+			$opzioni['format'] = stripslashes($_POST['wppp-format']);
 		}
 		update_option('widget_wppp', $opzioni);
 		
@@ -157,23 +157,29 @@ class WPPP {
  * Just insert this code: 
  * <?php if (function_exists('WPPP_show_popular_posts')) WPPP_show_popular_posts();?>
  * 
- * Optionally you can add these parameters to the function:
- * WPPP_show_popular_posts(title,number,days);
+ * Optionally you can add some parameters to the function, in this format:
+ * name=value&name=value etc.
  * 
- * title: Title of the widget
- * number: number of links shown
- * days: length of the time frame of the stats.
+ * Possible names are:
+ * - title (title of the widget, default: Popular Posts)
+ * - number (number of links shown, default: 5)
+ * - days (length of the time frame of the stats, default 0, i.e. infinite)
+ * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
+ * 
+ * Example: if you want to show the widget without any title, the 3 most viewed
+ * articles, in the last week, and in this format: My Article (123 views)
+ * you will use this:
+ * WPPP_show_popular_posts("title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title%'>%post_title% (%posts_views% views)</a>");
+ * 
+ * You don't have to fill every field, you can insert only the values you
+ * want to change from default values.
+ * 
+ * You can use these special markers in the format value:
+ * %post_permalink% the link to the post
+ * %post_title% the title the post
+ * %post_views% number of views
+ * 
  * */
-function WPPP_show_popular_posts_old($title = NULL,$number = NULL, $days = NULL) {
-	global $WPPP_defaults;
-	
-	if (!isset($title)) $title = $WPPP_defaults['title'];
-	if (!isset($number)) $number = $WPPP_defaults['number'];
-	if (!isset($days)) $days = $WPPP_defaults['days'];
-	
-	WPPP::generate_widget($title,$number,$days);
-}
-
 function WPPP_show_popular_posts($user_args = '') {
 	global $WPPP_defaults;
 	$args = wp_parse_args( $user_args, $WPPP_defaults);
