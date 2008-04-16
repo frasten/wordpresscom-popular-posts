@@ -123,7 +123,7 @@ class WPPP {
 		if (isset($_POST['wppp-days'])) {
 			$opzioni['days'] = intval($_POST['wppp-days']);
 		}
-		$opzioni['format'] = intval($_POST['wppp-format']);
+		$opzioni['format'] = $_POST['wppp-format'];
 		update_option('widget_wppp', $opzioni);
 		
 		
