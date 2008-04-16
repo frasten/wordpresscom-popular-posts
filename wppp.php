@@ -40,7 +40,7 @@ class WPPP {
 			$args = $args[0];
 			// Called with arguments
 			if (!is_array($args))
-				$args = wp_parse_args( $args, $WPPP_defaults);
+				$args = wp_parse_args( $args);
 			
 			foreach ($args as $key => $value) {
 				$opzioni[$key] = $value;
