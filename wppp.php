@@ -24,6 +24,7 @@ if ( !empty( $locale ) ) {
 $WPPP_defaults = array('title' => __('Popular Posts')
 	                     ,'number' => '5'
 	                     ,'days' => '0'
+	                     ,'format' => "<a href='%post_permalink%' title='%post_title%'>%post_title%</a>"
 	);
 
 class WPPP {
@@ -40,7 +41,7 @@ class WPPP {
 			$args = $args[0];
 			// Called with arguments
 			if (!is_array($args))
-				$args = wp_parse_args( $args);
+				$args = wp_parse_args($args);
 			
 			foreach ($args as $key => $value) {
 				$opzioni[$key] = $value;
@@ -64,6 +65,8 @@ class WPPP {
 		echo $opzioni['title']."\n";
 		echo "<ul>\n";
 		foreach ($top_posts as $post) {
+			// Replace format with data
+			
 			echo "<li><a href='{$post['post_permalink']}' title='".htmlentities($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
 		}
 		echo "</ul>\n";
@@ -90,6 +93,7 @@ class WPPP {
 		$opzioni['title'] = $opzioni['title'] !== NULL ? $opzioni['title'] : $WPPP_defaults['title'];
 		$opzioni['number'] = $opzioni['number'] !== NULL ? $opzioni['number'] : $WPPP_defaults['number'];
 		$opzioni['days'] = $opzioni['days'] !== NULL ? $opzioni['days'] : $WPPP_defaults['days'];
+		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
 		return $opzioni;
 	}
 	
@@ -107,6 +111,7 @@ class WPPP {
 		if (isset($_POST['wppp-days'])) {
 			$opzioni['days'] = intval($_POST['wppp-days']);
 		}
+		$opzioni['format'] = intval($_POST['wppp-format']);
 		update_option('widget_wppp', $opzioni);
 		
 		
@@ -114,7 +119,7 @@ class WPPP {
 		
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
 		echo __('Title');
-		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="'.htmlentities($opzioni['title'],ENT_QUOTES).'" /></label></p>';
+		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="'.htmlspecialchars($opzioni['title'],ENT_QUOTES).'" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
 		echo __('Number of links shown');
@@ -123,6 +128,10 @@ class WPPP {
 		echo '<p style="text-align:right;"><label for="wppp-days">';
 		echo __('The length (in days) of the desired time frame.<br />0 means unlimited.');
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="'.$opzioni['days'].'" /></label></p>';
+		
+		echo '<p style="text-align:right;"><label for="wppp-format">';
+		echo __('Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help.');
+		echo ': <input style="width: 180px;" id="wppp-format" name="wppp-format" type="text" value="'.htmlspecialchars($opzioni['format'],ENT_QUOTES).'" /></label></p>';
 	}
 	
 	
