@@ -29,27 +29,30 @@ $WPPP_defaults = array('title' => __('Popular Posts')
 class WPPP {
 	
 	function generate_widget() {
+		global $WPPP_defaults;
 		if (false && !function_exists('stats_get_options') || !function_exists('stats_get_csv'))
 			return;
 		
 		$opzioni = WPPP::get_impostazioni();
 		
-		if (func_num_args() > 0) {
-			$args = func_get_args();
-			if (isset($args[0])) {
-				// I'm manually calling this function.
-				foreach ($args[0] as $key => $value) {
-					$opzioni[$key] = $value;
-				}
-			}
+		$args = func_get_args();
+		if (isset($args[0])) {
+			$args = $args[0];
+			// Called with arguments
+			if (!is_array($args))
+				$args = wp_parse_args( $args, $WPPP_defaults);
 			
-			/*
-			$args = func_get_args();
-			if (isset($args[0])) $opzioni['title'] = $args[0];
-			if (isset($args[1])) $opzioni['number'] = $args[1];
-			if (isset($args[2])) $opzioni['days'] = $args[2];
-			*/
+			foreach ($args as $key => $value) {
+				$opzioni[$key] = $value;
+			}
 		}
+			
+		// Tags before and after the title (as called by WordPress)
+		if ($opzioni['before_title'] || $opzioni['after_title']) {
+			$opzioni['title'] = $opzioni['before_title'].$opzioni['title'].$opzioni['after_title'];
+		}
+		
+		
 		// Check against malformed values
 		$opzioni['days'] = intval($opzioni['days']);
 		$opzioni['number'] = intval($opzioni['number']);
@@ -58,7 +61,7 @@ class WPPP {
 			$opzioni['days'] = '-1';
 		
 		$top_posts = stats_get_csv('postviews',"days={$opzioni['days']}&limit={$opzioni['number']}");
-		echo "<h4>{$opzioni['title']}</h4>\n";
+		echo $opzioni['title']."\n";
 		echo "<ul>\n";
 		foreach ($top_posts as $post) {
 			echo "<li><a href='{$post['post_permalink']}' title='".htmlentities($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
@@ -72,11 +75,9 @@ class WPPP {
 		
 		function print_widget($args) {
 			extract($args);
-			?>
-			<?php echo $before_widget; ?>
-			<?php echo WPPP::generate_widget(); ?>
-			<?php echo $after_widget; ?>
-	<?php
+			echo $before_widget;
+			echo WPPP::generate_widget("before_title=$before_title&after_title=$after_title");
+			echo $after_widget;
 		}
 		register_sidebar_widget(array(__('Popular Posts'), 'widgets'), 'print_widget');
 		register_widget_control(array(__('Popular Posts'), 'widgets'), array('WPPP','impostazioni_widget'), 350, 20);
