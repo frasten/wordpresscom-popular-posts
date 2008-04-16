@@ -183,6 +183,11 @@ class WPPP {
 function WPPP_show_popular_posts($user_args = '') {
 	global $WPPP_defaults;
 	$args = wp_parse_args( $user_args, $WPPP_defaults);
+	// remove slashes in format
+	if (isset($args['format'])) {
+		$args['format'] = stripslashes($args['format']);
+	}
+	
 	
 	WPPP::generate_widget($args);
 }
