@@ -36,9 +36,19 @@ class WPPP {
 		
 		if (func_num_args() > 0) {
 			$args = func_get_args();
+			if (isset($args[0])) {
+				// I'm manually calling this function.
+				foreach ($args[0] as $key => $value) {
+					$opzioni[$key] = $value;
+				}
+			}
+			
+			/*
+			$args = func_get_args();
 			if (isset($args[0])) $opzioni['title'] = $args[0];
 			if (isset($args[1])) $opzioni['number'] = $args[1];
 			if (isset($args[2])) $opzioni['days'] = $args[2];
+			*/
 		}
 		// Check against malformed values
 		$opzioni['days'] = intval($opzioni['days']);
@@ -130,7 +140,7 @@ class WPPP {
  * number: number of links shown
  * days: length of the time frame of the stats.
  * */
-function WPPP_show_popular_posts($title = NULL,$number = NULL, $days = NULL) {
+function WPPP_show_popular_posts_old($title = NULL,$number = NULL, $days = NULL) {
 	global $WPPP_defaults;
 	
 	if (!isset($title)) $title = $WPPP_defaults['title'];
@@ -140,11 +150,11 @@ function WPPP_show_popular_posts($title = NULL,$number = NULL, $days = NULL) {
 	WPPP::generate_widget($title,$number,$days);
 }
 
-function WPPP_show_popular_posts2($user_args = '') {
+function WPPP_show_popular_posts($user_args = '') {
 	global $WPPP_defaults;
 	$args = wp_parse_args( $user_args, $WPPP_defaults);
-	extract($args);
 	
+	WPPP::generate_widget($args);
 }
 
 add_action('widgets_init', array('WPPP', 'init'));
