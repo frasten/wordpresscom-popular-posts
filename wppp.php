@@ -24,7 +24,7 @@ if ( !empty( $locale ) ) {
 $WPPP_defaults = array('title' => __('Popular Posts')
 	                     ,'number' => '5'
 	                     ,'days' => '0'
-	                     ,'format' => "<a href='%post_permalink%' title='%post_title%'>%post_title%</a>" //  (%post_views% views)
+	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	);
 
 class WPPP {
@@ -70,13 +70,12 @@ class WPPP {
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%' => $post['post_permalink'],
-				'%post_title%' => $post['post_title'], // todo, in title='%%', htmlspecialchars
+				'%post_title%' => $post['post_title'],
+				'%post_title_attribute%' => htmlspecialchars($post['post_title'],ENT_QUOTES),
 				'%post_views%' => number_format_i18n( $post['views'] )
 			);
 			
 			echo strtr($opzioni['format'],$replace);
-			
-			//echo "<a href='{$post['post_permalink']}' title='".htmlspecialchars($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a>";
 			
 			echo "</li>\n";
 			
@@ -165,7 +164,7 @@ class WPPP {
  * name=value&name=value etc.
  * 
  * Possible names are:
- * - title (title of the widget, default: Popular Posts)
+ * - title (title of the widget, you can add tags (e.g. <h3>Popular Posts</h3>) default: Popular Posts)
  * - number (number of links shown, default: 5)
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
@@ -181,6 +180,7 @@ class WPPP {
  * You can use these special markers in the format value:
  * %post_permalink% the link to the post
  * %post_title% the title the post
+ * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
  * 
  * */
@@ -190,8 +190,7 @@ function WPPP_show_popular_posts($user_args = '') {
 	// remove slashes in format
 	if (isset($args['format'])) {
 		$args['format'] = stripslashes($args['format']);
-	}
-	
+	}	
 	
 	WPPP::generate_widget($args);
 }
