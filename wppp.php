@@ -169,7 +169,7 @@ class WPPP {
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
  * you will use this:
- * WPPP_show_popular_posts("title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title%'>%post_title% (%posts_views% views)</a>");
+ * WPPP_show_popular_posts("title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title%'>%post_title% (%post_views% views)</a>");
  * 
  * You don't have to fill every field, you can insert only the values you
  * want to change from default values.
