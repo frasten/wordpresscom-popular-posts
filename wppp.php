@@ -22,7 +22,7 @@ if ( !empty( $locale ) ) {
 */
 
 $WPPP_defaults = array('title' => __('Popular Posts')
-	                     ,'numero_posts' => '5'
+	                     ,'number' => '5'
 	                     ,'days' => '0'
 	);
 
@@ -37,17 +37,17 @@ class WPPP {
 		if (func_num_args() > 0) {
 			$args = func_get_args();
 			if (isset($args[0])) $opzioni['title'] = $args[0];
-			if (isset($args[1])) $opzioni['numero_posts'] = $args[1];
+			if (isset($args[1])) $opzioni['number'] = $args[1];
 			if (isset($args[2])) $opzioni['days'] = $args[2];
 		}
 		// Check against malformed values
 		$opzioni['days'] = intval($opzioni['days']);
-		$opzioni['numero_posts'] = intval($opzioni['numero_posts']);
+		$opzioni['number'] = intval($opzioni['number']);
 		
 		if ($opzioni['days'] <= 0)
 			$opzioni['days'] = '-1';
 		
-		$top_posts = stats_get_csv('postviews',"days={$opzioni['days']}&limit={$opzioni['numero_posts']}");
+		$top_posts = stats_get_csv('postviews',"days={$opzioni['days']}&limit={$opzioni['number']}");
 		echo "<h4>{$opzioni['title']}</h4>\n";
 		echo "<ul>\n";
 		foreach ($top_posts as $post) {
@@ -77,7 +77,7 @@ class WPPP {
 		$opzioni = get_option('widget_wppp');
 
 		$opzioni['title'] = $opzioni['title'] !== NULL ? $opzioni['title'] : $WPPP_defaults['title'];
-		$opzioni['numero_posts'] = $opzioni['numero_posts'] !== NULL ? $opzioni['numero_posts'] : $WPPP_defaults['numero_posts'];
+		$opzioni['number'] = $opzioni['number'] !== NULL ? $opzioni['number'] : $WPPP_defaults['number'];
 		$opzioni['days'] = $opzioni['days'] !== NULL ? $opzioni['days'] : $WPPP_defaults['days'];
 		return $opzioni;
 	}
@@ -91,7 +91,7 @@ class WPPP {
 			$opzioni['title'] = strip_tags(stripslashes($_POST['wppp-titolo']));
 		}
 		if (isset($_POST['wppp-numero-posts'])) {
-			$opzioni['numero_posts'] = intval($_POST['wppp-numero-posts']);
+			$opzioni['number'] = intval($_POST['wppp-numero-posts']);
 		}
 		if (isset($_POST['wppp-days'])) {
 			$opzioni['days'] = intval($_POST['wppp-days']);
@@ -107,7 +107,7 @@ class WPPP {
 		
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
 		echo __('Number of links shown');
-		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="'.$opzioni['numero_posts'].'" /></label></p>';
+		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="'.$opzioni['number'].'" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-days">';
 		echo __('The length (in days) of the desired time frame.<br />0 means unlimited.');
@@ -134,10 +134,17 @@ function WPPP_show_popular_posts($title = NULL,$number = NULL, $days = NULL) {
 	global $WPPP_defaults;
 	
 	if (!isset($title)) $title = $WPPP_defaults['title'];
-	if (!isset($number)) $number = $WPPP_defaults['numero_posts'];
+	if (!isset($number)) $number = $WPPP_defaults['number'];
 	if (!isset($days)) $days = $WPPP_defaults['days'];
 	
 	WPPP::generate_widget($title,$number,$days);
+}
+
+function WPPP_show_popular_posts2($user_args = '') {
+	global $WPPP_defaults;
+	$args = wp_parse_args( $user_args, $WPPP_defaults);
+	extract($args);
+	
 }
 
 add_action('widgets_init', array('WPPP', 'init'));
