@@ -140,12 +140,12 @@ class WPPP {
 		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="'.$opzioni['number'].'" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-days">';
-		echo __('The length (in days) of the desired time frame.<br />0 means unlimited.');
+		echo __('The length (in days) of the desired time frame.<br />0 means unlimited');
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="'.$opzioni['days'].'" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
-		echo __('Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help.');
-		echo ': <input style="width: 180px;" id="wppp-format" name="wppp-format" type="text" value="'.htmlspecialchars($opzioni['format'],ENT_QUOTES).'" /></label></p>';
+		echo __('Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help');
+		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="'.htmlspecialchars($opzioni['format'],ENT_QUOTES).'" /></label></p>';
 	}
 	
 	
