@@ -67,7 +67,7 @@ class WPPP {
 		foreach ($top_posts as $post) {
 			// Replace format with data
 			
-			echo "<li><a href='{$post['post_permalink']}' title='".htmlentities($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
+			echo "<li><a href='{$post['post_permalink']}' title='".htmlspecialchars($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
 		}
 		echo "</ul>\n";
 	}
