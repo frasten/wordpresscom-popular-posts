@@ -65,9 +65,21 @@ class WPPP {
 		echo $opzioni['title']."\n";
 		echo "<ul>\n";
 		foreach ($top_posts as $post) {
-			// Replace format with data
+			echo "<li>";
 			
-			echo "<li><a href='{$post['post_permalink']}' title='".htmlspecialchars($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a></li>\n";
+			// Replace format with data
+			$replace = array(
+				'%post_permalink%' => $post['post_permalink'],
+				'%post_title%' => $post['post_title'], // todo, in title='%%', htmlspecialchars
+				'%post_views%' => number_format_i18n( $post['views'] )
+			);
+			
+			echo strtr($opzioni['format'],$replace);
+			
+			//echo "<a href='{$post['post_permalink']}' title='".htmlspecialchars($post['post_title'],ENT_QUOTES)."'>{$post['post_title']}</a>";
+			
+			echo "</li>\n";
+			
 		}
 		echo "</ul>\n";
 	}
