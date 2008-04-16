@@ -4,7 +4,7 @@ Donate link: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-po
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.2.0
 Tested up to: 2.5.0
-Stable tag: 0.4.0
+Stable tag: 1.0
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
@@ -36,16 +36,35 @@ Check whether the Wordpress.com Stats plugin is installed and active.
 You must have at least version 1.2 of WP Stats.
 
 = How can I integrate this plugin in my non-widget-ready theme? =
-Edit sidebar.php in your theme files, and place this code where you need:
 If your theme supports widgets, you can place the widget named 'Popular Posts' where you want.
 
 If it doesn't, put this code inside the file sidebar.php, in your theme files:
 
 `<?php if (function_exists('WPPP_show_popular_posts')) WPPP_show_popular_posts(); ?>`
 
-Optionally you can add these parameters to the function:
-`WPPP_show_popular_posts(title,number,days);`
+Optionally you can add some parameters to the function, in this format:
 
-title: Title of the widget
-number: number of links shown
-days: length of the time frame of the stats
+`name=value&name=value etc.`
+
+Possible names are:
+
+* `title` (title of the widget, you can add tags (e.g. `<h3>Popular Posts</h3>`) default: Popular Posts)
+* `number` (number of links shown, default: 5)
+* `days` (length of the time frame of the stats, default 0, i.e. infinite)
+* `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
+
+Example: if you want to show the widget without any title, the 3 most
+viewed articles, in the last week, and in this format:
+*My Article (123 views)* you will use this:
+
+ `<?php WPPP_show_popular_posts( "title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title_attribute%'>%post_title% (%post_views% views)</a>" );?>`
+
+You don't have to fill every field, you can insert only the values you
+want to change from default values.
+
+You can use these special markers in the `format` value:
+
+* `%post_permalink%` the link to the post
+* `%post_title%` the title the post
+* `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
+* `%post_views%` number of views
