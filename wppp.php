@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.0
+Version: 1.0.1
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -56,7 +56,7 @@ class WPPP {
 		
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit={$opzioni['number']}" );
 		echo $opzioni['title'] . "\n";
-		echo "<ul>\n";
+		echo "<ul class='wppp_list'>\n";
 		foreach ( $top_posts as $post ) {
 			echo "<li>";
 			
