@@ -55,9 +55,48 @@ class WPPP {
 		if ( $opzioni['days'] <= 0 )
 			$opzioni['days'] = '-1';
 		
-		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit={$opzioni['number']}" );
+		// A little hackish, "could" work!
+		$howmany = $opzioni['number'];
+		if ( $opzioni['show'] == 'posts' )
+			$howmany *= 2;
+		else if ( $opzioni['show'] == 'pages' )
+			$howmany *= 4; // pages are usually less, let's try more!
+		
+		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
+		
 		echo $opzioni['title'] . "\n";
 		echo "<ul class='wppp_list'>\n";
+		
+		if ( $opzioni['show'] != 'both') {
+			// I want to show only posts or only pages
+			$id_list = array();
+			foreach ( $top_posts as $p ) {
+				$id_list[] = $p['post_id'];
+			}
+			global $wpdb;
+
+			$results = $wpdb->get_results("
+		SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ") AND post_type = '" .
+		( $opzioni['show'] == 'pages' ? 'page' : 'post') . "'
+		");
+			$valid_list = array();
+			foreach ( $results as $valid ) {
+				$valid_list[] = $valid->id;
+			}
+			
+			$temp_list = array();
+			foreach ( $top_posts as $p ) {
+				if ( in_array( $p['post_id'], $valid_list ) )
+					$temp_list[] = $p;
+				if ( sizeof( $temp_list ) >= $opzioni['number'] )
+					break;
+			}
+			$top_posts = $temp_list;
+			unset($temp_list);
+		}
+		
+		
+		
 		foreach ( $top_posts as $post ) {
 			echo "<li>";
 			
