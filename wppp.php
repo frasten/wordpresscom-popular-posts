@@ -138,6 +138,23 @@ class WPPP {
 		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited' );
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="' . $opzioni['days'] . '" /></label></p>';
 		
+		echo '<p style="text-align:right;"><label for="wppp-show">';
+		echo __( 'Show: ' );
+		
+		$opt = array(
+			'both'  => __( 'posts and pages' ),
+			'posts' => __( 'only posts' ),
+			'pages' => __( 'only pages' )
+		);
+		if ( !$opzioni['show'] )
+			$opzioni['show'] = 'both';
+		echo '<select name="wppp-show">\n';
+		foreach ( $opt as $key => $value ) {
+			$sel = ( $opzioni['show'] == $key ) ? ' selected="selected"' : '';
+			echo "<option value='$key'$sel>$value</option>\n";
+		}
+		echo '</select>';
+		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
 		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
