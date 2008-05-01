@@ -17,6 +17,7 @@ Created by Frasten (email : frasten@gmail.com) under GPL licence.
 $WPPP_defaults = array('title'   => __('Popular Posts')
 	                     ,'number' => '5'
 	                     ,'days'   => '0'
+	                     ,'show'   => 'both'
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	);
 
@@ -96,11 +97,13 @@ class WPPP {
 		$opzioni['title'] = $opzioni['title'] !== NULL ? $opzioni['title'] : $WPPP_defaults['title'];
 		$opzioni['number'] = $opzioni['number'] !== NULL ? $opzioni['number'] : $WPPP_defaults['number'];
 		$opzioni['days'] = $opzioni['days'] !== NULL ? $opzioni['days'] : $WPPP_defaults['days'];
+		$opzioni['show'] = $opzioni['show'] !== NULL ? $opzioni['show'] : $WPPP_defaults['show'];
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
 		return $opzioni;
 	}
 	
 	function impostazioni_widget() {
+		global $WPPP_defaults;
 
 		$opzioni = WPPP::get_impostazioni();
 		
@@ -113,6 +116,11 @@ class WPPP {
 		}
 		if ( isset( $_POST['wppp-days'] ) ) {
 			$opzioni['days'] = intval( $_POST['wppp-days'] );
+		}
+		if ( isset( $_POST['wppp-show'] ) ) {
+			if ( !in_array( $opzioni['show'], array( 'both','posts','pages' ) ) )
+				$_POST['wppp-show'] = $WPPP_defaults['show'];
+			$opzioni['show'] = strip_tags( $_POST['wppp-show'] );
 		}
 		if ( isset( $_POST['wppp-days'] ) ) {
 			$opzioni['format'] = stripslashes( $_POST['wppp-format'] );
@@ -147,7 +155,7 @@ class WPPP {
 			'pages' => __( 'only pages' )
 		);
 		if ( !$opzioni['show'] )
-			$opzioni['show'] = 'both';
+			$opzioni['show'] = $WPPP_defaults['show'];
 		echo '<select name="wppp-show">\n';
 		foreach ( $opt as $key => $value ) {
 			$sel = ( $opzioni['show'] == $key ) ? ' selected="selected"' : '';
