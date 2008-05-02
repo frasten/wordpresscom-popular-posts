@@ -3,8 +3,8 @@ Contributors: frasten
 Donate link: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.2.0
-Tested up to: 2.5.0
-Stable tag: 1.0.1
+Tested up to: 2.5.1
+Stable tag: 1.1
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
@@ -51,6 +51,7 @@ Possible names are:
 * `title` (title of the widget, you can add tags (e.g. `<h3>Popular Posts</h3>`) default: Popular Posts)
 * `number` (number of links shown, default: 5)
 * `days` (length of the time frame of the stats, default 0, i.e. infinite)
+* `show` (can be: both, posts, pages; default both)
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
 
 Example: if you want to show the widget without any title, the 3 most

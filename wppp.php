@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.0.1
+Version: 1.1
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -94,7 +94,6 @@ class WPPP {
 			$top_posts = $temp_list;
 			unset($temp_list);
 		}
-		
 		
 		
 		foreach ( $top_posts as $post ) {
@@ -223,6 +222,7 @@ class WPPP {
  * - title (title of the widget, you can add tags (e.g. <h3>Popular Posts</h3>) default: Popular Posts)
  * - number (number of links shown, default: 5)
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
+ * - show (both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
