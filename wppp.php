@@ -75,24 +75,27 @@ class WPPP {
 			}
 			global $wpdb;
 
-			$results = $wpdb->get_results("
-		SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ") AND post_type = '" .
-		( $opzioni['show'] == 'pages' ? 'page' : 'post') . "'
-		");
-			$valid_list = array();
-			foreach ( $results as $valid ) {
-				$valid_list[] = $valid->id;
+			// If no top-posts, just do nothing gracefully
+			if ( sizeof( $id_list ) ) {
+				$results = $wpdb->get_results("
+				SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ") AND post_type = '" .
+				( $opzioni['show'] == 'pages' ? 'page' : 'post' ) . "'
+				");
+				$valid_list = array();
+				foreach ( $results as $valid ) {
+					$valid_list[] = $valid->id;
+				}
+				
+				$temp_list = array();
+				foreach ( $top_posts as $p ) {
+					if ( in_array( $p['post_id'], $valid_list ) )
+						$temp_list[] = $p;
+					if ( sizeof( $temp_list ) >= $opzioni['number'] )
+						break;
+				}
+				$top_posts = $temp_list;
+				unset($temp_list);
 			}
-			
-			$temp_list = array();
-			foreach ( $top_posts as $p ) {
-				if ( in_array( $p['post_id'], $valid_list ) )
-					$temp_list[] = $p;
-				if ( sizeof( $temp_list ) >= $opzioni['number'] )
-					break;
-			}
-			$top_posts = $temp_list;
-			unset($temp_list);
 		}
 		
 		
