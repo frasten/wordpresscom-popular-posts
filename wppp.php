@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.1
+Version: 1.1.1
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -55,7 +55,7 @@ class WPPP {
 		if ( $opzioni['days'] <= 0 )
 			$opzioni['days'] = '-1';
 		
-		// A little hackish, "could" work!
+		// A little hackish, but "could" work!
 		$howmany = $opzioni['number'];
 		if ( $opzioni['show'] == 'posts' )
 			$howmany *= 2;
@@ -95,8 +95,8 @@ class WPPP {
 				}
 				$top_posts = $temp_list;
 				unset($temp_list);
-			}
-		}
+			} // end if (I have posts)
+		} // end if (I chose to show only posts or only pages)
 		
 		
 		foreach ( $top_posts as $post ) {
@@ -197,12 +197,12 @@ class WPPP {
 		);
 		if ( !$opzioni['show'] )
 			$opzioni['show'] = $WPPP_defaults['show'];
-		echo '<select name="wppp-show">\n';
+		echo "<select name='wppp-show' id='wppp-show'>\n";
 		foreach ( $opt as $key => $value ) {
 			$sel = ( $opzioni['show'] == $key ) ? ' selected="selected"' : '';
 			echo "<option value='$key'$sel>$value</option>\n";
 		}
-		echo '</select>';
+		echo '</select></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
 		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help' );
