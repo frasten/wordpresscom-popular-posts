@@ -8,10 +8,7 @@ Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
 
-/*
-Created by Frasten (email : frasten@gmail.com) under GPL licence.
-* 
-*/
+/* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
 
 
 $WPPP_defaults = array('title'   => __('Popular Posts')
@@ -62,6 +59,13 @@ class WPPP {
 		else if ( $opzioni['show'] == 'pages' )
 			$howmany *= 4; // pages are usually less, let's try more!
 		
+		
+		/* TEMPORARY FIX FOR WP_STATS PLUGIN */
+		$stats_cache = get_option( 'stats_cache' );
+		if ( !$stats_cache || !is_array( $stats_cache ) )
+			update_option( 'stats_cache', "");
+		/* END FIX */
+		
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
 		
 		echo $opzioni['title'] . "\n";
@@ -97,7 +101,6 @@ class WPPP {
 				unset($temp_list);
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
-		
 		
 		foreach ( $top_posts as $post ) {
 			echo "<li>";
