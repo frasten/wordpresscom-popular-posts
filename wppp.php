@@ -103,7 +103,7 @@ class WPPP {
 		} // end if (I chose to show only posts or only pages)
 		
 		foreach ( $top_posts as $post ) {
-			echo "<li>";
+			echo "\t<li>";
 			
 			// Replace format with data
 			$replace = array(
