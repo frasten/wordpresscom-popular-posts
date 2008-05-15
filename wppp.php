@@ -11,7 +11,7 @@ Author URI: http://polpoinodroidi.netsons.org
 /* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
 
 
-$WPPP_defaults = array('title'   => __('Popular Posts')
+$WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-posts' )
 	                     ,'number' => '5'
 	                     ,'days'   => '0'
 	                     ,'show'   => 'both'
@@ -130,8 +130,8 @@ class WPPP {
 			echo WPPP::generate_widget( "before_title=$before_title&after_title=$after_title" );
 			echo $after_widget;
 		}
-		register_sidebar_widget( array( __( 'Popular Posts' ), 'widgets' ), 'print_widget' );
-		register_widget_control( array( __( 'Popular Posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
+		register_sidebar_widget( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), 'print_widget' );
+		register_widget_control( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
 	}
 	
 	function get_impostazioni() {
@@ -179,24 +179,24 @@ class WPPP {
 		}
 		
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
-		echo __( 'Title' );
+		echo __( 'Title', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="' . htmlspecialchars( $opzioni['title'], ENT_QUOTES ) . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
-		echo __( 'Number of links shown' );
+		echo __( 'Number of links shown', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="' . $opzioni['number'] . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-days">';
-		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited' );
+		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="' . $opzioni['days'] . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-show">';
-		echo __( 'Show: ' );
+		echo __( 'Show: ', 'wordpresscom-popular-posts' );
 		
 		$opt = array(
-			'both'  => __( 'posts and pages' ),
-			'posts' => __( 'only posts' ),
-			'pages' => __( 'only pages' )
+			'both'  => __( 'posts and pages', 'wordpresscom-popular-posts' ),
+			'posts' => __( 'only posts', 'wordpresscom-popular-posts' ),
+			'pages' => __( 'only pages', 'wordpresscom-popular-posts' )
 		);
 		if ( !$opzioni['show'] )
 			$opzioni['show'] = $WPPP_defaults['show'];
@@ -208,7 +208,7 @@ class WPPP {
 		echo '</select></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
-		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help' );
+		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
 	}
 	
@@ -256,6 +256,9 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 	
 	WPPP::generate_widget( $args );
 }
+
+// Language loading
+load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
 
 add_action( 'widgets_init', array( 'WPPP', 'init' ) );
 
