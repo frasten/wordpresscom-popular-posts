@@ -16,6 +16,7 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 	                     ,'days'   => '0'
 	                     ,'show'   => 'both'
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
+	                     ,'excerpt_length' => '100'
 	);
 
 class WPPP {
@@ -113,6 +114,23 @@ class WPPP {
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
 			
+			// %post_excerpt% stuff
+			if ( strpos( $opzioni['format'], '%post_excerpt%' ) ) {
+				// I get the excerpt for the post only if necessary, to save CPU time.
+				$temppost = &get_post( $post['post_id'] );
+				
+				if ( /* TEMP: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
+					$replace['%post_excerpt%'] = $temppost->post_excerpt;
+				}
+				else {
+					// let's calculate the excerpt:
+					$excerpt = strip_tags( $temppost->post_content );
+					$excerpt = WPPP::truncateText( $excerpt, $opzioni['excerpt_length'] );
+					$replace['%post_excerpt%'] = $excerpt;
+				}
+				unset( $temppost );
+			}
+			
 			echo strtr( $opzioni['format'], $replace );
 			
 			echo "</li>\n";
@@ -143,6 +161,7 @@ class WPPP {
 		$opzioni['days'] = $opzioni['days'] !== NULL ? $opzioni['days'] : $WPPP_defaults['days'];
 		$opzioni['show'] = $opzioni['show'] !== NULL ? $opzioni['show'] : $WPPP_defaults['show'];
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
+		$opzioni['excerpt_length'] = $opzioni['excerpt_length'] !== NULL ? $opzioni['excerpt_length'] : $WPPP_defaults['excerpt_length'];
 		return $opzioni;
 	}
 	
@@ -168,6 +187,9 @@ class WPPP {
 		}
 		if ( isset( $_POST['wppp-days'] ) ) {
 			$opzioni['format'] = stripslashes( $_POST['wppp-format'] );
+		}
+		if ( isset( $_POST['wppp-excerpt-length'] ) ) {
+			$opzioni['excerpt_length'] = intval( $_POST['wppp-excerpt-length'] );
 		}
 		update_option( 'widget_wppp', $opzioni );
 		
@@ -210,9 +232,19 @@ class WPPP {
 		echo '<p style="text-align:right;"><label for="wppp-format">';
 		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
+		
+		echo '<p style="text-align:right;"><label for="wppp-excerpt-length">';
+		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
+		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" /> characters</label></p>';
 	}
 	
-	
+	function truncateText( $text, $chars = 50 ) {
+		if ( strlen($text) <= $chars)
+			return $text;
+		$new = wordwrap( $text, $chars, "|" );
+		$newtext = explode( "|", $new );
+		return $newtext[0] . "...";
+	}
 }
 
 /* You can call this function if you want to integrate the plugin in a theme
@@ -230,6 +262,7 @@ class WPPP {
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
  * - show (both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
+ * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
@@ -244,6 +277,7 @@ class WPPP {
  * %post_title% the title the post
  * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
+ * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * 
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {
