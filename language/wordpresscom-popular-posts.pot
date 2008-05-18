@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2008-05-18 18:45+0200\n"
+"POT-Creation-Date: 2008-05-18 19:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,4 +55,8 @@ msgstr ""
 
 #: wppp.php:237
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
+msgstr ""
+
+#: wppp.php:238
+msgid " characters"
 msgstr ""

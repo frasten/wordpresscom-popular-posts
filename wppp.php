@@ -235,7 +235,7 @@ class WPPP {
 		
 		echo '<p style="text-align:right;"><label for="wppp-excerpt-length">';
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
-		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" /> characters</label></p>';
+		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" />' . __(' characters') . '</label></p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
