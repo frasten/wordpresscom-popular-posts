@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2008-05-15 10:50+0000\n"
+"POT-Creation-Date: 2008-05-18 18:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,40 +15,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.php:14 wppp.php:133 wppp.php:134
+#: wppp.php:14 wppp.php:151 wppp.php:152
 msgid "Popular Posts"
 msgstr ""
 
-#: wppp.php:182
+#: wppp.php:204
 msgid "Title"
 msgstr ""
 
-#: wppp.php:186
+#: wppp.php:208
 msgid "Number of links shown"
 msgstr ""
 
-#: wppp.php:190
+#: wppp.php:212
 msgid "The length (in days) of the desired time frame.<br />0 means unlimited"
 msgstr ""
 
-#: wppp.php:194
+#: wppp.php:216
 msgid "Show: "
 msgstr ""
 
-#: wppp.php:197
+#: wppp.php:219
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.php:198
+#: wppp.php:220
 msgid "only posts"
 msgstr ""
 
-#: wppp.php:199
+#: wppp.php:221
 msgid "only pages"
 msgstr ""
 
-#: wppp.php:211
+#: wppp.php:233
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.netsons.org/"
 "wordpress-plugins/wordpresscom-popular-posts/\">docs</a> for help"
+msgstr ""
+
+#: wppp.php:237
+msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""

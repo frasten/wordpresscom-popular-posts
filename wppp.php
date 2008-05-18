@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.1.2
+Version: 1.2
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
