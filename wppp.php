@@ -68,7 +68,8 @@ class WPPP {
 		/* END FIX */
 		
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
-		
+		//$top_posts[0]['post_title'] = "jd8rjgr3 è a+ à ù هجائي proviamo";
+		//echo "ANCULET";echo strlen($top_posts[0]['post_title']);
 		echo $opzioni['title'] . "\n";
 		echo "<ul class='wppp_list'>\n";
 		
@@ -142,13 +143,13 @@ class WPPP {
 		if ( !function_exists( 'register_sidebar_widget' ) || !function_exists( 'register_widget_control' ) )
 			return;
 		
-		function print_widget( $args ) {
+		function WPPP_print_widget( $args ) {
 			extract( $args );
 			echo $before_widget;
 			echo WPPP::generate_widget( "before_title=$before_title&after_title=$after_title" );
 			echo $after_widget;
 		}
-		register_sidebar_widget( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), 'print_widget' );
+		register_sidebar_widget( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), 'WPPP_print_widget' );
 		register_widget_control( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
 	}
 	
