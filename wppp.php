@@ -22,7 +22,7 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 class WPPP {
 	
 	function generate_widget() {
-		global $WPPP_defaults;
+		global $WPPP_defaults, $wpdb;
 		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
 			return;
 		
@@ -66,10 +66,8 @@ class WPPP {
 		if ( !$stats_cache || !is_array( $stats_cache ) )
 			update_option( 'stats_cache', "");
 		/* END FIX */
-		
+
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
-		//$top_posts[0]['post_title'] = "jd8rjgr3 è a+ à ù هجائي proviamo";
-		//echo "ANCULET";echo strlen($top_posts[0]['post_title']);
 		echo $opzioni['title'] . "\n";
 		echo "<ul class='wppp_list'>\n";
 		
@@ -79,7 +77,6 @@ class WPPP {
 			foreach ( $top_posts as $p ) {
 				$id_list[] = $p['post_id'];
 			}
-			global $wpdb;
 
 			// If no top-posts, just do nothing gracefully
 			if ( sizeof( $id_list ) ) {
@@ -104,12 +101,35 @@ class WPPP {
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
 		
+		/* The data from WP-Stats aren't updated, so we must fetch them from the DB */
+		// TODO: implement a cache for this data
+		if ( sizeof( $top_posts ) ) {
+			$id_list = array();
+			foreach ( $top_posts as $p ) {
+				$id_list[] = $p['post_id'];
+			}
+			
+			// Could it be slow?
+			// I fetch the updated data from the DB, and overwrite the old values
+			$results = $wpdb->get_results("
+			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ")
+			");
+			foreach ( $results as $updated_p ) {
+				foreach ( $top_posts as &$p ) { // PHP5 only
+					if ( $p['post_id'] == $updated_p->id ) {
+						$p['post_title'] = $updated_p->post_title;
+						break;
+					}
+				}
+			}
+		} // end if I have top-posts
+		
 		foreach ( $top_posts as $post ) {
 			echo "\t<li>";
 			
 			// Replace format with data
 			$replace = array(
-				'%post_permalink%'       => $post['post_permalink'],
+				'%post_permalink%'       => get_permalink( $post['post_id'] ),
 				'%post_title%'           => $post['post_title'],
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
@@ -120,7 +140,7 @@ class WPPP {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
 				
-				if ( /* TEMP: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
+				if ( /* FIXME: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
 					$replace['%post_excerpt%'] = $temppost->post_excerpt;
 				}
 				else {
