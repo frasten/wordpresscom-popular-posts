@@ -4,7 +4,7 @@ Donate link: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-po
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.2.0
 Tested up to: 2.5.1
-Stable tag: 1.1.2
+Stable tag: 1.3.1
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
@@ -53,6 +53,7 @@ Possible names are:
 * `days` (length of the time frame of the stats, default 0, i.e. infinite)
 * `show` (can be: both, posts, pages; default both)
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
+* `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
@@ -69,3 +70,4 @@ You can use these special markers in the `format` value:
 * `%post_title%` the title the post
 * `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
 * `%post_views%` number of views
+* `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
