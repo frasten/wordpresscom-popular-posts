@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.3
+Version: 1.3.1
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -115,9 +115,12 @@ class WPPP {
 			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ")
 			");
 			foreach ( $results as $updated_p ) {
-				foreach ( $top_posts as &$p ) { // PHP5 only
+				// I don't use foreach ($var as &$var), it doesn't work in php < 5
+				for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
+					$p = $top_posts[$i];
 					if ( $p['post_id'] == $updated_p->id ) {
 						$p['post_title'] = $updated_p->post_title;
+						$top_posts[$i] = $p;
 						break;
 					}
 				}
