@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.1.2
+Version: 1.3
 Author: Frasten
 Author URI: http://polpoinodroidi.netsons.org
 */
@@ -11,17 +11,18 @@ Author URI: http://polpoinodroidi.netsons.org
 /* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
 
 
-$WPPP_defaults = array('title'   => __('Popular Posts')
+$WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-posts' )
 	                     ,'number' => '5'
 	                     ,'days'   => '0'
 	                     ,'show'   => 'both'
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
+	                     ,'excerpt_length' => '100'
 	);
 
 class WPPP {
 	
 	function generate_widget() {
-		global $WPPP_defaults;
+		global $WPPP_defaults, $wpdb;
 		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
 			return;
 		
@@ -65,9 +66,8 @@ class WPPP {
 		if ( !$stats_cache || !is_array( $stats_cache ) )
 			update_option( 'stats_cache', "");
 		/* END FIX */
-		
+
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
-		
 		echo $opzioni['title'] . "\n";
 		echo "<ul class='wppp_list'>\n";
 		
@@ -77,7 +77,6 @@ class WPPP {
 			foreach ( $top_posts as $p ) {
 				$id_list[] = $p['post_id'];
 			}
-			global $wpdb;
 
 			// If no top-posts, just do nothing gracefully
 			if ( sizeof( $id_list ) ) {
@@ -102,16 +101,56 @@ class WPPP {
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
 		
+		/* The data from WP-Stats aren't updated, so we must fetch them from the DB */
+		// TODO: implement a cache for this data
+		if ( sizeof( $top_posts ) ) {
+			$id_list = array();
+			foreach ( $top_posts as $p ) {
+				$id_list[] = $p['post_id'];
+			}
+			
+			// Could it be slow?
+			// I fetch the updated data from the DB, and overwrite the old values
+			$results = $wpdb->get_results("
+			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ")
+			");
+			foreach ( $results as $updated_p ) {
+				foreach ( $top_posts as &$p ) { // PHP5 only
+					if ( $p['post_id'] == $updated_p->id ) {
+						$p['post_title'] = $updated_p->post_title;
+						break;
+					}
+				}
+			}
+		} // end if I have top-posts
+		
 		foreach ( $top_posts as $post ) {
 			echo "\t<li>";
 			
 			// Replace format with data
 			$replace = array(
-				'%post_permalink%'       => $post['post_permalink'],
+				'%post_permalink%'       => get_permalink( $post['post_id'] ),
 				'%post_title%'           => $post['post_title'],
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
+			
+			// %post_excerpt% stuff
+			if ( strpos( $opzioni['format'], '%post_excerpt%' ) ) {
+				// I get the excerpt for the post only if necessary, to save CPU time.
+				$temppost = &get_post( $post['post_id'] );
+				
+				if ( /* FIXME: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
+					$replace['%post_excerpt%'] = $temppost->post_excerpt;
+				}
+				else {
+					// let's calculate the excerpt:
+					$excerpt = strip_tags( $temppost->post_content );
+					$excerpt = WPPP::truncateText( $excerpt, $opzioni['excerpt_length'] );
+					$replace['%post_excerpt%'] = $excerpt;
+				}
+				unset( $temppost );
+			}
 			
 			echo strtr( $opzioni['format'], $replace );
 			
@@ -124,14 +163,14 @@ class WPPP {
 		if ( !function_exists( 'register_sidebar_widget' ) || !function_exists( 'register_widget_control' ) )
 			return;
 		
-		function print_widget( $args ) {
+		function WPPP_print_widget( $args ) {
 			extract( $args );
 			echo $before_widget;
 			echo WPPP::generate_widget( "before_title=$before_title&after_title=$after_title" );
 			echo $after_widget;
 		}
-		register_sidebar_widget( array( __( 'Popular Posts' ), 'widgets' ), 'print_widget' );
-		register_widget_control( array( __( 'Popular Posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
+		register_sidebar_widget( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), 'WPPP_print_widget' );
+		register_widget_control( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
 	}
 	
 	function get_impostazioni() {
@@ -143,6 +182,7 @@ class WPPP {
 		$opzioni['days'] = $opzioni['days'] !== NULL ? $opzioni['days'] : $WPPP_defaults['days'];
 		$opzioni['show'] = $opzioni['show'] !== NULL ? $opzioni['show'] : $WPPP_defaults['show'];
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
+		$opzioni['excerpt_length'] = $opzioni['excerpt_length'] !== NULL ? $opzioni['excerpt_length'] : $WPPP_defaults['excerpt_length'];
 		return $opzioni;
 	}
 	
@@ -169,6 +209,9 @@ class WPPP {
 		if ( isset( $_POST['wppp-days'] ) ) {
 			$opzioni['format'] = stripslashes( $_POST['wppp-format'] );
 		}
+		if ( isset( $_POST['wppp-excerpt-length'] ) ) {
+			$opzioni['excerpt_length'] = intval( $_POST['wppp-excerpt-length'] );
+		}
 		update_option( 'widget_wppp', $opzioni );
 		
 		
@@ -179,24 +222,24 @@ class WPPP {
 		}
 		
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
-		echo __( 'Title' );
+		echo __( 'Title', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="' . htmlspecialchars( $opzioni['title'], ENT_QUOTES ) . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
-		echo __( 'Number of links shown' );
+		echo __( 'Number of links shown', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="' . $opzioni['number'] . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-days">';
-		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited' );
+		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="' . $opzioni['days'] . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-show">';
-		echo __( 'Show: ' );
+		echo __( 'Show: ', 'wordpresscom-popular-posts' );
 		
 		$opt = array(
-			'both'  => __( 'posts and pages' ),
-			'posts' => __( 'only posts' ),
-			'pages' => __( 'only pages' )
+			'both'  => __( 'posts and pages', 'wordpresscom-popular-posts' ),
+			'posts' => __( 'only posts', 'wordpresscom-popular-posts' ),
+			'pages' => __( 'only pages', 'wordpresscom-popular-posts' )
 		);
 		if ( !$opzioni['show'] )
 			$opzioni['show'] = $WPPP_defaults['show'];
@@ -208,11 +251,21 @@ class WPPP {
 		echo '</select></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
-		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help' );
+		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
+		
+		echo '<p style="text-align:right;"><label for="wppp-excerpt-length">';
+		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
+		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" />' . __(' characters') . '</label></p>';
 	}
 	
-	
+	function truncateText( $text, $chars = 50 ) {
+		if ( strlen($text) <= $chars)
+			return $text;
+		$new = wordwrap( $text, $chars, "|" );
+		$newtext = explode( "|", $new );
+		return $newtext[0] . "...";
+	}
 }
 
 /* You can call this function if you want to integrate the plugin in a theme
@@ -230,6 +283,7 @@ class WPPP {
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
  * - show (both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
+ * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
@@ -244,6 +298,7 @@ class WPPP {
  * %post_title% the title the post
  * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
+ * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * 
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {
@@ -256,6 +311,9 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 	
 	WPPP::generate_widget( $args );
 }
+
+// Language loading
+load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
 
 add_action( 'widgets_init', array( 'WPPP', 'init' ) );
 
