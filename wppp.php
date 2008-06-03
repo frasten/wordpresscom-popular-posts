@@ -219,8 +219,14 @@ class WPPP {
 		
 		
 		// WP < 2.5 needed this
-		global $wp_version;
-		if ( version_compare( $wp_version, '2.5', '<' ) ) {
+		global $wp_db_version;
+		if ( $wp_db_version > 6124 )
+			$wpver = 2.5;
+		elseif ( class_exists( 'WP_Scripts' ) )
+			$wpver = 2.1;
+		else
+			$wpver = 2.0;
+		if ( version_compare( $wpver, '2.5', '<' ) ) {
 			$opzioni['title'] = utf8_decode( $opzioni['title'] );
 		}
 		
