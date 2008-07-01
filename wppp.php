@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WordPress.com Popular Posts
-Plugin URI: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/
+Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.3.1
+Version: 1.3.2
 Author: Frasten
-Author URI: http://polpoinodroidi.netsons.org
+Author URI: http://polpoinodroidi.com
 */
 
 /* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
@@ -17,6 +17,7 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 	                     ,'show'   => 'both'
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	                     ,'excerpt_length' => '100'
+	                     ,'title_length' => '0'
 	);
 
 class WPPP {
@@ -133,7 +134,7 @@ class WPPP {
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
-				'%post_title%'           => $post['post_title'],
+				'%post_title%'           => WPPP::truncateText($post['post_title'], $opzioni['title_length']),
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
@@ -186,6 +187,7 @@ class WPPP {
 		$opzioni['show'] = $opzioni['show'] !== NULL ? $opzioni['show'] : $WPPP_defaults['show'];
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
 		$opzioni['excerpt_length'] = $opzioni['excerpt_length'] !== NULL ? $opzioni['excerpt_length'] : $WPPP_defaults['excerpt_length'];
+		$opzioni['title_length'] = $opzioni['title_length'] !== NULL ? $opzioni['title_length'] : $WPPP_defaults['title_length'];
 		return $opzioni;
 	}
 	
@@ -214,6 +216,9 @@ class WPPP {
 		}
 		if ( isset( $_POST['wppp-excerpt-length'] ) ) {
 			$opzioni['excerpt_length'] = intval( $_POST['wppp-excerpt-length'] );
+		}
+		if ( isset( $_POST['wppp-title-length'] ) ) {
+			$opzioni['title_length'] = intval( $_POST['wppp-title-length'] );
 		}
 		update_option( 'widget_wppp', $opzioni );
 		
@@ -260,16 +265,20 @@ class WPPP {
 		echo '</select></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-format">';
-		echo __( 'Format of the links. See <a href="http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
+		echo __( 'Format of the links. See <a href="http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
 		
 		echo '<p style="text-align:right;"><label for="wppp-excerpt-length">';
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" />' . __(' characters') . '</label></p>';
+		
+		echo '<p style="text-align:right;"><label for="wppp-title-length">';
+		echo __( 'Max length of the title links.<br />0 means unlimited', 'wordpresscom-popular-posts' );
+		echo ': <input style="width: 100px;" id="wppp-title-length" name="wppp-title-length" type="text" value="' . intval( $opzioni['title_length'] ) . '" />' . __(' characters') . '</label></p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
-		if ( strlen($text) <= $chars)
+		if ( strlen($text) <= $chars || $chars <= 0 )
 			return $text;
 		$new = wordwrap( $text, $chars, "|" );
 		$newtext = explode( "|", $new );
@@ -293,6 +302,7 @@ class WPPP {
  * - show (both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
+ * - title_length (the length of the title links, default 0, i.e. unlimited)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)

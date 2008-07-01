@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: frasten
-Donate link: http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/#donations
+Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.2.0
 Tested up to: 2.5.1
@@ -14,7 +14,7 @@ This plugin can show the most popular articles in your sidebar, using data colle
 Wordpress.com Popular Posts lists the most popular posts on a wordpress powered weblog.
 This list can be used in the sidebar to show an indication of which are the most visited pages.
 
-For further info and changelog visit [plugin homepage](http://polpoinodroidi.netsons.org/wordpress-plugins/wordpresscom-popular-posts/).
+For further info and changelog visit [plugin homepage](http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/).
 
 **Requires [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2**
 
@@ -54,6 +54,7 @@ Possible names are:
 * `show` (can be: both, posts, pages; default both)
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
+* `title_length` (the length of the title links, default 0, i.e. unlimited)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
