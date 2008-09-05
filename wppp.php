@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.3.3
+Version: 1.3.4
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -76,7 +76,10 @@ class WPPP {
 			// I want to show only posts or only pages
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
-				$id_list[] = $p['post_id'];
+				/* I don't know why, but on some blogs there are "fake" entries,
+				   without data. */
+				if ($p['post_id'])
+					$id_list[] = $p['post_id'];
 			}
 
 			// If no top-posts, just do nothing gracefully
@@ -107,7 +110,10 @@ class WPPP {
 		if ( sizeof( $top_posts ) ) {
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
-				$id_list[] = $p['post_id'];
+				/* I don't know why, but on some blogs there are "fake" entries,
+				   without data. */
+				if ($p['post_id'])
+					$id_list[] = $p['post_id'];
 			}
 			
 			// Could it be slow?
