@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.4pre-alpha
+Version: 1.3.5
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -18,7 +18,6 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	                     ,'excerpt_length' => '100'
 	                     ,'title_length' => '0'
-	                     ,'by_category' => '0'
 	);
 
 class WPPP {
@@ -61,16 +60,35 @@ class WPPP {
 			$howmany *= 2;
 		else if ( $opzioni['show'] == 'pages' )
 			$howmany *= 4; // pages are usually less, let's try more!
-		// If I want to show links by category, I need more data.
-		if ( $opzioni['by_category'] ) {
-			$howmany *= 3;
-		}
 		
 		
 		/* TEMPORARY FIX FOR WP_STATS PLUGIN */
+		$reset_cache = false;
 		$stats_cache = get_option( 'stats_cache' );
-		if ( !$stats_cache || !is_array( $stats_cache ) )
+		
+		if ( !$stats_cache || !is_array( $stats_cache ) ) {
+			$reset_cache = true;
+		}
+		else {
+			foreach ( $stats_cache as $key => $val ) {
+				if ( !is_array($val) || !sizeof($val) ) {
+					$reset_cache = true;
+					break;
+				}
+				foreach ( $val as $key => $val2 ) {
+					if ( !is_array($val2) || !sizeof($val2) ) {
+						$reset_cache = true;
+						break;
+					}
+					break;
+				}
+				break;
+			}
+		}
+		
+		if ($reset_cache) {
 			update_option( 'stats_cache', "");
+		}
 		/* END FIX */
 
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
@@ -89,25 +107,13 @@ class WPPP {
 
 			// If no top-posts, just do nothing gracefully
 			if ( sizeof( $id_list ) ) {
-				// Rob Malon's category hack
-				$currentcat = $WPPP_defaults['by_category'];
-				// Checks and toggle default query usage
-				if ( is_numeric( $opzioni['by_category'] ) && $opzioni['by_category'] > 0 ) {
-					$results = $wpdb->get_results("
-					SELECT * FROM {$wpdb->posts} p LEFT OUTER JOIN wp_term_relationships r ON r.object_id = p.ID LEFT OUTER JOIN wp_terms t ON t.term_id = r.term_taxonomy_id WHERE p.id IN (" . implode( ',', $id_list ) . ") AND p.post_type = '" .
-					( $opzioni['show'] == 'pages' ? 'page' : 'post' ) . "' AND t.term_id = '{$opzioni['by_category']}'
-					");
-				} else {
-					// Default behaviour
-					$results = $wpdb->get_results("
-					SELECT ID FROM {$wpdb->posts} WHERE ID IN (" . implode(',', $id_list) . ") AND post_type = '" .
-					( $opzioni['show'] == 'pages' ? 'page' : 'post' ) . "'
-					");
-				}
-				
+				$results = $wpdb->get_results("
+				SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ") AND post_type = '" .
+				( $opzioni['show'] == 'pages' ? 'page' : 'post' ) . "'
+				");
 				$valid_list = array();
 				foreach ( $results as $valid ) {
-					$valid_list[] = $valid->ID;
+					$valid_list[] = $valid->id;
 				}
 				
 				$temp_list = array();
@@ -211,7 +217,6 @@ class WPPP {
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
 		$opzioni['excerpt_length'] = $opzioni['excerpt_length'] !== NULL ? $opzioni['excerpt_length'] : $WPPP_defaults['excerpt_length'];
 		$opzioni['title_length'] = $opzioni['title_length'] !== NULL ? $opzioni['title_length'] : $WPPP_defaults['title_length'];
-		$opzioni['by_category'] = $opzioni['by_category'] !== NULL ? $opzioni['by_category'] : $WPPP_defaults['by_category'];
 		return $opzioni;
 	}
 	
@@ -243,9 +248,6 @@ class WPPP {
 		}
 		if ( isset( $_POST['wppp-title-length'] ) ) {
 			$opzioni['title_length'] = intval( $_POST['wppp-title-length'] );
-		}
-		if ( isset( $_POST['wppp-by-category'] ) ) {
-			$opzioni['by_category'] = $_POST['wppp-by-category'] ? 1 : 0;
 		}
 		update_option( 'widget_wppp', $opzioni );
 		
@@ -302,10 +304,6 @@ class WPPP {
 		echo '<p style="text-align:right;"><label for="wppp-title-length">';
 		echo __( 'Max length of the title links.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 100px;" id="wppp-title-length" name="wppp-title-length" type="text" value="' . intval( $opzioni['title_length'] ) . '" />' . __(' characters') . '</label></p>';
-		
-		echo '<p style="text-align:right;"><label for="wppp-by-category">';
-		echo __( 'Show links by category. See <a href="javascript:alert(\'TODO!\')">here</a> for help.', 'wordpresscom-popular-posts' );
-		echo ': <input type="checkbox" id="wppp-by-category" value="1" name="wppp-by-category" ' . ( $opzioni['by_category'] ? 'checked="checked"' : '') . '/></label></p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
