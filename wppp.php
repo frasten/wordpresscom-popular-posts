@@ -163,7 +163,7 @@ class WPPP {
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
-				'%post_title%'           => WPPP::truncateText($post['post_title'], $opzioni['title_length']),
+				'%post_title%'           => htmlentities(WPPP::truncateText($post['post_title'], $opzioni['title_length'])),
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
