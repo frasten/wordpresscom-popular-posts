@@ -139,6 +139,11 @@ class WPPP {
 					$id_list[] = $p['post_id'];
 			}
 			
+			// Have to unescape the CSV data, to avoid issues with truncate functions
+			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
+				$top_posts[$i]['post_title'] = stripslashes( htmlspecialchars_decode( $top_posts[$i]['post_title'] ) );
+			}
+			
 			// Could it be slow?
 			// I fetch the updated data from the DB, and overwrite the old values
 			$results = $wpdb->get_results("
@@ -163,7 +168,7 @@ class WPPP {
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
-				'%post_title%'           => htmlentities(WPPP::truncateText($post['post_title'], $opzioni['title_length'])),
+				'%post_title%'           => htmlspecialchars( WPPP::truncateText( $post['post_title'], $opzioni['title_length'] ) ),
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
