@@ -184,6 +184,7 @@ class WPPP {
 				else {
 					// let's calculate the excerpt:
 					$excerpt = strip_tags( $temppost->post_content );
+					$excerpt = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '', $excerpt );
 					$excerpt = WPPP::truncateText( $excerpt, $opzioni['excerpt_length'] );
 					$replace['%post_excerpt%'] = $excerpt;
 				}
