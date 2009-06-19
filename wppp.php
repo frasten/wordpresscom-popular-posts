@@ -178,8 +178,8 @@ class WPPP {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
 				
-				if ( /* FIXME: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
-					$replace['%post_excerpt%'] = $temppost->post_excerpt;
+				if ( !empty( $temppost->post_excerpt ) ) {
+					$replace['%post_excerpt%'] = WPPP::truncateText( $temppost->post_excerpt, $opzioni['excerpt_length'] );
 				}
 				else {
 					// let's calculate the excerpt:
