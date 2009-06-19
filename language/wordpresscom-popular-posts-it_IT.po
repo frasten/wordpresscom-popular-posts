@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2008-07-16 11:24+0200\n"
+"POT-Creation-Date: 2009-06-19 13:39+0200\n"
 "PO-Revision-Date: 2008-05-18 19:03+0200\n"
 "Last-Translator: Frasten <frasten@gmail.com>\n"
 "Language-Team: \n"
@@ -11,40 +11,40 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.php:14 wppp.php:176 wppp.php:177
+#: wppp.php:14 wppp.php:212 wppp.php:213
 msgid "Popular Posts"
 msgstr "Articoli più letti"
 
-#: wppp.php:239
+#: wppp.php:275
 msgid "Title"
 msgstr "Titolo"
 
-#: wppp.php:243
+#: wppp.php:279
 msgid "Number of links shown"
 msgstr "Numero di collegamenti mostrati"
 
-#: wppp.php:247
+#: wppp.php:283
 msgid "The length (in days) of the desired time frame.<br />0 means unlimited"
 msgstr ""
 "La quantità di giorni dell'intervallo di tempo.<br />0 sta per illimitato"
 
-#: wppp.php:251
+#: wppp.php:287
 msgid "Show: "
 msgstr "Mostra: "
 
-#: wppp.php:254
+#: wppp.php:290
 msgid "posts and pages"
 msgstr "articoli e pagine"
 
-#: wppp.php:255
+#: wppp.php:291
 msgid "only posts"
 msgstr "solo articoli"
 
-#: wppp.php:256
+#: wppp.php:292
 msgid "only pages"
 msgstr "solo pagine"
 
-#: wppp.php:268
+#: wppp.php:304
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.com/wordpress-"
 "plugins/wordpresscom-popular-posts/\">docs</a> for help"
@@ -53,16 +53,16 @@ msgstr ""
 "wordpress-plugins/wordpresscom-popular-posts/\">documentazione</a> per "
 "informazioni in merito"
 
-#: wppp.php:272
+#: wppp.php:308
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.php:273 wppp.php:277
+#: wppp.php:309 wppp.php:313
 msgid " characters"
 msgstr " caratteri"
 
-#: wppp.php:276
+#: wppp.php:312
 msgid "Max length of the title links.<br />0 means unlimited"
 msgstr "Lunghezza massima dei titoli dei links.<br />0 sta per illimitato"
