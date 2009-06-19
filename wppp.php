@@ -134,8 +134,9 @@ class WPPP {
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
 				/* I don't know why, but on some blogs there are "fake" entries,
-				   without data. */
-				if ($p['post_id'])
+				   without data.
+					 Posts with 0 views must be excluded too. */
+				if ( $p['post_id'] && $p['views'] > 0 )
 					$id_list[] = $p['post_id'];
 			}
 			
