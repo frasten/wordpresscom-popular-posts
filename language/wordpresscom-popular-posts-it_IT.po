@@ -3,48 +3,48 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2009-06-24 21:29+0200\n"
-"PO-Revision-Date: 2009-06-24 21:29+0100\n"
+"POT-Creation-Date: 2009-06-24 23:40+0200\n"
+"PO-Revision-Date: 2009-06-24 23:40+0100\n"
 "Last-Translator: Frasten <frasten@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.old.php:14 wppp.old.php:213 wppp.old.php:214 wppp.php:26 wppp.php:40
+#: wppp.old.php:14 wppp.old.php:213 wppp.old.php:214 wppp.php:26 wppp.php:41
 msgid "Popular Posts"
 msgstr "Articoli più letti"
 
-#: wppp.old.php:276 wppp.php:252
+#: wppp.old.php:276 wppp.php:294
 msgid "Title"
 msgstr "Titolo"
 
-#: wppp.old.php:280 wppp.php:259
+#: wppp.old.php:280 wppp.php:301
 msgid "Number of links shown"
 msgstr "Numero di collegamenti mostrati"
 
-#: wppp.old.php:284 wppp.php:266
+#: wppp.old.php:284
 msgid "The length (in days) of the desired time frame.<br />0 means unlimited"
 msgstr ""
 "La quantità di giorni dell'intervallo di tempo.<br />0 sta per illimitato"
 
-#: wppp.old.php:288 wppp.php:273
+#: wppp.old.php:288 wppp.php:315
 msgid "Show: "
 msgstr "Mostra: "
 
-#: wppp.old.php:291 wppp.php:275
+#: wppp.old.php:291 wppp.php:317
 msgid "posts and pages"
 msgstr "articoli e pagine"
 
-#: wppp.old.php:292 wppp.php:276
+#: wppp.old.php:292 wppp.php:318
 msgid "only posts"
 msgstr "solo articoli"
 
-#: wppp.old.php:293 wppp.php:277
+#: wppp.old.php:293 wppp.php:319
 msgid "only pages"
 msgstr "solo pagine"
 
-#: wppp.old.php:305 wppp.php:290
+#: wppp.old.php:305 wppp.php:332
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.com/wordpress-"
 "plugins/wordpresscom-popular-posts/\">docs</a> for help"
@@ -53,13 +53,13 @@ msgstr ""
 "wordpress-plugins/wordpresscom-popular-posts/\">documentazione</a> per "
 "informazioni in merito"
 
-#: wppp.old.php:309 wppp.php:297
+#: wppp.old.php:309 wppp.php:339
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.old.php:310 wppp.old.php:314 wppp.php:300 wppp.php:307
+#: wppp.old.php:310 wppp.old.php:314 wppp.php:342 wppp.php:349
 msgid " characters"
 msgstr " caratteri"
 
@@ -67,10 +67,28 @@ msgstr " caratteri"
 msgid "Max length of the title links.<br />0 means unlimited"
 msgstr "Lunghezza massima dei titoli dei links.<br />0 sta per illimitato"
 
-#: wppp.php:37
+#: wppp.php:38
 msgid "A list of your most popular posts"
 msgstr "Gli articoli più visualizzati di questo blog "
 
-#: wppp.php:304
+#: wppp.php:308
+msgid ""
+"The length (in days) of the desired time frame.<br />(0 means unlimited)"
+msgstr ""
+"La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
+
+#: wppp.php:346
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Lunghezza massima dei titoli dei links.<br />(0 sta per illimitato)"
+
+#: wppp.php:353
+msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
+msgstr "Escludi questi posts: (separa gli ID con virgole. Es. 1,42,52)"
+
+#: wppp.php:360
+msgid "Don't show posts/pages with a view count under"
+msgstr "Non mostrare posts/pagine con un numero di visite minore di"
+
+#: wppp.php:363
+msgid "(0 means unlimited)"
+msgstr "(0 sta per illimitato)"
