@@ -20,17 +20,19 @@ if ( ! class_exists( 'WP_Widget' ) ) {
 
 if ( ! class_exists( 'WPPP' ) ) :
 class WPPP extends WP_Widget {
-	var $defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-posts' )
-	                     ,'number' => '5'
-	                     ,'days'   => '0'
-	                     ,'show'   => 'both'
-	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
-	                     ,'excerpt_length' => '100'
-	                     ,'title_length' => '0'
-	);
-
+	var $defaults;
 
 	function WPPP() {
+		$this->defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-posts' )
+	                        ,'number' => '5'
+	                        ,'days'   => '0'
+	                        ,'show'   => 'both'
+	                        ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
+	                        ,'excerpt_length' => '100'
+	                        ,'title_length' => '0'
+		);
+		
+		
 		$widget_ops = array( 'classname' => 'widget_hello_world',
 		                     'description' => __( "A list of your most popular posts", 'wordpresscom-popular-posts' )
 												);
@@ -229,11 +231,20 @@ class WPPP extends WP_Widget {
 		$instance['show'] = $new_instance['show']; // TODO: sanitize this
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
- 
+ 		$instance['initted'] = 1;
+		
 		return $instance;
 	}
  
-	function form($instance) {
+	function form( $instance ) {
+		if ( !$instance['initted'] ) {
+			// Initial default settings
+			foreach ( $this->defaults as $key => $value ) {
+				$instance[$key] = $value;
+			}
+		}
+		
+		
 		$field_id = $this->get_field_id('title');
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Title', 'wordpresscom-popular-posts' );
@@ -309,5 +320,5 @@ endif;
 add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
 
 //register_widget('WPPP_multi');
-
+// TODO: function for non widget-ready themes
 ?>
