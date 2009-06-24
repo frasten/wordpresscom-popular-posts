@@ -223,12 +223,14 @@ class WPPP extends WP_Widget {
  
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-// TODO: stripslashes()? 
+
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['number'] = intval( $new_instance['number'] );
 		$instance['days'] = intval( $new_instance['days'] );
 		$instance['format'] = $new_instance['format']; // TODO: sanitize this
-		$instance['show'] = $new_instance['show']; // TODO: sanitize this
+		$instance['show'] = in_array( $new_instance['show'], array( 'both', 'posts', 'pages' ) ) ?
+			$new_instance['show'] :
+			'both';
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
  		$instance['initted'] = 1;
