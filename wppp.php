@@ -244,31 +244,45 @@ class WPPP extends WP_Widget {
 			foreach ( $this->defaults as $key => $value ) {
 				$instance[$key] = $value;
 			}
+			// TODO: import old settings (from WPPP < 2.0.0)
+			// TODO: find a cleaner way to do this?
+			$opzioni = get_option( 'widget_wppp' );
+			foreach ($opzioni as $item) {
+				if (is_array($item) && !$item['initted']) {
+					// These are the old WPPP settings
+					foreach ($item as $key => $value) {
+						$instance[$key] = $value;
+					}
+				}
+			}
+			/*echo "<pre>";
+			var_dump($opzioni);
+			echo "</pre>";*/
 		}
 		
 		
-		$field_id = $this->get_field_id('title');
+		$field_id = $this->get_field_id( 'title' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Title', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 180px;' id='$field_id' name='" .
-			$this->get_field_name('title') . "' type='text' value='" .
+			$this->get_field_name( 'title' ) . "' type='text' value='" .
 			esc_attr( $instance['title'] ) . "' /></label></p>";
 		
-		$field_id = $this->get_field_id('number');
+		$field_id = $this->get_field_id( 'number' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Number of links shown', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 180px;' id='$field_id' name='" .
-			$this->get_field_name('number') . "' type='text' value='" .
+			$this->get_field_name( 'number' ) . "' type='text' value='" .
 			intval( $instance['number'] ) . "' /></label></p>";
 		
-		$field_id = $this->get_field_id('days');
+		$field_id = $this->get_field_id( 'days' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 180px;' id='$field_id' name='" .
-			$this->get_field_name('days') . "' type='text' value='" .
+			$this->get_field_name( 'days' ) . "' type='text' value='" .
 			intval( $instance['days'] ) . "' /></label></p>";
 		
-		$field_id = $this->get_field_id('show');
+		$field_id = $this->get_field_id( 'show' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Show: ', 'wordpresscom-popular-posts' );
 		$opt = array(
@@ -278,32 +292,32 @@ class WPPP extends WP_Widget {
 		);
 		if ( !$instance['show'] )
 			$instance['show'] = $this->defaults['show'];
-		echo "<select name='" . $this->get_field_name('show') . "' id='$field_id'>\n";
+		echo "<select name='" . $this->get_field_name( 'show' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
 			$sel = ( $instance['show'] == $key ) ? ' selected="selected"' : '';
 			echo "<option value='$key'$sel>$value</option>\n";
 		}
 		echo '</select></label></p>';
 		
-		$field_id = $this->get_field_id('format');
+		$field_id = $this->get_field_id( 'format' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Format of the links. See <a href="http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 300px;' id='$field_id' name='" .
-			$this->get_field_name('format') . "' type='text' value='" .
+			$this->get_field_name( 'format' ) . "' type='text' value='" .
 			esc_attr( $instance['format'] ) . "' /></label></p>";
 		
-		$field_id = $this->get_field_id('excerpt_length');
+		$field_id = $this->get_field_id( 'excerpt_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 100px;' id='$field_id' name='" .
-			$this->get_field_name('excerpt_length') . "' type='text' value='" .
+			$this->get_field_name( 'excerpt_length' ) . "' type='text' value='" .
 			intval( $instance['excerpt_length'] ) . "' />" . __(' characters') . "</label></p>";
 		
-		$field_id = $this->get_field_id('title_length');
+		$field_id = $this->get_field_id( 'title_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Max length of the title links.<br />(0 means unlimited)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 100px;' id='$field_id' name='" .
-			$this->get_field_name('title_length') . "' type='text' value='" .
+			$this->get_field_name( 'title_length' ) . "' type='text' value='" .
 			intval( $instance['title_length'] ) . "' />" . __(' characters') . "</label></p>";
 	}
 	
@@ -323,6 +337,5 @@ load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wo
 
 add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
 
-//register_widget('WPPP_multi');
 // TODO: function for non widget-ready themes
 ?>
