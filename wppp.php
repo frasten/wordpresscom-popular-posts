@@ -244,20 +244,19 @@ class WPPP extends WP_Widget {
 			foreach ( $this->defaults as $key => $value ) {
 				$instance[$key] = $value;
 			}
-			// TODO: import old settings (from WPPP < 2.0.0)
-			// TODO: find a cleaner way to do this?
-			$opzioni = get_option( 'widget_wppp' );
-			foreach ($opzioni as $item) {
-				if (is_array($item) && !$item['initted']) {
+			
+			// Import eventual old settings (from WPPP < 2.0.0)
+			$settings = get_option( 'widget_wppp' );
+			foreach ( $settings as $wdgt ) {
+				if ( is_array( $wdgt ) && ! $item['initted'] ) {
 					// These are the old WPPP settings
-					foreach ($item as $key => $value) {
+					foreach ( $wdgt as $key => $value ) {
 						$instance[$key] = $value;
 					}
+					break;
 				}
 			}
-			/*echo "<pre>";
-			var_dump($opzioni);
-			echo "</pre>";*/
+			unset( $settings );
 		}
 		
 		
