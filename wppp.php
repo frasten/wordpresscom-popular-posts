@@ -77,6 +77,12 @@ class WPPP extends WP_Widget {
 		else if ( $instance['show'] == 'pages' )
 			$howmany *= 4; // pages are usually less, let's try more!
 		
+		// If I set some posts to be excluded, I must ask for more data
+		$excluded_ids = explode( ',', $instance['exclude'] );
+		if ( sizeof ( $excluded_ids ) ) {
+			$howmany += sizeof ( $excluded_ids );
+		}
+		
 		
 		/* TEMPORARY FIX FOR WP_STATS PLUGIN */
 		$reset_cache = false;
@@ -111,14 +117,27 @@ class WPPP extends WP_Widget {
 		echo $instance['title'] . "\n";
 		echo "<ul class='wppp_list'>\n";
 		
+		// Cleaning and filtering
+		if ( sizeof( $excluded_ids ) ) {
+			$temp_list = array();
+			foreach ( $top_posts as $p ) {
+				// If I have set some posts to be excluded:
+				if ( in_array( $p['post_id'], $excluded_ids ) ) continue;
+				/* I don't know why, but on some blogs there are "fake" entries,
+				   without data. */
+				if ( !$p['post_id'] ) continue;
+				// Posts with views <= 0 must be excluded
+				if ( $p['views'] <= 0 ) continue;
+				$temp_list[] = $p;
+			}
+			$top_posts = $temp_list;
+		}
+		
 		if ( $instance['show'] != 'both') {
 			// I want to show only posts or only pages
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
-				/* I don't know why, but on some blogs there are "fake" entries,
-				   without data. */
-				if ($p['post_id'])
-					$id_list[] = $p['post_id'];
+				$id_list[] = $p['post_id'];
 			}
 
 			// If no top-posts, just do nothing gracefully
@@ -136,24 +155,27 @@ class WPPP extends WP_Widget {
 				foreach ( $top_posts as $p ) {
 					if ( in_array( $p['post_id'], $valid_list ) )
 						$temp_list[] = $p;
-					if ( sizeof( $temp_list ) >= $instance['number'] )
-						break;
 				}
 				$top_posts = $temp_list;
 				unset($temp_list);
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
 		
+		// Limit the number of posts shown following user settings.
+		$temp_list = array();
+		foreach ( $top_posts as $p ) {
+			$temp_list[] = $p;
+			if ( sizeof( $temp_list ) >= $instance['number'] )
+				break;
+		}
+		$top_posts = $temp_list;
+		
 		/* The data from WP-Stats aren't updated, so we must fetch them from the DB */
 		// TODO: implement a cache for this data
 		if ( sizeof( $top_posts ) ) {
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
-				/* I don't know why, but on some blogs there are "fake" entries,
-				   without data.
-					 Posts with 0 views must be excluded too. */
-				if ( $p['post_id'] && $p['views'] > 0 )
-					$id_list[] = $p['post_id'];
+				$id_list[] = $p['post_id'];
 			}
 			
 			// Have to unescape the CSV data, to avoid issues with truncate functions
@@ -181,11 +203,11 @@ class WPPP extends WP_Widget {
 		
 		foreach ( $top_posts as $post ) {
 			echo "\t<li>";
-			
+
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
-				'%post_title%'           => esc_html( WPPP::truncateText( $post['post_title'], $instance['title_length'] ) ),
+				'%post_title%'           => esc_html( $this->truncateText( $post['post_title'], $instance['title_length'] ) ),
 				'%post_title_attribute%' => esc_attr( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
@@ -229,6 +251,9 @@ class WPPP extends WP_Widget {
 			'both';
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
+		// I want only digits or commas for this:
+		$instance['exclude'] = preg_replace('/[^0-9,]/', '', $new_instance['exclude']);
+		
  		$instance['initted'] = 1;
 		
 		return $instance;
@@ -314,6 +339,13 @@ class WPPP extends WP_Widget {
 		echo ": <input style='width: 30px;' id='$field_id' name='" .
 			$this->get_field_name( 'title_length' ) . "' type='text' value='" .
 			intval( $instance['title_length'] ) . "' />" . __(' characters') . "</label></p>";
+		
+		$field_id = $this->get_field_id( 'exclude' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		echo __( 'Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 180px;' id='$field_id' name='" .
+			$this->get_field_name( 'exclude' ) . "' type='text' value='" .
+			esc_attr( $instance['exclude'] ) . "' />" . __(' characters') . "</label></p>";
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
@@ -343,6 +375,7 @@ endif;
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
+ * - exclude (the list of post/page IDs to exclude, separated by commas)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
