@@ -30,6 +30,7 @@ class WPPP extends WP_Widget {
 	                        ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	                        ,'excerpt_length' => '100'
 	                        ,'title_length' => '0'
+													,'cutoff' => '0'
 		);
 		
 		
@@ -128,6 +129,9 @@ class WPPP extends WP_Widget {
 				if ( !$p['post_id'] ) continue;
 				// Posts with views <= 0 must be excluded
 				if ( $p['views'] <= 0 ) continue;
+				// If I have set to have a cutoff, exclude the posts with views below that threshold
+				if ( $instance['cutoff'] > 0 && $p['views'] < $instance['cutoff'] ) continue;
+				
 				$temp_list[] = $p;
 			}
 			$top_posts = $temp_list;
@@ -252,7 +256,8 @@ class WPPP extends WP_Widget {
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
 		// I want only digits or commas for this:
-		$instance['exclude'] = preg_replace('/[^0-9,]/', '', $new_instance['exclude']);
+		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
+		$instance['cutoff'] = abs( intval( $new_instance['cutoff'] ) );
 		
  		$instance['initted'] = 1;
 		
@@ -260,12 +265,15 @@ class WPPP extends WP_Widget {
 	}
  
 	function form( $instance ) {
+		// Set the settings that are still undefined
+		$old_instance = $instance;
+		$instance = $this->defaults;
+		foreach ( $old_instance as $key => $value ) {
+			$instance[$key] = $value;
+		}
+		
+		
 		if ( !$instance['initted'] ) {
-			// Initial default settings
-			foreach ( $this->defaults as $key => $value ) {
-				$instance[$key] = $value;
-			}
-			
 			// Import eventual old settings (from WPPP < 2.0.0)
 			$settings = get_option( 'widget_wppp' );
 			foreach ( $settings as $wdgt ) {
@@ -297,7 +305,7 @@ class WPPP extends WP_Widget {
 		
 		$field_id = $this->get_field_id( 'days' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
-		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
+		echo __( 'The length (in days) of the desired time frame.<br />(0 means unlimited)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 40px;' id='$field_id' name='" .
 			$this->get_field_name( 'days' ) . "' type='text' value='" .
 			intval( $instance['days'] ) . "' /></label></p>";
@@ -345,7 +353,14 @@ class WPPP extends WP_Widget {
 		echo __( 'Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 180px;' id='$field_id' name='" .
 			$this->get_field_name( 'exclude' ) . "' type='text' value='" .
-			esc_attr( $instance['exclude'] ) . "' />" . __(' characters') . "</label></p>";
+			esc_attr( $instance['exclude'] ) . "' /></label></p>";
+			
+		$field_id = $this->get_field_id( 'cutoff' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		echo __( 'Don\'t show posts/pages with a view count under', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 50px;' id='$field_id' name='" .
+			$this->get_field_name( 'cutoff' ) . "' type='text' value='" .
+			intval( $instance['cutoff'] ) . "' /></label>" . __('(0 means unlimited)', 'wordpresscom-popular-posts' ) . '</p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
@@ -376,6 +391,7 @@ endif;
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
+ * - cutoff (don't show posts/pages with a view count under this number)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
