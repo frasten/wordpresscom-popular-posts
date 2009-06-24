@@ -40,26 +40,22 @@ class WPPP extends WP_Widget {
     $this->WP_Widget('wppp', __('Popular Posts', 'wordpresscom-popular-posts' ), $widget_ops, $control_ops);
 	}
  
-	function widget($args, $instance) {
+	function widget($args, $instance = null) {
 		global $wpdb;
 		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
 			return;
 		
 		extract( $args );
 		echo $before_widget;
-		// $instance = WPPP::get_impostazioni();
 		
-		/*$args = func_get_args();
-		if ( isset( $args[0] ) ) {
-			$args = $args[0];
-			// Called with arguments
-			if ( !is_array( $args ) )
-				$args = wp_parse_args( $args );
-			
+		if ( !$instance ) {
+			// Called from static non-widget function. (Or maybe some error? :-P)
+			$instance = $this->defaults;
+			// Overwrite any user-defined value
 			foreach ( $args as $key => $value ) {
 				$instance[$key] = $value;
 			}
-		}*/
+		}
 			
 		// Tags before and after the title (as called by WordPress)
 		if ( $before_title || $after_title ) {
@@ -227,7 +223,7 @@ class WPPP extends WP_Widget {
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['number'] = intval( $new_instance['number'] );
 		$instance['days'] = intval( $new_instance['days'] );
-		$instance['format'] = $new_instance['format']; // TODO: sanitize this
+		$instance['format'] = $new_instance['format'];
 		$instance['show'] = in_array( $new_instance['show'], array( 'both', 'posts', 'pages' ) ) ?
 			$new_instance['show'] :
 			'both';
@@ -270,14 +266,14 @@ class WPPP extends WP_Widget {
 		$field_id = $this->get_field_id( 'number' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Number of links shown', 'wordpresscom-popular-posts' );
-		echo ": <input style='width: 180px;' id='$field_id' name='" .
+		echo ": <input style='width: 30px;' id='$field_id' name='" .
 			$this->get_field_name( 'number' ) . "' type='text' value='" .
 			intval( $instance['number'] ) . "' /></label></p>";
 		
 		$field_id = $this->get_field_id( 'days' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
-		echo ": <input style='width: 180px;' id='$field_id' name='" .
+		echo ": <input style='width: 40px;' id='$field_id' name='" .
 			$this->get_field_name( 'days' ) . "' type='text' value='" .
 			intval( $instance['days'] ) . "' /></label></p>";
 		
@@ -308,14 +304,14 @@ class WPPP extends WP_Widget {
 		$field_id = $this->get_field_id( 'excerpt_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
-		echo ": <input style='width: 100px;' id='$field_id' name='" .
+		echo ": <input style='width: 40px;' id='$field_id' name='" .
 			$this->get_field_name( 'excerpt_length' ) . "' type='text' value='" .
 			intval( $instance['excerpt_length'] ) . "' />" . __(' characters') . "</label></p>";
 		
 		$field_id = $this->get_field_id( 'title_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Max length of the title links.<br />(0 means unlimited)', 'wordpresscom-popular-posts' );
-		echo ": <input style='width: 100px;' id='$field_id' name='" .
+		echo ": <input style='width: 30px;' id='$field_id' name='" .
 			$this->get_field_name( 'title_length' ) . "' type='text' value='" .
 			intval( $instance['title_length'] ) . "' />" . __(' characters') . "</label></p>";
 	}
@@ -329,6 +325,55 @@ class WPPP extends WP_Widget {
 	}
 }
 endif;
+
+/* You can call this function if you want to integrate the plugin in a theme
+ * that doesn't support widgets.
+ * 
+ * Just insert this code: 
+ * <?php if ( function_exists( 'WPPP_show_popular_posts' ) ) WPPP_show_popular_posts();?>
+ * 
+ * Optionally you can add some parameters to the function, in this format:
+ * name=value&name=value etc.
+ * 
+ * Possible names are:
+ * - title (title of the widget, you can add tags (e.g. <h3>Popular Posts</h3>) default: Popular Posts)
+ * - number (number of links shown, default: 5)
+ * - days (length of the time frame of the stats, default 0, i.e. infinite)
+ * - show (both, posts, pages, default both)
+ * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
+ * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
+ * - title_length (the length of the title links, default 0, i.e. unlimited)
+ * 
+ * Example: if you want to show the widget without any title, the 3 most viewed
+ * articles, in the last week, and in this format: My Article (123 views)
+ * you will use this:
+ * WPPP_show_popular_posts( "title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title_attribute%'>%post_title% (%post_views% views)</a>" );
+ * 
+ * You don't have to fill every field, you can insert only the values you
+ * want to change from default values.
+ * 
+ * You can use these special markers in the `format` value:
+ * %post_permalink% the link to the post
+ * %post_title% the title the post
+ * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
+ * %post_views% number of views
+ * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
+ * 
+ * */
+function WPPP_show_popular_posts( $user_args = '' ) {
+	$wppp = new WPPP();
+	
+	$args = wp_parse_args( $user_args, $wppp->defaults );
+	// remove slashes in format. TODO: still necessary?
+	if ( isset( $args['format'] ) ) {
+		$args['format'] = stripslashes( $args['format'] );
+	}	
+	
+	$wppp->widget( $args );
+}
+
+
+
 
 // Language loading
 load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
