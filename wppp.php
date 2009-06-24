@@ -189,8 +189,8 @@ class WPPP extends WP_Widget {
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
-				'%post_title%'           => htmlspecialchars( WPPP::truncateText( $post['post_title'], $instance['title_length'] ) ),
-				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
+				'%post_title%'           => esc_html( WPPP::truncateText( $post['post_title'], $instance['title_length'] ) ),
+				'%post_title_attribute%' => esc_attr( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
 			
