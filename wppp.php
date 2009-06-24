@@ -410,12 +410,13 @@ endif;
  * - title (title of the widget, you can add tags (e.g. <h3>Popular Posts</h3>) default: Popular Posts)
  * - number (number of links shown, default: 5)
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
- * - show (both, posts, pages, default both)
+ * - show (can be: both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
- * - cutoff (don't show posts/pages with a view count under this number)
+ * - cutoff (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
+ * - list_tag (can be: ul, ol, default ul)
  * 
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)

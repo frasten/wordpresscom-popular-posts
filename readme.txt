@@ -57,7 +57,8 @@ Possible names are:
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
 * `exclude` (the list of post/page IDs to exclude, separated by commas)
-* `cutoff` (don't show posts/pages with a view count under this number)
+* `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
+* `list_tag` (can be: ul, ol, default ul)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
