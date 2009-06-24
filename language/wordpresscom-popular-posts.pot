@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2009-06-19 13:39+0200\n"
+"POT-Creation-Date: 2009-06-24 21:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,52 +15,60 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.php:14 wppp.php:212 wppp.php:213
+#: wppp.old.php:14 wppp.old.php:213 wppp.old.php:214 wppp.php:26 wppp.php:40
 msgid "Popular Posts"
 msgstr ""
 
-#: wppp.php:275
+#: wppp.old.php:276 wppp.php:252
 msgid "Title"
 msgstr ""
 
-#: wppp.php:279
+#: wppp.old.php:280 wppp.php:259
 msgid "Number of links shown"
 msgstr ""
 
-#: wppp.php:283
+#: wppp.old.php:284 wppp.php:266
 msgid "The length (in days) of the desired time frame.<br />0 means unlimited"
 msgstr ""
 
-#: wppp.php:287
+#: wppp.old.php:288 wppp.php:273
 msgid "Show: "
 msgstr ""
 
-#: wppp.php:290
+#: wppp.old.php:291 wppp.php:275
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.php:291
+#: wppp.old.php:292 wppp.php:276
 msgid "only posts"
 msgstr ""
 
-#: wppp.php:292
+#: wppp.old.php:293 wppp.php:277
 msgid "only pages"
 msgstr ""
 
-#: wppp.php:304
+#: wppp.old.php:305 wppp.php:290
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.com/wordpress-"
 "plugins/wordpresscom-popular-posts/\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:308
+#: wppp.old.php:309 wppp.php:297
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.php:309 wppp.php:313
+#: wppp.old.php:310 wppp.old.php:314 wppp.php:300 wppp.php:307
 msgid " characters"
 msgstr ""
 
-#: wppp.php:312
+#: wppp.old.php:313
 msgid "Max length of the title links.<br />0 means unlimited"
+msgstr ""
+
+#: wppp.php:37
+msgid "A list of your most popular posts"
+msgstr ""
+
+#: wppp.php:304
+msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""

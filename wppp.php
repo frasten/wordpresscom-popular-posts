@@ -317,6 +317,8 @@ class WPPP extends WP_Widget {
 }
 endif;
 
+// Language loading
+load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
 
 
 add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
