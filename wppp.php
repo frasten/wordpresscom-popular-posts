@@ -31,6 +31,7 @@ class WPPP extends WP_Widget {
 	                        ,'excerpt_length' => '100'
 	                        ,'title_length' => '0'
 													,'cutoff' => '0'
+													,'list_tag' => 'ul'
 		);
 		
 		
@@ -116,7 +117,11 @@ class WPPP extends WP_Widget {
 
 		$top_posts = stats_get_csv( 'postviews', "days={$instance['days']}&limit=$howmany" );
 		echo $instance['title'] . "\n";
-		echo "<ul class='wppp_list'>\n";
+		
+		// Check against malicious data
+		if ( !in_array( $instance['list_tag'], array( 'ul', 'ol') ) )
+			$instance['list_tag'] = $this->defaults['list_tag'];
+		echo "<{$instance['list_tag']} class='wppp_list'>\n";
 		
 		// Cleaning and filtering
 		if ( sizeof( $excluded_ids ) ) {
@@ -239,7 +244,7 @@ class WPPP extends WP_Widget {
 			
 			echo "</li>\n";
 		}
-		echo "</ul>\n";
+		echo "</{$instance['list_tag']}>\n";
 		echo $after_widget;
 	}
  
@@ -252,12 +257,15 @@ class WPPP extends WP_Widget {
 		$instance['format'] = $new_instance['format'];
 		$instance['show'] = in_array( $new_instance['show'], array( 'both', 'posts', 'pages' ) ) ?
 			$new_instance['show'] :
-			'both';
+			$this->defaults['show'];
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
 		// I want only digits or commas for this:
 		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
 		$instance['cutoff'] = abs( intval( $new_instance['cutoff'] ) );
+		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol') ) ?
+			$new_instance['list_tag'] :
+			$this->defaults['list_tag'];
 		
  		$instance['initted'] = 1;
 		
@@ -361,6 +369,22 @@ class WPPP extends WP_Widget {
 		echo ": <input style='width: 50px;' id='$field_id' name='" .
 			$this->get_field_name( 'cutoff' ) . "' type='text' value='" .
 			intval( $instance['cutoff'] ) . "' /></label>" . __('(0 means unlimited)', 'wordpresscom-popular-posts' ) . '</p>';
+		
+		$field_id = $this->get_field_id( 'list_tag' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		echo __( 'Kind of list', 'wordpresscom-popular-posts' );
+		$opt = array(
+			'ul'  => __( 'Unordered list (&lt;ul&gt;)', 'wordpresscom-popular-posts' ),
+			'ol'  => __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' )
+		);
+		if ( !$instance['show'] )
+			$instance['show'] = $this->defaults['list_tag'];
+		echo ": <select name='" . $this->get_field_name( 'list_tag' ) . "' id='$field_id'>\n";
+		foreach ( $opt as $key => $value ) {
+			$sel = ( $instance['list_tag'] == $key ) ? ' selected="selected"' : '';
+			echo "<option value='$key'$sel>$value</option>\n";
+		}
+		echo '</select></label></p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
