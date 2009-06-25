@@ -255,7 +255,7 @@ class WPPP extends WP_Widget {
 		$instance['title_length'] = intval( $new_instance['title_length'] );
 		// I want only digits or commas for this:
 		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
-		$instance['cutoff'] = abs( intval( $new_instance['cutoff'] ) );
+		$instance['cutoff'] = max( intval( $new_instance['cutoff'] ), 0 );
 		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol') ) ?
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
@@ -422,15 +422,10 @@ endif;
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  *
  * */
-// TODO: test this!!!
 function WPPP_show_popular_posts( $user_args = '' ) {
 	$wppp = new WPPP();
 
 	$args = wp_parse_args( $user_args, $wppp->defaults );
-	// remove slashes in format. TODO: still necessary?
-	if ( isset( $args['format'] ) ) {
-		$args['format'] = stripslashes( $args['format'] );
-	}
 
 	$wppp->widget( $args );
 }
