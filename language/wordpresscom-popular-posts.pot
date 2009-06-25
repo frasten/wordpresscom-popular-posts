@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2009-06-24 23:52+0200\n"
+"POT-Creation-Date: 2009-06-25 11:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.old.php:14 wppp.old.php:213 wppp.old.php:214 wppp.php:26 wppp.php:42
+#: wppp.old.php:14 wppp.old.php:213 wppp.old.php:214 wppp.php:19 wppp.php:35
 msgid "Popular Posts"
 msgstr ""
 
-#: wppp.old.php:276 wppp.php:302
+#: wppp.old.php:276 wppp.php:294
 msgid "Title"
 msgstr ""
 
-#: wppp.old.php:280 wppp.php:309
+#: wppp.old.php:280 wppp.php:301
 msgid "Number of links shown"
 msgstr ""
 
@@ -31,33 +31,33 @@ msgstr ""
 msgid "The length (in days) of the desired time frame.<br />0 means unlimited"
 msgstr ""
 
-#: wppp.old.php:288 wppp.php:323
+#: wppp.old.php:288 wppp.php:315
 msgid "Show: "
 msgstr ""
 
-#: wppp.old.php:291 wppp.php:325
+#: wppp.old.php:291 wppp.php:317
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.old.php:292 wppp.php:326
+#: wppp.old.php:292 wppp.php:318
 msgid "only posts"
 msgstr ""
 
-#: wppp.old.php:293 wppp.php:327
+#: wppp.old.php:293 wppp.php:319
 msgid "only pages"
 msgstr ""
 
-#: wppp.old.php:305 wppp.php:340
+#: wppp.old.php:305 wppp.php:332
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.com/wordpress-"
 "plugins/wordpresscom-popular-posts/\">docs</a> for help"
 msgstr ""
 
-#: wppp.old.php:309 wppp.php:347
+#: wppp.old.php:309 wppp.php:339
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.old.php:310 wppp.old.php:314 wppp.php:350 wppp.php:357
+#: wppp.old.php:310 wppp.old.php:314 wppp.php:342 wppp.php:349
 msgid " characters"
 msgstr ""
 
@@ -65,39 +65,49 @@ msgstr ""
 msgid "Max length of the title links.<br />0 means unlimited"
 msgstr ""
 
-#: wppp.php:39
+#: wppp.php:32
 msgid "A list of your most popular posts"
 msgstr ""
 
-#: wppp.php:316
+#: wppp.php:308
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:354
+#: wppp.php:346
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:361
+#: wppp.php:353
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:368
+#: wppp.php:360
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 
-#: wppp.php:371
+#: wppp.php:363
 msgid "(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:375
+#: wppp.php:367
 msgid "Kind of list"
 msgstr ""
 
-#: wppp.php:377
+#: wppp.php:369
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr ""
 
-#: wppp.php:378
+#: wppp.php:370
 msgid "Ordered list (&lt;ol&gt;)"
+msgstr ""
+
+#: wppp.php:445
+#, php-format
+msgid ""
+"Wordpress.com Popular Post 2.0.0 is compatible with WordPress >= 2.8 only."
+"<br />\n"
+"\tPlease either <a href='%s'>update</a> your WordPress installation, <a "
+"href='%s'>downgrade this plugin</a> to v1.3.5\n"
+"\tor <a href='%s'>uninstall it</a>."
 msgstr ""
