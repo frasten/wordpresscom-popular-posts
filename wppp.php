@@ -17,43 +17,39 @@ class WPPP extends WP_Widget {
 
 	function WPPP() {
 		$this->defaults = array('title'	 => __( 'Popular Posts', 'wordpresscom-popular-posts' )
-													,'number' => '5'
-													,'days'	 => '0'
-													,'show'	 => 'both'
-													,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
-													,'excerpt_length' => '100'
-													,'title_length' => '0'
-													,'cutoff' => '0'
-													,'list_tag' => 'ul'
+													 ,'number' => '5'
+													 ,'days'	 => '0'
+													 ,'show'	 => 'both'
+													 ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
+													 ,'excerpt_length' => '100'
+													 ,'title_length' => '0'
+													 ,'cutoff' => '0'
+													 ,'list_tag' => 'ul'
 		);
 
 
 		$widget_ops = array( 'classname' => 'widget_hello_world',
 												 'description' => __( "A list of your most popular posts", 'wordpresscom-popular-posts' )
 												);
-		$control_ops = array('width' => 350, 'height' => 300);
-		$this->WP_Widget('wppp', __('Popular Posts', 'wordpresscom-popular-posts' ), $widget_ops, $control_ops);
+		$control_ops = array( 'width' => 350, 'height' => 300 );
+		$this->WP_Widget( 'wppp', __( 'Popular Posts', 'wordpresscom-popular-posts' ), $widget_ops, $control_ops );
 	}
 
-	function widget($args, $instance = null) {
+	function widget( $args, $instance = null ) {
 		global $wpdb;
-		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
+		if ( ! function_exists( 'stats_get_options' ) || ! function_exists( 'stats_get_csv' ) )
 			return;
 
 		extract( $args );
 		/* Before the widget (as defined by the theme) */
 		echo $before_widget;
 
-		if ( !$instance ) {
+		if ( ! $instance ) {
 			// Called from static non-widget function. (Or maybe some error? :-P)
-			$instance = $this->defaults;
-			// Overwrite any user-defined value
-			foreach ( $args as $key => $value ) {
-				$instance[$key] = $value;
-			}
+			$instance = $args;
 		}
 
-		$instance['title'] = apply_filters('widget_title', $instance['title'] );
+		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
 		// Tags before and after the title (as called by WordPress)
 		if ( $before_title || $after_title ) {
 			$instance['title'] = $before_title . $instance['title'] . $after_title;
@@ -76,8 +72,8 @@ class WPPP extends WP_Widget {
 
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
-		if ( sizeof ( $excluded_ids ) ) {
-			$howmany += sizeof ( $excluded_ids );
+		if ( sizeof( $excluded_ids ) ) {
+			$howmany += sizeof( $excluded_ids );
 		}
 
 
@@ -85,17 +81,17 @@ class WPPP extends WP_Widget {
 		$reset_cache = false;
 		$stats_cache = get_option( 'stats_cache' );
 
-		if ( !$stats_cache || !is_array( $stats_cache ) ) {
+		if ( ! $stats_cache || ! is_array( $stats_cache ) ) {
 			$reset_cache = true;
 		}
 		else {
 			foreach ( $stats_cache as $key => $val ) {
-				if ( !is_array($val) || !sizeof($val) ) {
+				if ( ! is_array( $val ) || ! sizeof( $val ) ) {
 					$reset_cache = true;
 					break;
 				}
 				foreach ( $val as $key => $val2 ) {
-					if ( !is_array($val2) || !sizeof($val2) ) {
+					if ( ! is_array( $val2 ) || ! sizeof( $val2 ) ) {
 						$reset_cache = true;
 						break;
 					}
@@ -105,8 +101,8 @@ class WPPP extends WP_Widget {
 			}
 		}
 
-		if ($reset_cache) {
-			update_option( 'stats_cache', "");
+		if ( $reset_cache ) {
+			update_option( 'stats_cache', "" );
 		}
 		/* END FIX */
 
@@ -114,7 +110,7 @@ class WPPP extends WP_Widget {
 		echo $instance['title'] . "\n";
 
 		// Check against malicious data
-		if ( !in_array( $instance['list_tag'], array( 'ul', 'ol') ) )
+		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
 			$instance['list_tag'] = $this->defaults['list_tag'];
 		echo "<{$instance['list_tag']} class='wppp_list'>\n";
 
@@ -126,7 +122,7 @@ class WPPP extends WP_Widget {
 				if ( in_array( $p['post_id'], $excluded_ids ) ) continue;
 				/* I don't know why, but on some blogs there are "fake" entries,
 					 without data. */
-				if ( !$p['post_id'] ) continue;
+				if ( ! $p['post_id'] ) continue;
 				// Posts with views <= 0 must be excluded
 				if ( $p['views'] <= 0 ) continue;
 				// If I have set to have a cutoff, exclude the posts with views below that threshold
@@ -137,7 +133,7 @@ class WPPP extends WP_Widget {
 			$top_posts = $temp_list;
 		}
 
-		if ( $instance['show'] != 'both') {
+		if ( $instance['show'] != 'both' ) {
 			// I want to show only posts or only pages
 			$id_list = array();
 			foreach ( $top_posts as $p ) {
@@ -146,10 +142,10 @@ class WPPP extends WP_Widget {
 
 			// If no top-posts, just do nothing gracefully
 			if ( sizeof( $id_list ) ) {
-				$results = $wpdb->get_results("
-				SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ") AND post_type = '" .
+				$results = $wpdb->get_results( "
+				SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ") AND post_type = '" .
 				( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'
-				");
+				" );
 				$valid_list = array();
 				foreach ( $results as $valid ) {
 					$valid_list[] = $valid->id;
@@ -161,7 +157,7 @@ class WPPP extends WP_Widget {
 						$temp_list[] = $p;
 				}
 				$top_posts = $temp_list;
-				unset($temp_list);
+				unset( $temp_list );
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
 
@@ -189,9 +185,9 @@ class WPPP extends WP_Widget {
 
 			// Could it be slow?
 			// I fetch the updated data from the DB, and overwrite the old values
-			$results = $wpdb->get_results("
-			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode(',', $id_list) . ")
-			");
+			$results = $wpdb->get_results( "
+			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ")
+			" );
 			foreach ( $results as $updated_p ) {
 				// I don't use foreach ($var as &$var), it doesn't work in php < 5
 				for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
@@ -212,7 +208,7 @@ class WPPP extends WP_Widget {
 			$replace = array(
 				'%post_permalink%'			 => get_permalink( $post['post_id'] ),
 				'%post_title%'					 => esc_html( $this->truncateText( $post['post_title'], $instance['title_length'] ) ),
-				'%post_title_attribute%' => esc_attr( $post['post_title'], ENT_QUOTES ),
+				'%post_title_attribute%' => esc_attr( $post['post_title'] ),
 				'%post_views%'					 => number_format_i18n( $post['views'] )
 			);
 
@@ -221,7 +217,7 @@ class WPPP extends WP_Widget {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
 
-				if ( !empty( $temppost->post_excerpt ) ) {
+				if ( ! empty( $temppost->post_excerpt ) ) {
 					/* Excerpt already saved by the user */
 					$replace['%post_excerpt%'] = $this->truncateText( $temppost->post_excerpt, $instance['excerpt_length'] );
 				}
@@ -245,7 +241,7 @@ class WPPP extends WP_Widget {
 		echo $after_widget;
 	}
 
-	function update($new_instance, $old_instance) {
+	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
 		$instance['title'] = strip_tags( $new_instance['title'] );
@@ -273,7 +269,7 @@ class WPPP extends WP_Widget {
 		// Set the settings that are still undefined
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
-		if ( !$instance['initted'] ) {
+		if ( ! $instance['initted'] ) {
 			// Import eventual old settings (from WPPP < 2.0.0)
 			$settings = get_option( 'widget_wppp' );
 			foreach ( $settings as $wdgt ) {
@@ -318,7 +314,7 @@ class WPPP extends WP_Widget {
 			'posts' => __( 'only posts', 'wordpresscom-popular-posts' ),
 			'pages' => __( 'only pages', 'wordpresscom-popular-posts' )
 		);
-		if ( !$instance['show'] )
+		if ( ! $instance['show'] )
 			$instance['show'] = $this->defaults['show'];
 		echo "<select name='" . $this->get_field_name( 'show' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
@@ -369,7 +365,7 @@ class WPPP extends WP_Widget {
 			'ul'	=> __( 'Unordered list (&lt;ul&gt;)', 'wordpresscom-popular-posts' ),
 			'ol'	=> __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' )
 		);
-		if ( !$instance['show'] )
+		if ( ! $instance['show'] )
 			$instance['show'] = $this->defaults['list_tag'];
 		echo ": <select name='" . $this->get_field_name( 'list_tag' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
@@ -380,7 +376,7 @@ class WPPP extends WP_Widget {
 	}
 
 	function truncateText( $text, $chars = 50 ) {
-		if ( strlen($text) <= $chars || $chars <= 0 )
+		if ( strlen( $text ) <= $chars || $chars <= 0 )
 			return $text;
 		$new = wordwrap( $text, $chars, "|" );
 		$newtext = explode( "|", $new );
@@ -457,10 +453,10 @@ function wppp_notice_incompatible() {
 load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
 
 // This version is incompatible with WP < 2.8
-if (! class_exists( 'WP_Widget' ) ) {
-	add_action('admin_notices', 'wppp_notice_incompatible');
+if ( ! class_exists( 'WP_Widget' ) ) {
+	add_action( 'admin_notices', 'wppp_notice_incompatible' );
 }
 else {
-	add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
+	add_action( 'widgets_init', create_function( '', 'return register_widget( "WPPP" );' ) );
 }
 ?>
