@@ -165,7 +165,7 @@ class WPPP extends WP_Widget {
 			if ( $instance['show'] != 'both' ) {
 				$query .= " AND post_type = '" .	( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'";
 			}
-			echo $query;
+
 			$results = $wpdb->get_results( $query );
 			$valid_list = array();
 			foreach ( $results as $valid ) {
