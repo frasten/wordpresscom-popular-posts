@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.0.0alpha1
+Version: 2.0.0beta
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -28,7 +28,7 @@ class WPPP extends WP_Widget {
 		);
 
 
-		$widget_ops = array( 'classname' => 'widget_hello_world',
+		$widget_ops = array( 'classname' => 'widget_wppp',
 												 'description' => __( "A list of your most popular posts", 'wordpresscom-popular-posts' )
 												);
 		$control_ops = array( 'width' => 350, 'height' => 300 );
@@ -48,13 +48,6 @@ class WPPP extends WP_Widget {
 			// Called from static non-widget function. (Or maybe some error? :-P)
 			$instance = $args;
 		}
-
-		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		// Tags before and after the title (as called by WordPress)
-		if ( $before_title || $after_title ) {
-			$instance['title'] = $before_title . $instance['title'] . $after_title;
-		}
-
 
 		// Check against malformed values
 		$instance['days'] = intval( $instance['days'] );
@@ -107,6 +100,15 @@ class WPPP extends WP_Widget {
 		/* END FIX */
 
 		$top_posts = stats_get_csv( 'postviews', "days={$instance['days']}&limit=$howmany" );
+		
+		/*********************
+		 *      TITLE        *
+		 ********************/ 
+		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+		// Tags before and after the title (as called by WordPress)
+		if ( $before_title || $after_title ) {
+			$instance['title'] = $before_title . $instance['title'] . $after_title;
+		}
 		echo $instance['title'] . "\n";
 
 		// Check against malicious data
@@ -118,7 +120,7 @@ class WPPP extends WP_Widget {
 		if ( sizeof( $excluded_ids ) ) {
 			$temp_list = array();
 			foreach ( $top_posts as $p ) {
-				// If I have set some posts to be excluded:
+				// If I set some posts to be excluded:
 				if ( in_array( $p['post_id'], $excluded_ids ) ) continue;
 				/* I don't know why, but on some blogs there are "fake" entries,
 					 without data. */
@@ -133,73 +135,58 @@ class WPPP extends WP_Widget {
 			$top_posts = $temp_list;
 		}
 
-		if ( $instance['show'] != 'both' ) {
-			// I want to show only posts or only pages
-			$id_list = array();
-			foreach ( $top_posts as $p ) {
-				$id_list[] = $p['post_id'];
-			}
-
-			// If no top-posts, just do nothing gracefully
-			if ( sizeof( $id_list ) ) {
-				$results = $wpdb->get_results( "
-				SELECT id FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ") AND post_type = '" .
-				( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'
-				" );
-				$valid_list = array();
-				foreach ( $results as $valid ) {
-					$valid_list[] = $valid->id;
-				}
-
-				$temp_list = array();
-				foreach ( $top_posts as $p ) {
-					if ( in_array( $p['post_id'], $valid_list ) )
-						$temp_list[] = $p;
-				}
-				$top_posts = $temp_list;
-				unset( $temp_list );
-			} // end if (I have posts)
-		} // end if (I chose to show only posts or only pages)
-
-		// Limit the number of posts shown following user settings.
-		$temp_list = array();
+		
+		/*************************************************************
+		 * Removing non-existing posts and updating data from the DB *
+		 ************************************************************/
+		$id_list = array();
 		foreach ( $top_posts as $p ) {
-			$temp_list[] = $p;
-			if ( sizeof( $temp_list ) >= $instance['number'] )
-				break;
+			$id_list[] = $p['post_id'];
 		}
-		$top_posts = $temp_list;
 
-		/* The data from WP-Stats aren't updated, so we must fetch them from the DB */
+		// If no top-posts, just do nothing gracefully
 		// TODO: implement a cache for this data
-		if ( sizeof( $top_posts ) ) {
-			$id_list = array();
-			foreach ( $top_posts as $p ) {
-				$id_list[] = $p['post_id'];
-			}
-
-			// Have to unescape the CSV data, to avoid issues with truncate functions
+		if ( sizeof( $id_list ) ) {
+			// Must unescape the CSV data, to avoid issues with truncate functions
 			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
 				$top_posts[$i]['post_title'] = stripslashes( htmlspecialchars_decode( $top_posts[$i]['post_title'] ) );
 			}
-
-			// Could it be slow?
-			// I fetch the updated data from the DB, and overwrite the old values
-			$results = $wpdb->get_results( "
-			SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ")
-			" );
-			foreach ( $results as $updated_p ) {
-				// I don't use foreach ($var as &$var), it doesn't work in php < 5
-				for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
-					$p = $top_posts[$i];
-					if ( $p['post_id'] == $updated_p->id ) {
-						$p['post_title'] = $updated_p->post_title;
-						$top_posts[$i] = $p;
-						break;
-					}
-				}
+			
+			/* The data from WP-Stats aren't updated, so we must fetch them
+			 * from the DB, overwriting the old values.
+			 * 1) check if that id is still valid (deleted post?)
+			 * 2) exclude private posts and drafts
+			 * 3) If I chose to show only posts or pages, only show them
+			 */
+			$query = "SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ")";
+			$query .= " AND post_status != 'draft' AND post_status != 'private'";
+			
+			// If I want to show only posts or only pages:
+			if ( $instance['show'] != 'both' ) {
+				$query .= " AND post_type = '" .	( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'";
 			}
-		} // end if I have top-posts
+			echo $query;
+			$results = $wpdb->get_results( $query );
+			$valid_list = array();
+			foreach ( $results as $valid ) {
+				$valid_list[$valid->id] = $valid;
+			}
+
+			$temp_list = array();
+			foreach ( $top_posts as $p ) {
+				if ( in_array( $p['post_id'], array_keys( $valid_list ) ) ) {
+					// Updating the title from the DB
+					$p['post_title'] = $valid_list[$p['post_id']]->post_title;
+					$temp_list[] = $p;
+				}
+				// Limit the number of posts shown following user settings.
+				if ( sizeof( $temp_list ) >= $instance['number'] )
+					break;
+			}
+			$top_posts = $temp_list;
+			unset( $temp_list );
+		} // end if (I have posts)
+
 
 		foreach ( $top_posts as $post ) {
 			echo "\t<li>";

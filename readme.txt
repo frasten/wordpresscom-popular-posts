@@ -18,6 +18,8 @@ For further info and changelog visit [plugin homepage](http://polpoinodroidi.com
 
 **Requires [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2**
 
+**From v2.0.0, it requires WordPress 2.8 or greater.**
+
 == Installation ==
 
 Wordpress.com Popular Posts can be installed easily:
@@ -56,7 +58,7 @@ Possible names are:
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
-* `exclude` (the list of post/page IDs to exclude, separated by commas)
+* `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
 * `list_tag` (can be: ul, ol, default ul)
 
@@ -76,3 +78,9 @@ You can use these special markers in the `format` value:
 * `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
 * `%post_views%` number of views
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
+
+= How can I discover the ID of a post/page? =
+Log into your admin page, go to **Posts** or **Pages**; go with your mouse
+on your post's title, and in your status bar you should see something like
+this: http://YOURSITE.com/wp-admin/post.php?action=edit&post=14
+Then **14** is the number you are looking for.
