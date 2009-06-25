@@ -11,14 +11,7 @@ Author URI: http://polpoinodroidi.com
 /* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
 
 
-if ( ! class_exists( 'WP_Widget' ) ) {
-	echo "Wordpress.com Popular Post 2.0.0 is only compatible with WordPress >= 2.8.<br />";
-	echo "Please either update your Wordpress installation, downgrade this plugin to v1.3.5 or uninstall this plugin.";
-	/* TODO: Don't exit, show this in a info box, and return in every function (doing nothing) */
-	exit;
-}
-
-if ( ! class_exists( 'WPPP' ) ) :
+if ( ! class_exists( 'WPPP' ) && class_exists( 'WP_Widget' ) ) :
 class WPPP extends WP_Widget {
 	var $defaults;
 
@@ -48,6 +41,7 @@ class WPPP extends WP_Widget {
 			return;
 		
 		extract( $args );
+		/* Before the widget (as defined by the theme) */
 		echo $before_widget;
 		
 		if ( !$instance ) {
@@ -58,7 +52,8 @@ class WPPP extends WP_Widget {
 				$instance[$key] = $value;
 			}
 		}
-			
+		
+		$instance['title'] = apply_filters('widget_title', $instance['title'] );
 		// Tags before and after the title (as called by WordPress)
 		if ( $before_title || $after_title ) {
 			$instance['title'] = $before_title . $instance['title'] . $after_title;
@@ -245,6 +240,8 @@ class WPPP extends WP_Widget {
 			echo "</li>\n";
 		}
 		echo "</{$instance['list_tag']}>\n";
+		
+		/* After the widget (as defined by the theme) */
 		echo $after_widget;
 	}
  
@@ -274,12 +271,7 @@ class WPPP extends WP_Widget {
  
 	function form( $instance ) {
 		// Set the settings that are still undefined
-		$old_instance = $instance;
-		$instance = $this->defaults;
-		foreach ( $old_instance as $key => $value ) {
-			$instance[$key] = $value;
-		}
-		
+		$instance = wp_parse_args( (array) $instance, $this->defaults );
 		
 		if ( !$instance['initted'] ) {
 			// Import eventual old settings (from WPPP < 2.0.0)
@@ -347,14 +339,14 @@ class WPPP extends WP_Widget {
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 40px;' id='$field_id' name='" .
 			$this->get_field_name( 'excerpt_length' ) . "' type='text' value='" .
-			intval( $instance['excerpt_length'] ) . "' />" . __(' characters') . "</label></p>";
+			intval( $instance['excerpt_length'] ) . "' />" . __(' characters', 'wordpresscom-popular-posts' ) . "</label></p>";
 		
 		$field_id = $this->get_field_id( 'title_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Max length of the title links.<br />(0 means unlimited)', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 30px;' id='$field_id' name='" .
 			$this->get_field_name( 'title_length' ) . "' type='text' value='" .
-			intval( $instance['title_length'] ) . "' />" . __(' characters') . "</label></p>";
+			intval( $instance['title_length'] ) . "' />" . __(' characters', 'wordpresscom-popular-posts' ) . "</label></p>";
 		
 		$field_id = $this->get_field_id( 'exclude' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
@@ -434,6 +426,7 @@ endif;
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * 
  * */
+// TODO: test this!!!
 function WPPP_show_popular_posts( $user_args = '' ) {
 	$wppp = new WPPP();
 	
@@ -447,13 +440,27 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 }
 
 
+function wppp_notice_incompatible() {
+	echo "<div class='updated' style='background-color:#f66;'><p>" .
+	sprintf( __( "Wordpress.com Popular Post 2.0.0 is compatible with WordPress >= 2.8 only.<br />
+	Please either <a href='%s'>update</a> your Wordpress installation, <a href='%s'>downgrade this plugin</a> to v1.3.5
+	or <a href='%s'>uninstall</a> this plugin.", 'wordpresscom-popular-posts' ),
+	'http://wordpress.org/download/',
+	'http://downloads.wordpress.org/plugin/wordpresscom-popular-posts.1.3.5.zip',
+	'plugins.php' );
+	echo "</p></div>";
+}
+
 
 
 // Language loading
 load_textdomain( 'wordpresscom-popular-posts', dirname(__FILE__) . "/language/wordpresscom-popular-posts-" . get_locale() . ".mo" );
 
-
-add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
-
-// TODO: function for non widget-ready themes
+// This version is incompatible with WP < 2.8
+if (! class_exists( 'WP_Widget' ) ) {
+	add_action('admin_notices', 'wppp_notice_incompatible');
+}
+else {
+	add_action('widgets_init', create_function('', 'return register_widget("WPPP");'));
+}
 ?>
