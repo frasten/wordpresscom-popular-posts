@@ -104,6 +104,8 @@ class WPPP extends WP_Widget {
 		/*********************
 		 *      TITLE        *
 		 ********************/ 
+		if ( empty( $instance['title'] ) )
+			$instance['title'] = $this->defaults['title'];
 		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
 		// Tags before and after the title (as called by WordPress)
 		if ( $before_title || $after_title ) {
@@ -305,8 +307,7 @@ class WPPP extends WP_Widget {
 			$instance['show'] = $this->defaults['show'];
 		echo "<select name='" . $this->get_field_name( 'show' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
-			$sel = ( $instance['show'] == $key ) ? ' selected="selected"' : '';
-			echo "<option value='$key'$sel>$value</option>\n";
+			echo "<option value='$key'" . selected( $instance['show'], $key ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
 
@@ -356,8 +357,7 @@ class WPPP extends WP_Widget {
 			$instance['show'] = $this->defaults['list_tag'];
 		echo ": <select name='" . $this->get_field_name( 'list_tag' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
-			$sel = ( $instance['list_tag'] == $key ) ? ' selected="selected"' : '';
-			echo "<option value='$key'$sel>$value</option>\n";
+			echo "<option value='$key'" . selected( $key, $instance['list_tag'] ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
 	}
