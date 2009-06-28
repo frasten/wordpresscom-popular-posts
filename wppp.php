@@ -71,7 +71,7 @@ class WPPP extends WP_Widget {
 		
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
-		if ( sizeof( $excluded_ids ) ) {
+		if ( sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
 			$howmany += sizeof( $excluded_ids );
 		}
 
