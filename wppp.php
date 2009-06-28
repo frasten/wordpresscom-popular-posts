@@ -25,6 +25,7 @@ class WPPP extends WP_Widget {
 													 ,'title_length' => '0'
 													 ,'cutoff' => '0'
 													 ,'list_tag' => 'ul'
+													 ,'category' => '0'
 		);
 
 
@@ -63,6 +64,11 @@ class WPPP extends WP_Widget {
 		else if ( $instance['show'] == 'pages' )
 			$howmany *= 4; // pages are usually less, let's try more!
 
+		// If I want to show links by category, I need more data.
+		if ( $instance['category'] ) {
+			$howmany *= 3;
+		}
+		
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
 		if ( sizeof( $excluded_ids ) ) {
@@ -159,13 +165,28 @@ class WPPP extends WP_Widget {
 			 * 1) check if that id is still valid (deleted post?)
 			 * 2) exclude private posts and drafts
 			 * 3) If I chose to show only posts or pages, only show them
+			 * 4) If I chose to show only a category, only show those posts.
+			 *    Thanks to Rob Malon for this.
 			 */
-			$query = "SELECT id, post_title FROM {$wpdb->posts} WHERE id IN (" . implode( ',', $id_list ) . ")";
-			$query .= " AND post_status != 'draft' AND post_status != 'private'";
+			/* Let's save CPU time: execute this long query with joins only if necessary */
+			$instance['category'] = (int) $instance['category'];
+			$filter_category = $instance['category'] > 0;
+			if ( $filter_category ) {
+				$query = "SELECT p.id, p.post_title FROM $wpdb->posts AS p INNER JOIN $wpdb->term_relationships AS r ON r.object_id = p.id";
+			}
+			else {
+				$query = "SELECT p.id, p.post_title FROM $wpdb->posts AS p";
+			}
+			$query .= " WHERE p.id IN (" . implode( ',', $id_list ) . ")";
+			$query .= " AND p.post_status != 'draft' AND p.post_status != 'private'";
 			
 			// If I want to show only posts or only pages:
 			if ( $instance['show'] != 'both' ) {
-				$query .= " AND post_type = '" .	( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'";
+				$query .= " AND p.post_type = '" . ( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'";
+			}
+			
+			if ( $filter_category ) {
+				$query .= " AND r.term_taxonomy_id = '{$instance['category']}'";
 			}
 
 			$results = $wpdb->get_results( $query );
@@ -253,6 +274,7 @@ class WPPP extends WP_Widget {
 		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol') ) ?
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
+		$instance['category'] = intval( $new_instance['category'] );
 
  		$instance['initted'] = 1;
 
@@ -363,6 +385,22 @@ class WPPP extends WP_Widget {
 		echo ": <select name='" . $this->get_field_name( 'list_tag' ) . "' id='$field_id'>\n";
 		foreach ( $opt as $key => $value ) {
 			echo "<option value='$key'" . selected( $key, $instance['list_tag'] ) . ">$value</option>\n";
+		}
+		echo '</select></label></p>';
+		
+		// Category stuff
+		$field_id = $this->get_field_id( 'category' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		echo __( 'Only show posts/pages in this category', 'wordpresscom-popular-posts' );
+		$cat_list = array(0 => __('&lt;All categories&gt;', 'wordpresscom-popular-posts' ) );
+		$categories = get_categories();
+		
+		foreach ( $categories as $c ) {
+			$cat_list[$c->term_taxonomy_id] = $c->cat_name;
+		}
+		echo ": <select name='" . $this->get_field_name( 'category' ) . "' id='$field_id'>\n";
+		foreach ( $cat_list as $key => $value ) {
+			echo "<option value='$key'" . selected( $key, $instance['category'] ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
 	}
