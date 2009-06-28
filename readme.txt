@@ -78,6 +78,7 @@ You can use these special markers in the `format` value:
 * `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
 * `%post_views%` number of views
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
+* `%post_category%` the category of the post
 
 = How can I discover the ID of a post/page? =
 Log into your admin page, go to **Posts** or **Pages**; go with your mouse

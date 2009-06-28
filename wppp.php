@@ -201,6 +201,11 @@ class WPPP extends WP_Widget {
 				'%post_views%'					 => number_format_i18n( $post['views'] )
 			);
 
+			// %post_category% stuff
+			if ( strpos( $instance['format'], '%post_category%' ) ) {
+				$replace['%post_category%'] = get_the_category( $post['post_id'] );
+			}
+			
 			// %post_excerpt% stuff
 			if ( strpos( $instance['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
@@ -407,6 +412,7 @@ endif;
  * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
+ * %post_category% the category of the post
  *
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {
