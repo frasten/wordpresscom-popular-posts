@@ -119,11 +119,11 @@ class WPPP extends WP_Widget {
 		echo "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
-		if ( sizeof( $excluded_ids ) ) {
+		if ( sizeof( $top_posts ) ) {
 			$temp_list = array();
 			foreach ( $top_posts as $p ) {
 				// If I set some posts to be excluded:
-				if ( in_array( $p['post_id'], $excluded_ids ) ) continue;
+				if ( sizeof( $excluded_ids ) && in_array( $p['post_id'], $excluded_ids ) ) continue;
 				/* I don't know why, but on some blogs there are "fake" entries,
 					 without data. */
 				if ( ! $p['post_id'] ) continue;
@@ -425,7 +425,7 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 
 
 function wppp_notice_incompatible() {
-	echo "<div class='updated' style='background-color:#f66;'><p>" .
+	echo "<div class='error'><p>" .
 	sprintf( __( "Wordpress.com Popular Post 2.0.0 is compatible with WordPress >= 2.8 only.<br />
 	Please either <a href='%s'>update</a> your WordPress installation, <a href='%s'>downgrade this plugin</a> to v1.3.5
 	or <a href='%s'>uninstall it</a>.", 'wordpresscom-popular-posts' ),
