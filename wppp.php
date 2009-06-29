@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.0.0beta
+Version: 2.0.1
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -276,30 +276,12 @@ class WPPP extends WP_Widget {
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
 
- 		$instance['initted'] = 1;
-
 		return $instance;
 	}
 
 	function form( $instance ) {
 		// Set the settings that are still undefined
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
-
-		if ( ! $instance['initted'] ) {
-			// Import eventual old settings (from WPPP < 2.0.0)
-			$settings = get_option( 'widget_wppp' );
-			foreach ( $settings as $wdgt ) {
-				if ( is_array( $wdgt ) && ! $item['initted'] ) {
-					// These are the old WPPP settings
-					foreach ( $wdgt as $key => $value ) {
-						$instance[$key] = $value;
-					}
-					break;
-				}
-			}
-			unset( $settings );
-		}
-
 
 		$field_id = $this->get_field_id( 'title' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
@@ -473,6 +455,28 @@ function wppp_notice_incompatible() {
 	echo "</p></div>";
 }
 
+function wppp_check_upgrade() {
+	// Import eventual old settings (from WPPP < 2.0.0)
+	$wppp_options = get_option( 'widget_wppp' );
+	if ( ! $wppp_options ) return;
+	if ( array_key_exists( '_multiwidget', $wppp_options ) ) return;
+	
+	$new_options = array( 2 => $wppp_options, '_multiwidget' => 1 );
+	update_option( 'widget_wppp', $new_options );
+	
+	$sb_option = get_option( 'sidebars_widgets' );
+	foreach ( $sb_option as $key => $value ) {
+		if ( 'wp_inactive_widgets' == $key || 'array_version' == $key ) continue;
+		foreach ( $value as $i => $widgetname ) {
+			if ( 'popular-posts' == $widgetname || 'articoli-piu-letti' == $widgetname ) {
+				$sb_option[$key][$i] = 'wppp-2';
+				break;
+			}
+		}
+	}
+	update_option( 'sidebars_widgets', $sb_option );
+}
+add_action('plugins_loaded', 'wppp_check_upgrade');
 
 
 // Language loading
