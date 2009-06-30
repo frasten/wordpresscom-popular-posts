@@ -111,7 +111,12 @@ class WPPP extends WP_Widget {
 		 *      TITLE        *
 		 ********************/ 
 		if ( ! empty( $instance['title'] ) ) {
+			/* I'm disabling this because it escapes html code and users want to
+			 * use it. If anybody will need this filter, I'll try to find a solution.
+			 * Instead, I'm using wp_kses() for securing it.
 			$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+			*/
+			$instance['title'] = wp_kses( $instance['title'], $allowedposttags );
 			// Tags before and after the title (as called by WordPress)
 			if ( $before_title || $after_title ) {
 				$instance['title'] = $before_title . $instance['title'] . $after_title;
@@ -257,10 +262,9 @@ class WPPP extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		global $allowedposttags;
 		$instance = $old_instance;
 
-		$instance['title'] = wp_kses( $new_instance['title'], $allowedposttags );
+		$instance['title'] = $new_instance['title'];
 		$instance['number'] = intval( $new_instance['number'] );
 		$instance['days'] = intval( $new_instance['days'] );
 		$instance['format'] = $new_instance['format'];
