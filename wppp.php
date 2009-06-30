@@ -257,9 +257,10 @@ class WPPP extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
+		global $allowedposttags;
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = wp_kses( $new_instance['title'], $allowedposttags );
 		$instance['number'] = intval( $new_instance['number'] );
 		$instance['days'] = intval( $new_instance['days'] );
 		$instance['format'] = $new_instance['format'];
