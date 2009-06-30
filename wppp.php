@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.0.1
+Version: 2.0.2
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -110,14 +110,14 @@ class WPPP extends WP_Widget {
 		/*********************
 		 *      TITLE        *
 		 ********************/ 
-		if ( empty( $instance['title'] ) )
-			$instance['title'] = $this->defaults['title'];
-		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		// Tags before and after the title (as called by WordPress)
-		if ( $before_title || $after_title ) {
-			$instance['title'] = $before_title . $instance['title'] . $after_title;
+		if ( ! empty( $instance['title'] ) ) {
+			$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+			// Tags before and after the title (as called by WordPress)
+			if ( $before_title || $after_title ) {
+				$instance['title'] = $before_title . $instance['title'] . $after_title;
+			}
+			echo $instance['title'] . "\n";
 		}
-		echo $instance['title'] . "\n";
 
 		// Check against malicious data
 		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
