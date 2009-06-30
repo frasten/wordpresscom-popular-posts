@@ -37,7 +37,7 @@ class WPPP extends WP_Widget {
 	}
 
 	function widget( $args, $instance = null ) {
-		global $wpdb;
+		global $wpdb, $allowedposttags;
 		if ( ! function_exists( 'stats_get_options' ) || ! function_exists( 'stats_get_csv' ) )
 			return;
 
@@ -246,7 +246,7 @@ class WPPP extends WP_Widget {
 				unset( $temppost );
 			}
 
-			echo strtr( $instance['format'], $replace );
+			echo wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
 			echo "</li>\n";
 		}
