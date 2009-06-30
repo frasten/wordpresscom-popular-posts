@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.0.1
+Version: 2.0.2
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -37,7 +37,7 @@ class WPPP extends WP_Widget {
 	}
 
 	function widget( $args, $instance = null ) {
-		global $wpdb;
+		global $wpdb, $allowedposttags;
 		if ( ! function_exists( 'stats_get_options' ) || ! function_exists( 'stats_get_csv' ) )
 			return;
 
@@ -110,14 +110,19 @@ class WPPP extends WP_Widget {
 		/*********************
 		 *      TITLE        *
 		 ********************/ 
-		if ( empty( $instance['title'] ) )
-			$instance['title'] = $this->defaults['title'];
-		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		// Tags before and after the title (as called by WordPress)
-		if ( $before_title || $after_title ) {
-			$instance['title'] = $before_title . $instance['title'] . $after_title;
+		if ( ! empty( $instance['title'] ) ) {
+			/* I'm disabling this because it escapes html code and users want to
+			 * use it. If anybody will need this filter, I'll try to find a solution.
+			 * Instead, I'm using wp_kses() for securing it.
+			$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+			*/
+			$instance['title'] = wp_kses( $instance['title'], $allowedposttags );
+			// Tags before and after the title (as called by WordPress)
+			if ( $before_title || $after_title ) {
+				$instance['title'] = $before_title . $instance['title'] . $after_title;
+			}
+			echo $instance['title'] . "\n";
 		}
-		echo $instance['title'] . "\n";
 
 		// Check against malicious data
 		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
@@ -246,7 +251,7 @@ class WPPP extends WP_Widget {
 				unset( $temppost );
 			}
 
-			echo strtr( $instance['format'], $replace );
+			echo wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
 			echo "</li>\n";
 		}
@@ -259,7 +264,7 @@ class WPPP extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = $new_instance['title'];
 		$instance['number'] = intval( $new_instance['number'] );
 		$instance['days'] = intval( $new_instance['days'] );
 		$instance['format'] = $new_instance['format'];
