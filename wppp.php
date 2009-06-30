@@ -461,6 +461,7 @@ function wppp_notice_incompatible() {
 }
 
 function wppp_check_upgrade() {
+	if ( ! class_exists( 'WP_Widget' ) ) return;
 	// Import eventual old settings (from WPPP < 2.0.0)
 	$wppp_options = get_option( 'widget_wppp' );
 	if ( ! $wppp_options ) return;
