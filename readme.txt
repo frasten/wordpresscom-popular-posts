@@ -3,7 +3,7 @@ Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.8
-Tested up to: 2.8.1
+Tested up to: 2.8.2
 Stable tag: 2.0.2
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
@@ -14,7 +14,7 @@ This plugin can show the most popular articles in your sidebar, using data colle
 Wordpress.com Popular Posts lists the most popular posts on a wordpress powered weblog.
 This list can be used in the sidebar to show an indication of which are the most visited pages.
 
-For further info and changelog visit [plugin homepage](http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/).
+For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/).
 
 **Requires [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2**
 
@@ -61,6 +61,7 @@ Possible names are:
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
 * `list_tag` (can be: ul, ol, default ul)
+* `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
@@ -85,3 +86,38 @@ Log into your admin page, go to **Posts** or **Pages**; go with your mouse
 on your post's title, and in your status bar you should see something like
 this: http://YOURSITE.com/wp-admin/post.php?action=edit&post=14
 Then **14** is the number you are looking for.
+
+
+== Changelog ==
+
+= 2.0.2 =
+* Regression: you couldn't set an empty title anymore.
+* Regression: You couldn't add HTML tags to the widget title.
+* Fix: more robust security checks.
+
+= 2.0.1 =
+* New feature: now you can use %post_category% in your format, to show
+  the post's category.
+* New feature: now you can show posts from a specific category.
+
+= 2.0.0 =
+* New complete rewrite, using WP 2.8 Widget API. Note: from now on, this
+  plugin will require at least WP 2.8
+* New feature: now you can add multiple widgets with their own different
+  settings!
+* New feature: now you can exclude specific posts/pages by IDs.
+* New feature: don't show posts with a view count under x
+* New feature: now you can choose between unordered (<ul>) or ordered
+  (<ol>) list.
+* Fix: now private posts are excluded from the list.
+* Fix: now deleted posts shouldn't appear anymore.
+* Fix: W3C Validation fix, thanks to Jonathan M. Hollin
+* Fix: fixed an issue with titles containing special characters/quotes.
+* Fix: removed the shortcodes from the excerpt, thanks to Peter.
+
+= 1.3.5 =
+* Added a workaround for a cache issue in stats plugin.
+
+= 1.3.4 =
+* Hopefully fixed a problem on some blogs, when displaying only posts or
+  only pages.

@@ -422,6 +422,7 @@ endif;
  * - exclude (the list of post/page IDs to exclude, separated by commas)
  * - cutoff (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
  * - list_tag (can be: ul, ol, default ul)
+ * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
  *
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
@@ -461,6 +462,7 @@ function wppp_notice_incompatible() {
 }
 
 function wppp_check_upgrade() {
+	if ( ! class_exists( 'WP_Widget' ) ) return;
 	// Import eventual old settings (from WPPP < 2.0.0)
 	$wppp_options = get_option( 'widget_wppp' );
 	if ( ! $wppp_options ) return;
