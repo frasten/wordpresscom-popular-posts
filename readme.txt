@@ -61,6 +61,7 @@ Possible names are:
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
 * `list_tag` (can be: ul, ol, default ul)
+* `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
