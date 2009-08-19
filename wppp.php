@@ -149,7 +149,7 @@ class WPPP {
 				for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
 					$p = $top_posts[$i];
 					if ( $p['post_id'] == $updated_p->id ) {
-						$p['post_title'] = $updated_p->post_title;
+						$p['post_title'] = __( $updated_p->post_title );
 						$top_posts[$i] = $p;
 						break;
 					}
