@@ -229,7 +229,9 @@ class WPPP extends WP_Widget {
 
 			// %post_category% stuff
 			if ( strpos( $instance['format'], '%post_category%' ) ) {
-				$replace['%post_category%'] = get_the_category( $post['post_id'] );
+				// RS account for multiple categories
+				$cat = get_the_category( $post['post_id'] );
+				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
 			
 			// %post_excerpt% stuff
