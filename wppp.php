@@ -204,7 +204,7 @@ class WPPP extends WP_Widget {
 			foreach ( $top_posts as $p ) {
 				if ( in_array( $p['post_id'], array_keys( $valid_list ) ) ) {
 					// Updating the title from the DB
-					$p['post_title'] = $valid_list[$p['post_id']]->post_title;
+					$p['post_title'] = __( $valid_list[$p['post_id']]->post_title );
 					$temp_list[] = $p;
 				}
 				// Limit the number of posts shown following user settings.
