@@ -14,6 +14,7 @@ Author URI: http://polpoinodroidi.com
 if ( ! class_exists( 'WPPP' ) && class_exists( 'WP_Widget' ) ) :
 class WPPP extends WP_Widget {
 	var $defaults;
+	var $cache_expire = 600;
 
 	function WPPP() {
 		$this->defaults = array('title'	 => __( 'Popular Posts', 'wordpresscom-popular-posts' )
@@ -26,6 +27,7 @@ class WPPP extends WP_Widget {
 													 ,'cutoff' => '0'
 													 ,'list_tag' => 'ul'
 													 ,'category' => '0'
+													 ,'enable_cache' => '1'
 		);
 
 
@@ -48,7 +50,43 @@ class WPPP extends WP_Widget {
 		if ( ! $instance ) {
 			// Called from static non-widget function. (Or maybe some error? :-P)
 			$instance = $args;
+
+			/* cache */
+			if ( $instance['cachename'] ) {
+				$this->id = $instance['cachename'];
+			}
 		}
+
+		/* CACHE SYSTEM */
+		if ( $this->id && ( ! isset( $instance['enable_cache'] ) || $instance['enable_cache'] ) ) {
+			$cache = get_option( 'wppp_cache' );
+			if ( $cache && is_array( $cache ) ) {
+				$widget_cache = $cache[$this->id];
+				/* Check if it is valid or not */
+				if ( isset( $widget_cache['time'] ) &&
+					$widget_cache['time'] > ( time() - $this->cache_expire ) ) {
+
+					/* If it's called from the function, let's make some check to
+					 * see if the options have changed. */
+					$valid = true;
+					if ( $instance['cachename'] ) {
+						$settings_string = implode( '|', $instance );
+						$md5 = md5( $settings_string );
+						if ( $md5 != $widget_cache['settings_checksum'] )
+							$valid = false;
+					}
+					if ( $valid ) {
+						echo $widget_cache['value'];
+						echo $after_widget;
+						return;
+					}
+					unset( $valid );
+				}
+				unset( $widget_cache );
+			}
+			unset( $cache );
+		}
+		/* END CACHE SYSTEM */
 
 		// Check against malformed values
 		$instance['days'] = intval( $instance['days'] );
@@ -107,6 +145,7 @@ class WPPP extends WP_Widget {
 
 		$top_posts = stats_get_csv( 'postviews', "days={$instance['days']}&limit=$howmany" );
 		
+		$output = '';
 		/*********************
 		 *      TITLE        *
 		 ********************/ 
@@ -121,13 +160,13 @@ class WPPP extends WP_Widget {
 			if ( $before_title || $after_title ) {
 				$instance['title'] = $before_title . $instance['title'] . $after_title;
 			}
-			echo $instance['title'] . "\n";
+			$output .= $instance['title'] . "\n";
 		}
 
 		// Check against malicious data
 		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
 			$instance['list_tag'] = $this->defaults['list_tag'];
-		echo "<{$instance['list_tag']} class='wppp_list'>\n";
+		$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
 		if ( sizeof( $top_posts ) ) {
@@ -217,7 +256,7 @@ class WPPP extends WP_Widget {
 
 
 		foreach ( $top_posts as $post ) {
-			echo "\t<li>";
+			$output .= "\t<li>";
 
 			// Replace format with data
 			$replace = array(
@@ -253,11 +292,23 @@ class WPPP extends WP_Widget {
 				unset( $temppost );
 			}
 
-			echo wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
+			$output .= wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
-			echo "</li>\n";
+			$output .= "</li>\n";
 		}
-		echo "</{$instance['list_tag']}>\n";
+		$output .= "</{$instance['list_tag']}>\n";
+
+		/* Cache data */
+		$cache = get_option( 'wppp_cache' );
+		if ( ! is_array($cache) ) $cache = array();
+		$cache[$this->id] = array( 'value' => $output, 'time' => time() );
+		if ( $md5 ) {
+			/* If I'm calling this from the function, I must save the checksum
+			 * for the settings, to reset the cache everytime I change the settings. */
+			$cache[$this->id]['settings_checksum'] = $md5;
+		}
+		update_option( 'wppp_cache', $cache );
+		echo $output;
 
 		/* After the widget (as defined by the theme) */
 		echo $after_widget;
@@ -282,6 +333,12 @@ class WPPP extends WP_Widget {
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
+		$instance['enable_cache'] = intval( $new_instance['enable_cache'] );
+		
+		/* Reset cache */
+		$cache = get_option( 'wppp_cache' );
+		unset( $cache[$this->id] );
+		update_option( 'wppp_cache', $cache );
 
 		return $instance;
 	}
@@ -392,6 +449,14 @@ class WPPP extends WP_Widget {
 			echo "<option value='$key'" . selected( $key, $instance['category'] ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
+		
+		$field_id = $this->get_field_id( 'enable_cache' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		echo __( 'Enable cache (improves speed)', 'wordpresscom-popular-posts' );
+		echo ": <input type='checkbox' id='$field_id' name='" .
+			$this->get_field_name( 'enable_cache' ) . "'" .
+			( $instance['enable_cache'] ? " checked='checked'" : '' ) . ' /></label></p>';
+
 	}
 
 	function truncateText( $text, $chars = 50 ) {
