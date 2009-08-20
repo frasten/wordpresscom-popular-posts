@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.1.0
+Version: 2.1.1
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -274,6 +274,10 @@ class WPPP extends WP_Widget {
 				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
 
+			if ( strpos( $instance['format'], '%post_comments%' ) ) {
+				$replace['%post_comments%'] = get_comments_number( $post['post_id'] );
+			}
+
 			// %post_excerpt% stuff
 			if ( strpos( $instance['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
@@ -508,6 +512,7 @@ endif;
  * %post_views% number of views
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * %post_category% the category of the post
+ * %post_comments% the number of comments a post has
  *
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {

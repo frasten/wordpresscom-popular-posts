@@ -81,6 +81,7 @@ You can use these special markers in the `format` value:
 * `%post_views%` number of views
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
 * `%post_category%` the category of the post
+* `%post_comments%` the number of comments a post has
 
 = How can I discover the ID of a post/page? =
 Log into your admin page, go to **Posts** or **Pages**; go with your mouse
@@ -135,6 +136,11 @@ I'll add your translations to the plugin!
 
 
 == Changelog ==
+
+= 2.1.1 =
+* New Feature: added the new %post_comments% tag in the format to show
+  how many comments a post has.
+* Some minor fixes.
 
 = 2.1.0 =
 * New Feature: implemented a cache system. This will improve the speed
