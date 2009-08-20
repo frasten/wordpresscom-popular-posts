@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.0.2
+Version: 2.1.0
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -106,7 +106,7 @@ class WPPP extends WP_Widget {
 		if ( $instance['category'] ) {
 			$howmany *= 3;
 		}
-		
+
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
 		if ( sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
@@ -144,11 +144,11 @@ class WPPP extends WP_Widget {
 		/* END FIX */
 
 		$top_posts = stats_get_csv( 'postviews', "days={$instance['days']}&limit=$howmany" );
-		
+
 		$output = '';
 		/*********************
 		 *      TITLE        *
-		 ********************/ 
+		 ********************/
 		if ( ! empty( $instance['title'] ) ) {
 			/* I'm disabling this because it escapes html code and users want to
 			 * use it. If anybody will need this filter, I'll try to find a solution.
@@ -187,7 +187,7 @@ class WPPP extends WP_Widget {
 			$top_posts = $temp_list;
 		}
 
-		
+
 		/*************************************************************
 		 * Removing non-existing posts and updating data from the DB *
 		 ************************************************************/
@@ -203,7 +203,7 @@ class WPPP extends WP_Widget {
 			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
 				$top_posts[$i]['post_title'] = stripslashes( htmlspecialchars_decode( $top_posts[$i]['post_title'] ) );
 			}
-			
+
 			/* The data from WP-Stats aren't updated, so we must fetch them
 			 * from the DB, overwriting the old values.
 			 * 1) check if that id is still valid (deleted post?)
@@ -223,12 +223,12 @@ class WPPP extends WP_Widget {
 			}
 			$query .= " WHERE p.id IN (" . implode( ',', $id_list ) . ")";
 			$query .= " AND p.post_status != 'draft' AND p.post_status != 'private'";
-			
+
 			// If I want to show only posts or only pages:
 			if ( $instance['show'] != 'both' ) {
 				$query .= " AND p.post_type = '" . ( $instance['show'] == 'pages' ? 'page' : 'post' ) . "'";
 			}
-			
+
 			if ( $filter_category ) {
 				$query .= " AND r.term_taxonomy_id = '{$instance['category']}'";
 			}
@@ -272,7 +272,7 @@ class WPPP extends WP_Widget {
 				$cat = get_the_category( $post['post_id'] );
 				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
-			
+
 			// %post_excerpt% stuff
 			if ( strpos( $instance['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
@@ -334,7 +334,7 @@ class WPPP extends WP_Widget {
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
 		$instance['enable_cache'] = intval( $new_instance['enable_cache'] );
-		
+
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
 		unset( $cache[$this->id] );
@@ -433,14 +433,14 @@ class WPPP extends WP_Widget {
 			echo "<option value='$key'" . selected( $key, $instance['list_tag'] ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
-		
+
 		// Category stuff
 		$field_id = $this->get_field_id( 'category' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Only show posts/pages in this category', 'wordpresscom-popular-posts' );
 		$cat_list = array(0 => __('&lt;All categories&gt;', 'wordpresscom-popular-posts' ) );
 		$categories = get_categories();
-		
+
 		foreach ( $categories as $c ) {
 			$cat_list[$c->term_taxonomy_id] = $c->cat_name;
 		}
@@ -449,7 +449,7 @@ class WPPP extends WP_Widget {
 			echo "<option value='$key'" . selected( $key, $instance['category'] ) . ">$value</option>\n";
 		}
 		echo '</select></label></p>';
-		
+
 		$field_id = $this->get_field_id( 'enable_cache' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		echo __( 'Enable cache (improves speed)', 'wordpresscom-popular-posts' );
@@ -519,7 +519,7 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 
 function wppp_notice_incompatible() {
 	echo "<div class='error'><p>" .
-	sprintf( __( "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress >= 2.8 only.<br />
+	sprintf( __( "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= 2.8 only.<br />
 	Please either <a href='%s'>update</a> your WordPress installation, <a href='%s'>downgrade this plugin</a> to v1.3.5
 	or <a href='%s'>uninstall it</a>.", 'wordpresscom-popular-posts' ),
 	'http://wordpress.org/download/',
@@ -534,10 +534,10 @@ function wppp_check_upgrade() {
 	$wppp_options = get_option( 'widget_wppp' );
 	if ( ! $wppp_options ) return;
 	if ( array_key_exists( '_multiwidget', $wppp_options ) ) return;
-	
+
 	$new_options = array( 2 => $wppp_options, '_multiwidget' => 1 );
 	update_option( 'widget_wppp', $new_options );
-	
+
 	$sb_option = get_option( 'sidebars_widgets' );
 	foreach ( $sb_option as $key => $value ) {
 		if ( 'wp_inactive_widgets' == $key || 'array_version' == $key ) continue;
