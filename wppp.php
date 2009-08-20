@@ -334,7 +334,7 @@ class WPPP extends WP_Widget {
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
-		$instance['enable_cache'] = intval( $new_instance['enable_cache'] );
+		$instance['enable_cache'] = ( $new_instance['enable_cache'] ? 1 : 0 );
 
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
