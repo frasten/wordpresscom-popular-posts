@@ -115,8 +115,7 @@ Now, if you are using WPPP as a widget:
 If you are instead using `WPPP_show_popular_posts()` function for non-widget-ready
 themes:
 
-1. edit your theme files, replacing your old `WPPP_show_popular_posts` with
-   `WPPP_show_popular_posts_debug`.
+1. edit your theme files, replacing your old `WPPP_show_popular_posts` with `WPPP_show_popular_posts_debug` .
 1. you'll see the debug text in place of your usual top-posts list.
 1. Copy & mail it to: frasten AATT gmail DOOTT com
 
