@@ -1,13 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# This file is put in the public domain.
+# Copyright (C) YEAR Frasten
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2009-08-20 14:33+0200\n"
+"Project-Id-Version: WordPress.com Popular Posts 2.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
+"POT-Creation-Date: 2009-08-20 15:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,4 +115,26 @@ msgid ""
 "\tPlease either <a href='%s'>update</a> your WordPress installation, <a "
 "href='%s'>downgrade this plugin</a> to v1.3.5\n"
 "\tor <a href='%s'>uninstall it</a>."
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "WordPress.com Popular Posts"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
+msgstr ""
+
+#. Description of an extension
+msgid ""
+"Shows the most popular posts, using data collected by <a href='http://"
+"wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin."
+msgstr ""
+
+#. Author of an extension
+msgid "Frasten"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://polpoinodroidi.com"
 msgstr ""

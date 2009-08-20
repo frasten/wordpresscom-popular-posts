@@ -2,9 +2,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpresscom-popular-posts\n"
-"POT-Creation-Date: 2009-08-20 14:33+0200\n"
-"PO-Revision-Date: 2009-08-20 14:32+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
+"POT-Creation-Date: 2009-08-20 15:51+0200\n"
+"PO-Revision-Date: 2009-08-20 15:51+0100\n"
 "Last-Translator: Frasten <frasten@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,31 @@ msgstr ""
 "\t<a href='%s'>Aggiorna</a> la tua installazione di WordPress, <a href='%"
 "s'>riporta questo plugin</a> alla v1.3.5\n"
 "\toppure <a href='%s'>disinstallalo</a>."
+
+#. Plugin Name of an extension
+msgid "WordPress.com Popular Posts"
+msgstr "WordPress.com Popular Posts"
+
+#. Plugin URI of an extension
+msgid "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
+msgstr ""
+"http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
+
+#. Description of an extension
+msgid ""
+"Shows the most popular posts, using data collected by <a href='http://"
+"wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin."
+msgstr ""
+"Mostra gli articoli più letti, utilizzando i dati raccolti dal plugin <a "
+"href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a>."
+
+#. Author of an extension
+msgid "Frasten"
+msgstr "Frasten"
+
+#. Author URI of an extension
+msgid "http://polpoinodroidi.com"
+msgstr "http://polpoinodroidi.com"
 
 #~ msgid ""
 #~ "The length (in days) of the desired time frame.<br />0 means unlimited"
