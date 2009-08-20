@@ -90,7 +90,7 @@ Then **14** is the number you are looking for.
 
 = How can I enable the caching system when using WPPP_show_popular_posts()? =
 
-When you're using WPPP_show_popular_posts(), the caching system is not
+When you're using `WPPP_show_popular_posts()`, the caching system is not
 enabled.
 However you can easily enable it adding a `cachename` parameter to your
 settings string. You will have something like this:
