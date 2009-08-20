@@ -124,6 +124,17 @@ themes:
 original version of wppp.php.
 
 
+= I want to translate the plugin in my language! =
+
+Make a copy of the file `language/wordpresscom-popular-posts.pot` of the
+plugin, edit it adding your translations, and then send it to:
+frasten AATT gmail DOOTT com.
+
+You can take a look to the it_IT translation file if you want.
+
+I'll add your translations to the plugin!
+
+
 == Changelog ==
 
 = 2.1.0 =
