@@ -164,3 +164,67 @@ original version of wppp.php.
 = 1.3.4 =
 * Hopefully fixed a problem on some blogs, when displaying only posts or
   only pages.
+
+= 1.3.3 =
+* Updated compatibility with WP 2.6
+
+= 1.3.2 =
+* New option: now you can limit the length of the links.
+
+= 1.3.1 =
+* Fixed an incompatibily with PHP < 5.0.
+
+= 1.3 =
+* Now the titles & permalinks are taken from the database, so they should
+  be updated.
+* Arabic/Greek etc. language issues should be fixed now.
+
+= 1.2 =
+* New feature: Added multilanguage support.
+* Added italian language
+* New feature: now you can show the first *n* characters of the content
+  of each post, through the %post_excerpt% parameter. Just add it to your
+  format.
+
+= 1.1.2 =
+* Added a fix for a bug in WordPress Stats.
+
+= 1.1.1 =
+* Fixed some unclosed tags, which caused issues in IE7 configuration of
+  the widget.
+* Removed (actually it's only skipped, not fixed yet) a nasty MySQL error
+  if there aren't any "top posts".
+
+= 1.1 =
+* New feature: now you can choose to show only posts, only pages, or both (default).
+
+= 1.0.1 =
+* Added CSS class "wppp_list", so that you can now customize the styling in your stylesheet.
+
+= 1.0 =
+* New feature: now you can customize the format of the links (see FAQ)
+* New Feature: it's now possible to show the number of views of the post (see FAQ)
+* Fix: fixed utf-8 encoding issue with WP >= 2.5
+* Fix: now the widget should better integrate with your theme
+* Change: **Note**: the way to call WPPP_show_popular_posts() to integrate
+  the plugin in non-widget-ready themes has changed. See FAQ.
+
+= 0.4.0 =
+* Added arguments to the function WPPP_show_popular_posts(). Now you can
+  customize several parameters even if your theme doesn't support widgets.
+
+= 0.3.0 =
+* New feature: now you can set the length (in days) of the desired time frame.
+* Fixed a bug with titles containing foreign characters.
+
+= 0.2.2 =
+* Added support for non-widgets-ready themes.
+
+= 0.2.1 =
+* Fixed a bug with quotes.
+
+= 0.2.0 =
+* Added widget configuration.
+
+= 0.1.0 =
+* First working release with the widget.
