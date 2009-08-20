@@ -2,7 +2,7 @@
 Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
-Requires at least: 2.8
+Requires at least: 2.8.0
 Tested up to: 2.8.4
 Stable tag: 2.0.2
 
@@ -62,6 +62,7 @@ Possible names are:
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
 * `list_tag` (can be: ul, ol, default ul)
 * `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
+* `cachename` it is used to enable the cache. Please see the FAQ below.
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
@@ -87,8 +88,50 @@ on your post's title, and in your status bar you should see something like
 this: http://YOURSITE.com/wp-admin/post.php?action=edit&post=14
 Then **14** is the number you are looking for.
 
+= How can I enable the caching system when using WPPP_show_popular_posts()? =
+
+When you're using WPPP_show_popular_posts(), the caching system is not
+enabled.
+However you can easily enable it adding a `cachename` parameter to your
+settings string. You will have something like this:
+
+ `<?php WPPP_show_popular_posts( "title=&number=3&cachename=topposts1" );?>`
+
+where *topposts1* is a name you must choose for your list. This allows you
+to have different lists with different caches.
+
+
+= I have some other issues. How can I get a debug log? =
+
+1. Download [this zip file](http://polpoinodroidi.com/download/plugins/wppp_debug.zip)
+1. extract it and overwrite the current `/wp-content/plugins/wordpresscom-popular-posts/wppp.php` file
+
+Now, if you are using WPPP as a widget:
+
+1. Log in to your admin page.
+1. Go to Settings -> Popular Posts *DEBUG*
+1. you’ll see a long text. Copy & mail it to: frasten AATT gmail DOOTT com
+
+If you are instead using WPPP_show_popular_posts() function for non-widget-ready
+themes:
+1. edit your theme files, replacing your old `WPPP_show_popular_posts` with
+`WPPP_show_popular_posts_debug`.
+1. you'll see the debug text in place of your usual top-posts list.
+1. Copy & mail it to: frasten AATT gmail DOOTT com
+
+**IMPORTANT**: Then, for both cases (widget and function) reinstall the
+original version of wppp.php.
+
 
 == Changelog ==
+
+= 2.1.0 =
+* New Feature: implemented a cache system. This will improve the speed
+  of the plugin. If you are using the function WPPP_show_popular_posts()
+  for non-widget-ready themes, please read the FAQ.
+* Fixed an issue with %post_category%. Thanks to Isaac | GoBlogger.
+* Better compatibility with plugins like qTranslate. Thanks to Blutarsky
+  for this.
 
 = 2.0.2 =
 * Regression: you couldn't set an empty title anymore.
