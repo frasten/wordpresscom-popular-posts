@@ -520,8 +520,8 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 
 
 function wppp_notice_incompatible() {
-	echo "<div class='error'><p>" .
-	sprintf( __( "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= 2.8 only.<br />
+	echo "<div class='error'><p>";
+	printf( __( "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= 2.8 only.<br />
 	Please either <a href='%s'>update</a> your WordPress installation, <a href='%s'>downgrade this plugin</a> to v1.3.5
 	or <a href='%s'>uninstall it</a>.", 'wordpresscom-popular-posts' ),
 	'http://wordpress.org/download/',
