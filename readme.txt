@@ -112,8 +112,9 @@ Now, if you are using WPPP as a widget:
 1. Go to Settings -> Popular Posts *DEBUG*
 1. you’ll see a long text. Copy & mail it to: frasten AATT gmail DOOTT com
 
-If you are instead using WPPP_show_popular_posts() function for non-widget-ready
+If you are instead using `WPPP_show_popular_posts()` function for non-widget-ready
 themes:
+
 1. edit your theme files, replacing your old `WPPP_show_popular_posts` with
 `WPPP_show_popular_posts_debug`.
 1. you'll see the debug text in place of your usual top-posts list.
