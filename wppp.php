@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 1.3.5
+Version: 1.3.6
 Author: Frasten
 Author URI: http://polpoinodroidi.com
 */
@@ -18,12 +18,15 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 	                     ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 	                     ,'excerpt_length' => '100'
 	                     ,'title_length' => '0'
+	                     ,'enable_cache' => '1'
 	);
+
+$wppp_cache_expire = 600;
 
 class WPPP {
 	
 	function generate_widget() {
-		global $WPPP_defaults, $wpdb;
+		global $WPPP_defaults, $wpdb, $wppp_cache_expire;
 		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
 			return;
 		
@@ -46,6 +49,36 @@ class WPPP {
 			$opzioni['title'] = $opzioni['before_title'] . $opzioni['title'] . $opzioni['after_title'];
 		}
 		
+				/* CACHE SYSTEM */
+		if ( ! isset( $opzioni['enable_cache'] ) || $opzioni['enable_cache'] ) {
+			$cache = get_option( 'wppp_cache' );
+			if ( $cache && is_array( $cache ) ) {
+				$widget_cache = $cache['wppp'];
+
+				/* Check if it is valid or not */
+				if ( isset( $widget_cache['time'] ) &&
+					$widget_cache['time'] > ( time() - $wppp_cache_expire ) ) {
+
+					/* If it's called from the function, let's make some check to
+					 * see if the options have changed. */
+					$valid = true;
+					if ( $args ) {
+						$settings_string = implode( '|', $args );
+						$md5 = md5( $settings_string );
+						if ( $md5 != $widget_cache['settings_checksum'] )
+							$valid = false;
+					}
+					if ( $valid ) {
+						echo $widget_cache['value'];
+						return;
+					}
+					unset( $valid );
+				}
+				unset( $widget_cache );
+			}
+			unset( $cache );
+		}
+		/* END CACHE SYSTEM */
 		
 		// Check against malformed values
 		$opzioni['days'] = intval( $opzioni['days'] );
@@ -92,8 +125,9 @@ class WPPP {
 		/* END FIX */
 
 		$top_posts = stats_get_csv( 'postviews', "days={$opzioni['days']}&limit=$howmany" );
-		echo $opzioni['title'] . "\n";
-		echo "<ul class='wppp_list'>\n";
+		$output = '';
+		$output = $opzioni['title'] . "\n";
+		$output .= "<ul class='wppp_list'>\n";
 		
 		if ( $opzioni['show'] != 'both') {
 			// I want to show only posts or only pages
@@ -158,7 +192,7 @@ class WPPP {
 		} // end if I have top-posts
 		
 		foreach ( $top_posts as $post ) {
-			echo "\t<li>";
+			$output .= "\t<li>";
 			
 			// Replace format with data
 			$replace = array(
@@ -185,11 +219,23 @@ class WPPP {
 				unset( $temppost );
 			}
 			
-			echo strtr( $opzioni['format'], $replace );
+			$output .= strtr( $opzioni['format'], $replace );
 			
-			echo "</li>\n";
+			$output .= "</li>\n";
 		}
-		echo "</ul>\n";
+		$output .= "</ul>\n";
+		
+		/* Cache data */
+		$cache = get_option( 'wppp_cache' );
+		if ( ! is_array($cache) ) $cache = array();
+		$cache['wppp'] = array( 'value' => $output, 'time' => time() );
+		if ( $md5 ) {
+			/* If I'm calling this from the function, I must save the checksum
+			 * for the settings, to reset the cache everytime I change the settings. */
+			$cache['wppp']['settings_checksum'] = $md5;
+		}
+		update_option( 'wppp_cache', $cache );
+		echo $output;
 	}
 	
 	function init() {
@@ -217,6 +263,7 @@ class WPPP {
 		$opzioni['format'] = $opzioni['format'] !== NULL ? $opzioni['format'] : $WPPP_defaults['format'];
 		$opzioni['excerpt_length'] = $opzioni['excerpt_length'] !== NULL ? $opzioni['excerpt_length'] : $WPPP_defaults['excerpt_length'];
 		$opzioni['title_length'] = $opzioni['title_length'] !== NULL ? $opzioni['title_length'] : $WPPP_defaults['title_length'];
+		$opzioni['enable_cache'] = $opzioni['enable_cache'] !== NULL ? $opzioni['enable_cache'] : $WPPP_defaults['enable_cache'];
 		return $opzioni;
 	}
 	
@@ -249,7 +296,16 @@ class WPPP {
 		if ( isset( $_POST['wppp-title-length'] ) ) {
 			$opzioni['title_length'] = intval( $_POST['wppp-title-length'] );
 		}
+		if ( isset( $_POST['wppp-enable-cache'] ) ) {
+			$opzioni['enable_cache'] = 1;
+		}
+		else $opzioni['enable_cache'] = 0;
+		
 		update_option( 'widget_wppp', $opzioni );
+		/* Reset cache */
+		$cache = get_option( 'wppp_cache' );
+		unset( $cache['wppp'] );
+		update_option( 'wppp_cache', $cache );
 		
 		
 		// WP < 2.5 needed this
@@ -304,6 +360,11 @@ class WPPP {
 		echo '<p style="text-align:right;"><label for="wppp-title-length">';
 		echo __( 'Max length of the title links.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 100px;" id="wppp-title-length" name="wppp-title-length" type="text" value="' . intval( $opzioni['title_length'] ) . '" />' . __(' characters') . '</label></p>';
+		
+		echo '<p style="text-align:right;"><label for="wppp-enable-cache">';
+		echo __( 'Enable cache (improves speed)', 'wordpresscom-popular-posts' );
+		echo ': <input id="wppp-enable-cache" name="wppp-enable-cache" type="checkbox"' .
+		( $opzioni['enable_cache'] ? " checked='checked'" : '' ) . ' /></label></p>';
 	}
 	
 	function truncateText( $text, $chars = 50 ) {
