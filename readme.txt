@@ -144,7 +144,7 @@ I'll add your translations to the plugin!
 
 = 2.1.0 =
 * New Feature: implemented a cache system. This will improve the speed
-  of the plugin. If you are using the function WPPP_show_popular_posts()
+  of the plugin. If you are using the function `WPPP_show_popular_posts()`
   for non-widget-ready themes, please read the FAQ.
 * Fixed an issue with %post_category%. Thanks to Isaac | GoBlogger.
 * Better compatibility with plugins like qTranslate. Thanks to Blutarsky
@@ -167,8 +167,8 @@ I'll add your translations to the plugin!
   settings!
 * New feature: now you can exclude specific posts/pages by IDs.
 * New feature: don't show posts with a view count under x
-* New feature: now you can choose between unordered (<ul>) or ordered
-  (<ol>) list.
+* New feature: now you can choose between unordered (ul tag) or ordered
+  (ol tag) list.
 * Fix: now private posts are excluded from the list.
 * Fix: now deleted posts shouldn't appear anymore.
 * Fix: W3C Validation fix, thanks to Jonathan M. Hollin
