@@ -38,6 +38,13 @@ Wordpress.com Popular Posts can be installed easily:
 Check whether the Wordpress.com Stats plugin is installed and active.
 You must have at least version 1.2 of WP Stats.
 
+
+= I'd like to display the most popular posts per category. =
+
+Add some WPPP widgets, and then choose a different category in each one's
+options.
+
+
 = How can I integrate this plugin in my non-widget-ready theme? =
 If your theme supports widgets, you can place the widget named 'Popular Posts' where you want.
 
