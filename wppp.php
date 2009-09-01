@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.1.1
+Version: 2.2.0
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -29,6 +29,7 @@ class WPPP extends WP_Widget {
 													 ,'list_tag' => 'ul'
 													 ,'category' => '0'
 													 ,'enable_cache' => '1'
+													 ,'cache_only_when_visitor' => '0'
 		);
 
 
@@ -63,26 +64,34 @@ class WPPP extends WP_Widget {
 			$cache = get_option( 'wppp_cache' );
 			if ( $cache && is_array( $cache ) ) {
 				$widget_cache = $cache[$this->id];
-				/* Check if it is valid or not */
-				if ( isset( $widget_cache['time'] ) &&
-					$widget_cache['time'] > ( time() - $this->cache_expire ) ) {
 
-					/* If it's called from the function, let's make some check to
-					 * see if the options have changed. */
-					$valid = true;
-					if ( $instance['cachename'] ) {
-						$settings_string = implode( '|', $instance );
-						$md5 = md5( $settings_string );
-						if ( $md5 != $widget_cache['settings_checksum'] )
-							$valid = false;
-					}
-					if ( $valid ) {
-						echo $widget_cache['value'];
-						echo $after_widget;
-						return;
-					}
-					unset( $valid );
-				}
+				/* Don't serve a cached version (forcing refresh) when the user
+				 * is logged in (if set in the preferences) */
+				if ( ! $instance['cache_only_when_visitor'] || ! is_user_logged_in() ) {
+
+					/* Check if it is valid or not */
+					if ( isset( $widget_cache['time'] ) &&
+						$widget_cache['time'] > ( time() - $this->cache_expire ) ) {
+
+						/* If it's called from the function, let's make some check to
+						 * see if the options have changed. */
+						$valid = true;
+						if ( $instance['cachename'] ) {
+							$settings_string = implode( '|', $instance );
+							$md5 = md5( $settings_string );
+							if ( $md5 != $widget_cache['settings_checksum'] )
+								$valid = false;
+						}
+						if ( $valid ) {
+							/* Print out the data from the cache. */
+							echo $widget_cache['value'];
+							echo $after_widget;
+							return;
+						}
+						unset( $valid );
+					} /* end cache's validity check */
+				} /* end check if cache_only_when_visitor */
+
 				unset( $widget_cache );
 			}
 			unset( $cache );
@@ -198,7 +207,6 @@ class WPPP extends WP_Widget {
 		}
 
 		// If no top-posts, just do nothing gracefully
-		// TODO: implement a cache for this data
 		if ( sizeof( $id_list ) ) {
 			// Must unescape the CSV data, to avoid issues with truncate functions
 			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
@@ -339,6 +347,7 @@ class WPPP extends WP_Widget {
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
 		$instance['enable_cache'] = ( $new_instance['enable_cache'] ? 1 : 0 );
+		$instance['cache_only_when_visitor'] = ( $new_instance['cache_only_when_visitor'] ? 1 : 0 );
 
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
@@ -455,12 +464,39 @@ class WPPP extends WP_Widget {
 		}
 		echo '</select></label></p>';
 
-		$field_id = $this->get_field_id( 'enable_cache' );
+		$field_cache = $field_id = $this->get_field_id( 'enable_cache' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
 		_e( 'Enable cache (improves speed)', 'wordpresscom-popular-posts' );
 		echo ": <input type='checkbox' id='$field_id' name='" .
 			$this->get_field_name( 'enable_cache' ) . "'" .
 			( $instance['enable_cache'] ? " checked='checked'" : '' ) . ' /></label></p>';
+
+		/* This option is enabled only when enable_cache is on. */
+		$field_id = $this->get_field_id( 'cache_only_when_visitor' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		_e( 'Only show a cached version to the not logged in users', 'wordpresscom-popular-posts' );
+		echo ": <input type='checkbox' id='$field_id' name='" .
+			$this->get_field_name( 'cache_only_when_visitor' ) . "'" .
+			( $instance['cache_only_when_visitor'] ? " checked='checked'" : '' ) .
+			( $instance['enable_cache'] ? '' : " disabled='disabled'" ) . ' /></label></p>';
+
+		/* JavaScript for cache_only_when_visitor */
+		echo <<<EOF
+<script type='text/javascript'>
+//<![CDATA[
+jQuery(document).ready( function($) {
+	$('#$field_cache').click(function() {
+		var checkbox = $('#$field_id');
+		if (checkbox.attr("disabled"))
+			checkbox.removeAttr("disabled");
+		else
+			checkbox.attr("disabled", "disabled");
+	});
+});
+//]]>
+</script>
+EOF;
+
 
 	}
 
@@ -496,6 +532,7 @@ endif;
  * - list_tag (can be: ul, ol, default ul)
  * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
  * - cachename (it is used to enable the cache. Please see the FAQ)
+ * - cache_only_when_visitor (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
  *
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)

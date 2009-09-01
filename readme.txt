@@ -63,6 +63,7 @@ Possible names are:
 * `list_tag` (can be: ul, ol, default ul)
 * `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
 * `cachename` it is used to enable the cache. Please see the FAQ below.
+* `cache_only_when_visitor` (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
@@ -137,9 +138,11 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
-= 2.1.1 =
+= 2.2.0 =
 * New Feature: added the new %post_comments% tag in the format to show
   how many comments a post has.
+* New Feature: now you can choose to show the cached version only to the
+  anonymous (not logged in) users.
 * Some minor fixes.
 
 = 2.1.0 =
