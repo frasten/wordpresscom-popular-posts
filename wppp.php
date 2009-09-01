@@ -282,6 +282,7 @@ class WPPP extends WP_Widget {
 				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
 
+			// %post_comments% stuff
 			if ( strpos( $instance['format'], '%post_comments%' ) ) {
 				$replace['%post_comments%'] = get_comments_number( $post['post_id'] );
 			}
