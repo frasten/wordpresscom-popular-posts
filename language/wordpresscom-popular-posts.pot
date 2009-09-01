@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress.com Popular Posts 2.1.0\n"
+"Project-Id-Version: WordPress.com Popular Posts 2.2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2009-08-20 15:57+0200\n"
+"POT-Creation-Date: 2009-09-01 15:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,98 +16,102 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.php:20 wppp.php:38
+#: wppp.php:21 wppp.php:40
 msgid "Popular Posts"
 msgstr ""
 
-#: wppp.php:35
+#: wppp.php:37
 msgid "A list of your most popular posts"
 msgstr ""
 
-#: wppp.php:352
+#: wppp.php:366
 msgid "Title"
 msgstr ""
 
-#: wppp.php:359
+#: wppp.php:373
 msgid "Number of links shown"
 msgstr ""
 
-#: wppp.php:366
+#: wppp.php:380
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:373
+#: wppp.php:387
 msgid "Show: "
 msgstr ""
 
-#: wppp.php:375
+#: wppp.php:389
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.php:376
+#: wppp.php:390
 msgid "only posts"
 msgstr ""
 
-#: wppp.php:377
+#: wppp.php:391
 msgid "only pages"
 msgstr ""
 
-#: wppp.php:389
+#: wppp.php:403
 msgid ""
 "Format of the links. See <a href=\"http://polpoinodroidi.com/wordpress-"
 "plugins/wordpresscom-popular-posts/\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:396
+#: wppp.php:410
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.php:399 wppp.php:406
+#: wppp.php:413 wppp.php:420
 msgid " characters"
 msgstr ""
 
-#: wppp.php:403
+#: wppp.php:417
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:410
+#: wppp.php:424
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:417
+#: wppp.php:431
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 
-#: wppp.php:420
+#: wppp.php:434
 msgid "(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:424
+#: wppp.php:438
 msgid "Kind of list"
 msgstr ""
 
-#: wppp.php:426
+#: wppp.php:440
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr ""
 
-#: wppp.php:427
+#: wppp.php:441
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr ""
 
-#: wppp.php:440
+#: wppp.php:454
 msgid "Only show posts/pages in this category"
 msgstr ""
 
-#: wppp.php:441
+#: wppp.php:455
 msgid "&lt;All categories&gt;"
 msgstr ""
 
-#: wppp.php:455
+#: wppp.php:469
 msgid "Enable cache (improves speed)"
 msgstr ""
 
-#: wppp.php:523
+#: wppp.php:477
+msgid "Only show a cached version to the not logged in users"
+msgstr ""
+
+#: wppp.php:566
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
