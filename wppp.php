@@ -24,31 +24,31 @@ $WPPP_defaults = array('title'   => __( 'Popular Posts', 'wordpresscom-popular-p
 $wppp_cache_expire = 600;
 
 class WPPP {
-	
+
 	function generate_widget() {
 		global $WPPP_defaults, $wpdb, $wppp_cache_expire;
 		if ( false && !function_exists( 'stats_get_options' ) || !function_exists( 'stats_get_csv' ) )
 			return;
-		
+
 		$opzioni = WPPP::get_impostazioni();
-		
+
 		$args = func_get_args();
 		if ( isset( $args[0] ) ) {
 			$args = $args[0];
 			// Called with arguments
 			if ( !is_array( $args ) )
 				$args = wp_parse_args( $args );
-			
+
 			foreach ( $args as $key => $value ) {
 				$opzioni[$key] = $value;
 			}
 		}
-			
+
 		// Tags before and after the title (as called by WordPress)
 		if ( $opzioni['before_title'] || $opzioni['after_title'] ) {
 			$opzioni['title'] = $opzioni['before_title'] . $opzioni['title'] . $opzioni['after_title'];
 		}
-		
+
 				/* CACHE SYSTEM */
 		if ( ! isset( $opzioni['enable_cache'] ) || $opzioni['enable_cache'] ) {
 			$cache = get_option( 'wppp_cache' );
@@ -59,7 +59,7 @@ class WPPP {
 				if ( isset( $widget_cache['time'] ) &&
 					$widget_cache['time'] > ( time() - $wppp_cache_expire ) ) {
 
-					/* If it's called from the function, let's make some check to
+					/* If it's called from the function, let's make some checks to
 					 * see if the options have changed. */
 					$valid = true;
 					if ( $args ) {
@@ -69,6 +69,7 @@ class WPPP {
 							$valid = false;
 					}
 					if ( $valid ) {
+						/* Print out the data from the cache. */
 						echo $widget_cache['value'];
 						return;
 					}
@@ -79,26 +80,26 @@ class WPPP {
 			unset( $cache );
 		}
 		/* END CACHE SYSTEM */
-		
+
 		// Check against malformed values
 		$opzioni['days'] = intval( $opzioni['days'] );
 		$opzioni['number'] = intval( $opzioni['number'] );
-		
+
 		if ( $opzioni['days'] <= 0 )
 			$opzioni['days'] = '-1';
-		
+
 		// A little hackish, but "could" work!
 		$howmany = $opzioni['number'];
 		if ( $opzioni['show'] == 'posts' )
 			$howmany *= 2;
 		else if ( $opzioni['show'] == 'pages' )
 			$howmany *= 4; // pages are usually less, let's try more!
-		
-		
+
+
 		/* TEMPORARY FIX FOR WP_STATS PLUGIN */
 		$reset_cache = false;
 		$stats_cache = get_option( 'stats_cache' );
-		
+
 		if ( !$stats_cache || !is_array( $stats_cache ) ) {
 			$reset_cache = true;
 		}
@@ -118,7 +119,7 @@ class WPPP {
 				break;
 			}
 		}
-		
+
 		if ($reset_cache) {
 			update_option( 'stats_cache', "");
 		}
@@ -128,7 +129,7 @@ class WPPP {
 		$output = '';
 		$output = $opzioni['title'] . "\n";
 		$output .= "<ul class='wppp_list'>\n";
-		
+
 		if ( $opzioni['show'] != 'both') {
 			// I want to show only posts or only pages
 			$id_list = array();
@@ -149,7 +150,7 @@ class WPPP {
 				foreach ( $results as $valid ) {
 					$valid_list[] = $valid->id;
 				}
-				
+
 				$temp_list = array();
 				foreach ( $top_posts as $p ) {
 					if ( in_array( $p['post_id'], $valid_list ) )
@@ -161,7 +162,7 @@ class WPPP {
 				unset($temp_list);
 			} // end if (I have posts)
 		} // end if (I chose to show only posts or only pages)
-		
+
 		/* The data from WP-Stats aren't updated, so we must fetch them from the DB */
 		// TODO: implement a cache for this data
 		if ( sizeof( $top_posts ) ) {
@@ -172,7 +173,7 @@ class WPPP {
 				if ($p['post_id'])
 					$id_list[] = $p['post_id'];
 			}
-			
+
 			// Could it be slow?
 			// I fetch the updated data from the DB, and overwrite the old values
 			$results = $wpdb->get_results("
@@ -190,10 +191,10 @@ class WPPP {
 				}
 			}
 		} // end if I have top-posts
-		
+
 		foreach ( $top_posts as $post ) {
 			$output .= "\t<li>";
-			
+
 			// Replace format with data
 			$replace = array(
 				'%post_permalink%'       => get_permalink( $post['post_id'] ),
@@ -201,12 +202,12 @@ class WPPP {
 				'%post_title_attribute%' => htmlspecialchars( $post['post_title'], ENT_QUOTES ),
 				'%post_views%'           => number_format_i18n( $post['views'] )
 			);
-			
+
 			// %post_excerpt% stuff
 			if ( strpos( $opzioni['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
-				
+
 				if ( /* FIXME: will this ever be !empty? */ false && !empty( $temppost->post_excerpt ) ) {
 					$replace['%post_excerpt%'] = $temppost->post_excerpt;
 				}
@@ -218,13 +219,13 @@ class WPPP {
 				}
 				unset( $temppost );
 			}
-			
+
 			$output .= strtr( $opzioni['format'], $replace );
-			
+
 			$output .= "</li>\n";
 		}
 		$output .= "</ul>\n";
-		
+
 		/* Cache data */
 		$cache = get_option( 'wppp_cache' );
 		if ( ! is_array($cache) ) $cache = array();
@@ -237,11 +238,11 @@ class WPPP {
 		update_option( 'wppp_cache', $cache );
 		echo $output;
 	}
-	
+
 	function init() {
 		if ( !function_exists( 'register_sidebar_widget' ) || !function_exists( 'register_widget_control' ) )
 			return;
-		
+
 		function WPPP_print_widget( $args ) {
 			extract( $args );
 			echo $before_widget;
@@ -251,7 +252,7 @@ class WPPP {
 		register_sidebar_widget( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), 'WPPP_print_widget' );
 		register_widget_control( array( __( 'Popular Posts', 'wordpresscom-popular-posts' ), 'widgets' ), array( 'WPPP', 'impostazioni_widget' ), 350, 20 );
 	}
-	
+
 	function get_impostazioni() {
 		global $WPPP_defaults;
 		$opzioni = get_option( 'widget_wppp' );
@@ -266,13 +267,13 @@ class WPPP {
 		$opzioni['enable_cache'] = $opzioni['enable_cache'] !== NULL ? $opzioni['enable_cache'] : $WPPP_defaults['enable_cache'];
 		return $opzioni;
 	}
-	
+
 	function impostazioni_widget() {
 		global $WPPP_defaults;
 
 		$opzioni = WPPP::get_impostazioni();
-		
-		
+
+
 		if ( isset( $_POST['wppp-titolo'] ) ) {
 			$opzioni['title'] = strip_tags( stripslashes( $_POST['wppp-titolo'] ) );
 		}
@@ -300,14 +301,14 @@ class WPPP {
 			$opzioni['enable_cache'] = 1;
 		}
 		else $opzioni['enable_cache'] = 0;
-		
+
 		update_option( 'widget_wppp', $opzioni );
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
 		unset( $cache['wppp'] );
 		update_option( 'wppp_cache', $cache );
-		
-		
+
+
 		// WP < 2.5 needed this
 		global $wp_db_version;
 		if ( $wp_db_version > 6124 )
@@ -319,22 +320,22 @@ class WPPP {
 		if ( version_compare( $wpver, '2.5', '<' ) ) {
 			$opzioni['title'] = utf8_decode( $opzioni['title'] );
 		}
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-titolo">';
 		echo __( 'Title', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-titolo" name="wppp-titolo" type="text" value="' . htmlspecialchars( $opzioni['title'], ENT_QUOTES ) . '" /></label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-numero-posts">';
 		echo __( 'Number of links shown', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-numero-posts" name="wppp-numero-posts" type="text" value="' . $opzioni['number'] . '" /></label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-days">';
 		echo __( 'The length (in days) of the desired time frame.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 180px;" id="wppp-days" name="wppp-days" type="text" value="' . $opzioni['days'] . '" /></label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-show">';
 		echo __( 'Show: ', 'wordpresscom-popular-posts' );
-		
+
 		$opt = array(
 			'both'  => __( 'posts and pages', 'wordpresscom-popular-posts' ),
 			'posts' => __( 'only posts', 'wordpresscom-popular-posts' ),
@@ -348,25 +349,25 @@ class WPPP {
 			echo "<option value='$key'$sel>$value</option>\n";
 		}
 		echo '</select></label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-format">';
 		echo __( 'Format of the links. See <a href="http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 300px;" id="wppp-format" name="wppp-format" type="text" value="' . htmlspecialchars( $opzioni['format'], ENT_QUOTES ) . '" /></label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-excerpt-length">';
 		echo __( 'Length of the excerpt (if %post_excerpt% is used in the format above)', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 100px;" id="wppp-excerpt-length" name="wppp-excerpt-length" type="text" value="' . intval( $opzioni['excerpt_length'] ) . '" />' . __(' characters') . '</label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-title-length">';
 		echo __( 'Max length of the title links.<br />0 means unlimited', 'wordpresscom-popular-posts' );
 		echo ': <input style="width: 100px;" id="wppp-title-length" name="wppp-title-length" type="text" value="' . intval( $opzioni['title_length'] ) . '" />' . __(' characters') . '</label></p>';
-		
+
 		echo '<p style="text-align:right;"><label for="wppp-enable-cache">';
 		echo __( 'Enable cache (improves speed)', 'wordpresscom-popular-posts' );
 		echo ': <input id="wppp-enable-cache" name="wppp-enable-cache" type="checkbox"' .
 		( $opzioni['enable_cache'] ? " checked='checked'" : '' ) . ' /></label></p>';
 	}
-	
+
 	function truncateText( $text, $chars = 50 ) {
 		if ( strlen($text) <= $chars || $chars <= 0 )
 			return $text;
@@ -378,13 +379,13 @@ class WPPP {
 
 /* You can call this function if you want to integrate the plugin in a theme
  * that doesn't support widgets.
- * 
- * Just insert this code: 
+ *
+ * Just insert this code:
  * <?php if ( function_exists( 'WPPP_show_popular_posts' ) ) WPPP_show_popular_posts();?>
- * 
+ *
  * Optionally you can add some parameters to the function, in this format:
  * name=value&name=value etc.
- * 
+ *
  * Possible names are:
  * - title (title of the widget, you can add tags (e.g. <h3>Popular Posts</h3>) default: Popular Posts)
  * - number (number of links shown, default: 5)
@@ -393,22 +394,22 @@ class WPPP {
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
- * 
+ *
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
  * you will use this:
  * WPPP_show_popular_posts( "title=&number=3&days=7&format=<a href='%post_permalink%' title='%post_title_attribute%'>%post_title% (%post_views% views)</a>" );
- * 
+ *
  * You don't have to fill every field, you can insert only the values you
  * want to change from default values.
- * 
+ *
  * You can use these special markers in the `format` value:
  * %post_permalink% the link to the post
  * %post_title% the title the post
  * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
- * 
+ *
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {
 	global $WPPP_defaults;
@@ -416,8 +417,8 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 	// remove slashes in format
 	if ( isset( $args['format'] ) ) {
 		$args['format'] = stripslashes( $args['format'] );
-	}	
-	
+	}
+
 	WPPP::generate_widget( $args );
 }
 
