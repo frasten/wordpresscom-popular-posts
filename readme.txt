@@ -63,6 +63,7 @@ Possible names are:
 * `days` (length of the time frame of the stats, default 0, i.e. infinite)
 * `show` (can be: both, posts, pages; default both)
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
+* `time_format` (the format used with %post_time%, see [Formatting Date and Time](http://codex.wordpress.org/Formatting_Date_and_Time) )
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
@@ -90,6 +91,7 @@ You can use these special markers in the `format` value:
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
 * `%post_category%` the category of the post
 * `%post_comments%` the number of comments a post has
+* `%post_time%` the date/time of the post. You can set the format with *time_format*.
 
 = How can I discover the ID of a post/page? =
 Log into your admin page, go to **Posts** or **Pages**; go with your mouse

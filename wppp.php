@@ -30,6 +30,7 @@ class WPPP extends WP_Widget {
 													 ,'category' => '0'
 													 ,'enable_cache' => '1'
 													 ,'cache_only_when_visitor' => '0'
+													 ,'time_format' => ''
 		);
 
 
@@ -324,6 +325,13 @@ class WPPP extends WP_Widget {
 				unset( $temppost );
 			}
 
+			// %post_time% stuff
+			if ( strpos( $instance['format'], '%post_time%' ) ) {
+				/* If the first format of get_the_time is not set, it will use
+				 * the default DATE format. */
+				$replace['%post_time%'] = get_the_time( $instance['time_format'], $post['post_id'] );
+			}
+
 			$output .= wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
 			$output .= "</li>\n";
@@ -367,6 +375,7 @@ class WPPP extends WP_Widget {
 		$instance['category'] = intval( $new_instance['category'] );
 		$instance['enable_cache'] = ( $new_instance['enable_cache'] ? 1 : 0 );
 		$instance['cache_only_when_visitor'] = ( $new_instance['cache_only_when_visitor'] ? 1 : 0 );
+		$instance['time_format'] = $new_instance['time_format'];
 
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
@@ -419,7 +428,7 @@ class WPPP extends WP_Widget {
 
 		$field_id = $this->get_field_id( 'format' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
-		_e( 'Format of the links. See <a href="http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/">docs</a> for help', 'wordpresscom-popular-posts' );
+		_e( 'Format of the links. See <a href="http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/">docs</a> for help', 'wordpresscom-popular-posts' );
 		echo ": <input style='width: 300px;' id='$field_id' name='" .
 			$this->get_field_name( 'format' ) . "' type='text' value='" .
 			esc_attr( $instance['format'] ) . "' /></label></p>";
@@ -430,6 +439,13 @@ class WPPP extends WP_Widget {
 		echo ": <input style='width: 40px;' id='$field_id' name='" .
 			$this->get_field_name( 'excerpt_length' ) . "' type='text' value='" .
 			intval( $instance['excerpt_length'] ) . "' />" . __(' characters', 'wordpresscom-popular-posts' ) . "</label></p>";
+
+		$field_id = $this->get_field_id( 'time_format' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		_e( 'Date/time format (if %post_time% is used in the format above). See <a href="http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/">docs</a> for help', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 200px;' id='$field_id' name='" .
+			$this->get_field_name( 'time_format' ) . "' type='text' value='" .
+			esc_attr( $instance['time_format'] ) . "' /></label></p>";
 
 		$field_id = $this->get_field_id( 'title_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
@@ -544,6 +560,7 @@ endif;
  * - days (length of the time frame of the stats, default 0, i.e. infinite)
  * - show (can be: both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
+ * - time_format (the format used with %post_time%, see http://codex.wordpress.org/Formatting_Date_and_Time)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
@@ -569,6 +586,7 @@ endif;
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * %post_category% the category of the post
  * %post_comments% the number of comments a post has
+ * %post_time% the date/time of the post. You can set the format with time_format.
  *
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {
