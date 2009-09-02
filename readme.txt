@@ -145,6 +145,10 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
+= 2.2.1 =
+* New Feature: added support for subcategories. Now if you set a category,
+  it will also show posts inside its subcategories.
+
 = 2.2.0 =
 * New Feature: added the new %post_comments% tag in the format to show
   how many comments a post has.
