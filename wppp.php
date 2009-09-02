@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.2.0
+Version: 2.2.1
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -239,7 +239,25 @@ class WPPP extends WP_Widget {
 			}
 
 			if ( $filter_category ) {
-				$query .= " AND r.term_taxonomy_id = '{$instance['category']}'";
+				/* NOTE: if a category is set, it won't show pages (you can set
+				 * categories only with posts. */
+
+				$query .= " AND (r.term_taxonomy_id = '{$instance['category']}'";
+
+				/* If I chose a parent category and the post is in a child category,
+				 * I must also check if the post is in any of the child categories. */
+
+				/* I need the term_id of the category, because get_categories()
+				 * wants it. */
+				$query_cat = "SELECT term_id FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = '{$instance['category']}'";
+				$cat_id = $wpdb->get_var( $query_cat );
+
+				$children = get_categories("child_of=$cat_id&hide_empty=0");
+				foreach ($children as $child) {
+					$query .= " OR r.term_taxonomy_id = '$child->term_taxonomy_id'";
+				}
+
+				$query .= ')';
 			}
 
 			$results = $wpdb->get_results( $query );
