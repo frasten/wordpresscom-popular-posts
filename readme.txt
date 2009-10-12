@@ -39,6 +39,14 @@ Check whether the Wordpress.com Stats plugin is installed and active.
 You must have at least version 1.2 of WP Stats.
 
 
+= I chose to show 5 posts, but I only see 2/3... =
+
+Try to raise the value of the Magic Number (under the widget options):
+it will try to fetch more data from the server and should fix your issue.
+Too bad, this could slow down the plugin, so it would be better to enable
+the cache (in the options again).
+
+
 = I'd like to display the most popular posts per category. =
 
 Add some WPPP widgets, and then choose a different category in each one's
