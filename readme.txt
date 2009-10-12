@@ -113,6 +113,14 @@ where *topposts1* is a name you must choose for your list. This allows you
 to have different lists with different caches.
 
 
+= I want to change the time format! =
+
+Just set the time format as you wish.
+For example, if you set the time format to: `d/m/Y H:i:s`, you will get
+something like this: *03/21/2008 22:52:36*.
+See [Formatting Date and Time](http://codex.wordpress.org/Formatting_Date_and_Time)
+for further help.
+
 = I have some other issues. How can I get a debug log? =
 
 1. Download [this zip file](http://polpoinodroidi.com/download/plugins/wppp_debug.zip)

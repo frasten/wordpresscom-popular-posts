@@ -339,7 +339,7 @@ class WPPP extends WP_Widget {
 
 			// %post_time% stuff
 			if ( strpos( $instance['format'], '%post_time%' ) ) {
-				/* If the first format of get_the_time is not set, it will use
+				/* If the first argument of get_the_time() is not set, it will use
 				 * the default DATE format. */
 				$replace['%post_time%'] = get_the_time( $instance['time_format'], $post['post_id'] );
 			}
