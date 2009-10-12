@@ -72,6 +72,7 @@ Possible names are:
 * `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
 * `cachename` it is used to enable the cache. Please see the FAQ below.
 * `cache_only_when_visitor` (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
+* `magic_number` (set it to a number greater than 1 if you see less links than expected)
 
 Example: if you want to show the widget without any title, the 3 most
 viewed articles, in the last week, and in this format:
@@ -147,7 +148,7 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
-= 2.2.1 =
+= 2.3.0 =
 * New Feature: added support for subcategories. Now if you set a category,
   it will also show posts inside its subcategories.
 

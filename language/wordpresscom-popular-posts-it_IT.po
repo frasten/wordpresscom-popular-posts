@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2009-09-02 14:21+0200\n"
+"POT-Creation-Date: 2009-09-16 10:21+0200\n"
 "PO-Revision-Date: 2009-09-02 14:20+0100\n"
 "Last-Translator: Frasten <frasten@gmail.com>\n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr "Articoli più letti"
 
 #: wppp.php:38
 msgid "A list of your most popular posts"
-msgstr "Gli articoli più visualizzati di questo blog "
+msgstr "Gli articoli più visualizzati di questo blog"
 
 #: wppp.php:394
 msgid "Title"
@@ -122,7 +122,7 @@ msgstr "Abilita la cache (migliora la velocità)"
 msgid "Only show a cached version to the not logged in users"
 msgstr "Mostra la versione in cache solo agli utenti non loggati"
 
-#: wppp.php:601
+#: wppp.php:603
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

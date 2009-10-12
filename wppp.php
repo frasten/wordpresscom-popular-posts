@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.2.1
+Version: 2.3.0
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -31,6 +31,7 @@ class WPPP extends WP_Widget {
 													 ,'enable_cache' => '1'
 													 ,'cache_only_when_visitor' => '0'
 													 ,'time_format' => ''
+													 ,'magic_number' => '1'
 		);
 
 
@@ -116,6 +117,17 @@ class WPPP extends WP_Widget {
 		// If I want to show links by category, I need more data.
 		if ( $instance['category'] ) {
 			$howmany *= 3;
+		}
+
+		/* The last workaround: if the automatic guesses are not enough,
+		 * users can raise the "magic number" to increase the size of the
+		 * data asked to the server.
+		 * Note: if this number is set too high, it can slow the requests.
+		 * So it's a good practice to enable the cache for this plugin. */
+		$instance['magic_number'] = floatval( $instance['magic_number'] );
+		if ( $instance['magic_number'] > 1 ) {
+			$howmany *= $instance['magic_number'];
+			$howmany = intval( $howmany );
 		}
 
 		// If I set some posts to be excluded, I must ask for more data
@@ -375,6 +387,7 @@ class WPPP extends WP_Widget {
 		$instance['category'] = intval( $new_instance['category'] );
 		$instance['enable_cache'] = ( $new_instance['enable_cache'] ? 1 : 0 );
 		$instance['cache_only_when_visitor'] = ( $new_instance['cache_only_when_visitor'] ? 1 : 0 );
+		$instance['magic_number'] = floatval( $new_instance['magic_number'] );
 		$instance['time_format'] = $new_instance['time_format'];
 
 		/* Reset cache */
@@ -532,6 +545,12 @@ jQuery(document).ready( function($) {
 </script>
 EOF;
 
+		$field_id = $this->get_field_id( 'magic_number' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		_e( 'Magic number (raise it if you see less links than expected)', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 50px;' id='$field_id' name='" .
+			$this->get_field_name( 'magic_number' ) . "' type='text' value='" .
+			intval( $instance['magic_number'] ) . "' /></label></p>";
 
 	}
 
@@ -569,6 +588,7 @@ endif;
  * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
  * - cachename (it is used to enable the cache. Please see the FAQ)
  * - cache_only_when_visitor (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
+ * - magic_number (set it to a number greater than 1 if you see less links than expected)
  *
  * Example: if you want to show the widget without any title, the 3 most viewed
  * articles, in the last week, and in this format: My Article (123 views)
