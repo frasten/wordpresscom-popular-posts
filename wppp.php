@@ -244,7 +244,7 @@ class WPPP extends WP_Widget {
 				$query = "SELECT p.id, p.post_title FROM $wpdb->posts AS p";
 			}
 			$query .= " WHERE p.id IN (" . implode( ',', $id_list ) . ")";
-			$query .= " AND p.post_status != 'draft' AND p.post_status != 'private'";
+			$query .= " AND p.post_status != 'draft' AND p.post_status != 'private' AND p.post_status != 'trash'";
 
 			// If I want to show only posts or only pages:
 			if ( $instance['show'] != 'both' ) {
