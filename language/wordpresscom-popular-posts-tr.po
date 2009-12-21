@@ -1,36 +1,37 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Frasten
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Turkish translation for wordpresscom-popular-posts
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the wordpresscom-popular-posts package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress.com Popular Posts 2.3.0\n"
+"Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
 "POT-Creation-Date: 2009-12-21 01:05+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-12-08 03:36+0000\n"
+"Last-Translator: zeugma <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-12-20 23:44+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: wppp.php:21 wppp.php:42
 msgid "Popular Posts"
-msgstr ""
+msgstr "Popüler Yayınlar"
 
 #: wppp.php:39
 msgid "A list of your most popular posts"
-msgstr ""
+msgstr "En popüler mesaj listesi"
 
 #: wppp.php:407
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: wppp.php:414
 msgid "Number of links shown"
-msgstr ""
+msgstr "Bağlantıları sayıları gösterilir"
 
 #: wppp.php:421
 msgid ""
@@ -39,7 +40,7 @@ msgstr ""
 
 #: wppp.php:428
 msgid "Show: "
-msgstr ""
+msgstr "Göster: "
 
 #: wppp.php:430
 msgid "posts and pages"
@@ -47,7 +48,7 @@ msgstr ""
 
 #: wppp.php:431
 msgid "only posts"
-msgstr ""
+msgstr "sadece mesaj"
 
 #: wppp.php:432
 msgid "only pages"
@@ -65,7 +66,7 @@ msgstr ""
 
 #: wppp.php:454 wppp.php:468
 msgid " characters"
-msgstr ""
+msgstr " karakterler"
 
 #: wppp.php:458
 msgid ""

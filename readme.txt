@@ -4,7 +4,7 @@ Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-po
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.8.0
 Tested up to: 2.9.0
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
 
@@ -153,11 +153,8 @@ original version of wppp.php.
 
 = I want to translate the plugin in my language! =
 
-Make a copy of the file `language/wordpresscom-popular-posts.pot` of the
-plugin, edit it adding your translations, and then send it to:
-frasten AATT gmail DOOTT com.
-
-You can take a look to the it_IT translation file if you want.
+Now you can easily translate the plugin online here:
+https://translations.launchpad.net/wordpresscom-popular-posts/trunk
 
 I'll add your translations to the plugin!
 
@@ -171,6 +168,7 @@ I'll add your translations to the plugin!
 * New Feature: added a new Magic Number option. If the plugin shows 
   less links than expected, try to raise this number. Please read docs.
 * Added spanish translation. Many thanks to Fabio (Coco).
+* Added (partly) turkish translation. Many thanks to zeugma.
 * Improved compatibility with WordPress 2.9.
 * Fixed an issue in the uninstall process.
 
