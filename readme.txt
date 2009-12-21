@@ -171,6 +171,7 @@ I'll add your translations to the plugin!
 * New Feature: added a new Magic Number option. If the plugin shows 
   less links than expected, try to raise this number. Please read docs.
 * Added spanish translation. Many thanks to Fabio (Coco).
+* Added (partly) turkish translation. Many thanks to zeugma.
 * Improved compatibility with WordPress 2.9.
 * Fixed an issue in the uninstall process.
 
