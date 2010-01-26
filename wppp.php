@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.3.0
+Version: 2.4.0devel
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -616,6 +616,17 @@ function WPPP_show_popular_posts( $user_args = '' ) {
 
 	$wppp->widget( $args );
 }
+
+
+/**
+ * This function allows using [wp_popular_posts] shortcodes in posts/pages.
+ */
+function WPPP_shortcode_popular_posts( $user_args = '' ) {
+	$wppp = new WPPP();
+	$args = shortcode_atts( $wppp->defaults, $user_args );
+	$wppp->widget( $args );
+}
+add_shortcode('wp_popular_posts', 'WPPP_shortcode_popular_posts');
 
 
 function wppp_notice_incompatible() {
