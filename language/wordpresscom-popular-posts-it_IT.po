@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2009-12-21 01:05+0100\n"
-"PO-Revision-Date: 2009-12-21 01:05+0100\n"
+"POT-Creation-Date: 2010-01-26 23:37+0100\n"
+"PO-Revision-Date: 2010-01-26 23:37+0100\n"
 "Last-Translator: Frasten <frasten@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,37 +21,37 @@ msgstr "Articoli più letti"
 msgid "A list of your most popular posts"
 msgstr "Gli articoli più visualizzati di questo blog"
 
-#: wppp.php:407
+#: wppp.php:412
 msgid "Title"
 msgstr "Titolo"
 
-#: wppp.php:414
+#: wppp.php:419
 msgid "Number of links shown"
 msgstr "Numero di collegamenti mostrati"
 
-#: wppp.php:421
+#: wppp.php:426
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 "La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
 
-#: wppp.php:428
+#: wppp.php:433
 msgid "Show: "
 msgstr "Mostra: "
 
-#: wppp.php:430
+#: wppp.php:435
 msgid "posts and pages"
 msgstr "articoli e pagine"
 
-#: wppp.php:431
+#: wppp.php:436
 msgid "only posts"
 msgstr "solo articoli"
 
-#: wppp.php:432
+#: wppp.php:437
 msgid "only pages"
 msgstr "solo pagine"
 
-#: wppp.php:444
+#: wppp.php:449
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
@@ -60,17 +60,17 @@ msgstr ""
 "plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per "
 "informazioni in merito"
 
-#: wppp.php:451
+#: wppp.php:456
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.php:454 wppp.php:468
+#: wppp.php:459 wppp.php:473
 msgid " characters"
 msgstr " caratteri"
 
-#: wppp.php:458
+#: wppp.php:463
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -80,56 +80,60 @@ msgstr ""
 "Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-"
 "popular-posts/faq/\">documentazione</a> per informazioni in merito"
 
-#: wppp.php:465
+#: wppp.php:470
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Lunghezza massima dei titoli dei links.<br />(0 sta per illimitato)"
 
-#: wppp.php:472
+#: wppp.php:477
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Escludi questi posts: (separa gli ID con virgole. Es. 1,42,52)"
 
-#: wppp.php:479
+#: wppp.php:484
 msgid "Don't show posts/pages with a view count under"
 msgstr "Non mostrare posts/pagine con un numero di visite minore di"
 
-#: wppp.php:482
+#: wppp.php:487
 msgid "(0 means unlimited)"
 msgstr "(0 sta per illimitato)"
 
-#: wppp.php:486
+#: wppp.php:491
 msgid "Kind of list"
 msgstr "Tipo di lista"
 
-#: wppp.php:488
+#: wppp.php:493
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Elenco puntato (&lt;ul&gt;)"
 
-#: wppp.php:489
+#: wppp.php:494
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Elenco numerato (&lt;ol&gt;)"
 
-#: wppp.php:502
+#: wppp.php:495
+msgid "None (use custom format)"
+msgstr "Nessuno (usa formato personalizzato)"
+
+#: wppp.php:508
 msgid "Only show posts/pages in this category"
 msgstr "Mostra solo i posts/pagine di questa categoria"
 
-#: wppp.php:503
+#: wppp.php:509
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Tutte le categorie&gt;"
 
-#: wppp.php:517
+#: wppp.php:523
 msgid "Enable cache (improves speed)"
 msgstr "Abilita la cache (migliora la velocità)"
 
-#: wppp.php:525
+#: wppp.php:531
 msgid "Only show a cached version to the not logged in users"
 msgstr "Mostra la versione in cache solo agli utenti non loggati"
 
-#: wppp.php:550
+#: wppp.php:556
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 "Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
 
-#: wppp.php:623
+#: wppp.php:640
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

@@ -3,7 +3,7 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.0devel
+Version: 2.4.0
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -48,8 +48,6 @@ class WPPP extends WP_Widget {
 			return;
 
 		extract( $args );
-		/* Before the widget (as defined by the theme) */
-		echo $before_widget;
 
 		if ( ! $instance ) {
 			// Called from static non-widget function. (Or maybe some error? :-P)
@@ -60,6 +58,14 @@ class WPPP extends WP_Widget {
 				$this->id = $instance['cachename'];
 			}
 		}
+
+		if ( array_key_exists( 'from_shortcode', $instance ) && $instance['from_shortcode'] )
+			$from_shortcode = true;
+
+
+		/* Before the widget (as defined by the theme) */
+		if ( !$from_shortcode )
+			echo $before_widget;
 
 		/* CACHE SYSTEM */
 		if ( $this->id && ( ! isset( $instance['enable_cache'] ) || $instance['enable_cache'] ) ) {
@@ -86,9 +92,13 @@ class WPPP extends WP_Widget {
 						}
 						if ( $valid ) {
 							/* Print out the data from the cache. */
-							echo $widget_cache['value'];
-							echo $after_widget;
-							return;
+							if ( !$from_shortcode ) {
+								echo $widget_cache['value'];
+								echo $after_widget;
+								return;
+							}
+							else
+								return $widget_cache['value'];
 						}
 						unset( $valid );
 					} /* end cache's validity check */
@@ -187,9 +197,11 @@ class WPPP extends WP_Widget {
 		}
 
 		// Check against malicious data
-		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
+		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol', 'none' ) ) )
 			$instance['list_tag'] = $this->defaults['list_tag'];
-		$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
+
+		if ( $instance['list_tag'] != 'none' )
+			$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
 		if ( sizeof( $top_posts ) ) {
@@ -296,7 +308,8 @@ class WPPP extends WP_Widget {
 
 
 		foreach ( $top_posts as $post ) {
-			$output .= "\t<li>";
+			if ( $instance['list_tag'] != 'none' )
+				$output .= "\t<li>";
 
 			// Replace format with data
 			$replace = array(
@@ -346,9 +359,11 @@ class WPPP extends WP_Widget {
 
 			$output .= wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
-			$output .= "</li>\n";
+			if ( $instance['list_tag'] != 'none' )
+				$output .= "</li>\n";
 		}
-		$output .= "</{$instance['list_tag']}>\n";
+		if ( $instance['list_tag'] != 'none' )
+			$output .= "</{$instance['list_tag']}>\n";
 
 		/* Cache data */
 		$cache = get_option( 'wppp_cache' );
@@ -360,7 +375,10 @@ class WPPP extends WP_Widget {
 			$cache[$this->id]['settings_checksum'] = $md5;
 		}
 		update_option( 'wppp_cache', $cache );
-		echo $output;
+		if ( !$from_shortcode )
+			echo $output;
+		else
+			return $output;
 
 		/* After the widget (as defined by the theme) */
 		echo $after_widget;
@@ -381,7 +399,7 @@ class WPPP extends WP_Widget {
 		// I want only digits or commas for this:
 		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
 		$instance['cutoff'] = max( intval( $new_instance['cutoff'] ), 0 );
-		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol') ) ?
+		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol', 'none') ) ?
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
@@ -486,7 +504,8 @@ class WPPP extends WP_Widget {
 		_e( 'Kind of list', 'wordpresscom-popular-posts' );
 		$opt = array(
 			'ul'	=> __( 'Unordered list (&lt;ul&gt;)', 'wordpresscom-popular-posts' ),
-			'ol'	=> __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' )
+			'ol'	=> __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' ),
+			'none'	=> __( 'None (use custom format)', 'wordpresscom-popular-posts' )
 		);
 		if ( ! $instance['show'] )
 			$instance['show'] = $this->defaults['list_tag'];
@@ -584,7 +603,7 @@ endif;
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
  * - cutoff (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
- * - list_tag (can be: ul, ol, default ul)
+ * - list_tag (can be: ul, ol, none, default ul)
  * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
  * - cachename (it is used to enable the cache. Please see the FAQ)
  * - cache_only_when_visitor (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
@@ -623,8 +642,10 @@ function WPPP_show_popular_posts( $user_args = '' ) {
  */
 function WPPP_shortcode_popular_posts( $user_args = '' ) {
 	$wppp = new WPPP();
-	$args = shortcode_atts( $wppp->defaults, $user_args );
-	$wppp->widget( $args );
+	$default_values = $wppp->defaults;
+	$default_values['from_shortcode'] = true;
+	$args = shortcode_atts( $default_values, $user_args );
+	return $wppp->widget( $args );
 }
 add_shortcode('wp_popular_posts', 'WPPP_shortcode_popular_posts');
 
