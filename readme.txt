@@ -76,7 +76,7 @@ Possible names are:
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
-* `list_tag` (can be: ul, ol, default ul)
+* `list_tag` (can be: ul, ol, none, default ul)
 * `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
 * `cachename` it is used to enable the cache. Please see the FAQ below.
 * `cache_only_when_visitor` (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
@@ -180,6 +180,7 @@ I'll add your translations to the plugin!
 = 2.4.0 =
 * New Feature: added support for [wp_popular_posts] shortcode! Please read
   the FAQ.
+* New Feature: added 'none' option to list tag, to improve customizability.
 
 = 2.3.0 =
 * New Feature: added support for subcategories. Now if you set a category,
