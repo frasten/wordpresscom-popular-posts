@@ -48,8 +48,6 @@ class WPPP extends WP_Widget {
 			return;
 
 		extract( $args );
-		/* Before the widget (as defined by the theme) */
-		echo $before_widget;
 
 		if ( ! $instance ) {
 			// Called from static non-widget function. (Or maybe some error? :-P)
@@ -60,6 +58,14 @@ class WPPP extends WP_Widget {
 				$this->id = $instance['cachename'];
 			}
 		}
+
+		if ( array_key_exists( 'from_shortcode', $instance ) && $instance['from_shortcode'] )
+			$from_shortcode = true;
+
+
+		/* Before the widget (as defined by the theme) */
+		if ( !$from_shortcode )
+			echo $before_widget;
 
 		/* CACHE SYSTEM */
 		if ( $this->id && ( ! isset( $instance['enable_cache'] ) || $instance['enable_cache'] ) ) {
@@ -86,9 +92,13 @@ class WPPP extends WP_Widget {
 						}
 						if ( $valid ) {
 							/* Print out the data from the cache. */
-							echo $widget_cache['value'];
-							echo $after_widget;
-							return;
+							if ( !$from_shortcode ) {
+								echo $widget_cache['value'];
+								echo $after_widget;
+								return;
+							}
+							else
+								return $widget_cache['value'];
 						}
 						unset( $valid );
 					} /* end cache's validity check */
@@ -365,7 +375,10 @@ class WPPP extends WP_Widget {
 			$cache[$this->id]['settings_checksum'] = $md5;
 		}
 		update_option( 'wppp_cache', $cache );
-		echo $output;
+		if ( !$from_shortcode )
+			echo $output;
+		else
+			return $output;
 
 		/* After the widget (as defined by the theme) */
 		echo $after_widget;
@@ -629,8 +642,10 @@ function WPPP_show_popular_posts( $user_args = '' ) {
  */
 function WPPP_shortcode_popular_posts( $user_args = '' ) {
 	$wppp = new WPPP();
-	$args = shortcode_atts( $wppp->defaults, $user_args );
-	$wppp->widget( $args );
+	$default_values = $wppp->defaults;
+	$default_values['from_shortcode'] = true;
+	$args = shortcode_atts( $default_values, $user_args );
+	return $wppp->widget( $args );
 }
 add_shortcode('wp_popular_posts', 'WPPP_shortcode_popular_posts');
 
