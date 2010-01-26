@@ -187,9 +187,11 @@ class WPPP extends WP_Widget {
 		}
 
 		// Check against malicious data
-		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol' ) ) )
+		if ( ! in_array( $instance['list_tag'], array( 'ul', 'ol', 'none' ) ) )
 			$instance['list_tag'] = $this->defaults['list_tag'];
-		$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
+
+		if ( $instance['list_tag'] != 'none' )
+			$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
 		if ( sizeof( $top_posts ) ) {
@@ -296,7 +298,8 @@ class WPPP extends WP_Widget {
 
 
 		foreach ( $top_posts as $post ) {
-			$output .= "\t<li>";
+			if ( $instance['list_tag'] != 'none' )
+				$output .= "\t<li>";
 
 			// Replace format with data
 			$replace = array(
@@ -346,9 +349,11 @@ class WPPP extends WP_Widget {
 
 			$output .= wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
-			$output .= "</li>\n";
+			if ( $instance['list_tag'] != 'none' )
+				$output .= "</li>\n";
 		}
-		$output .= "</{$instance['list_tag']}>\n";
+		if ( $instance['list_tag'] != 'none' )
+			$output .= "</{$instance['list_tag']}>\n";
 
 		/* Cache data */
 		$cache = get_option( 'wppp_cache' );
@@ -381,7 +386,7 @@ class WPPP extends WP_Widget {
 		// I want only digits or commas for this:
 		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
 		$instance['cutoff'] = max( intval( $new_instance['cutoff'] ), 0 );
-		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol') ) ?
+		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol', 'none') ) ?
 			$new_instance['list_tag'] :
 			$this->defaults['list_tag'];
 		$instance['category'] = intval( $new_instance['category'] );
@@ -486,7 +491,8 @@ class WPPP extends WP_Widget {
 		_e( 'Kind of list', 'wordpresscom-popular-posts' );
 		$opt = array(
 			'ul'	=> __( 'Unordered list (&lt;ul&gt;)', 'wordpresscom-popular-posts' ),
-			'ol'	=> __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' )
+			'ol'	=> __( 'Ordered list (&lt;ol&gt;)', 'wordpresscom-popular-posts' ),
+			'none'	=> __( 'None (use custom format)', 'wordpresscom-popular-posts' )
 		);
 		if ( ! $instance['show'] )
 			$instance['show'] = $this->defaults['list_tag'];
@@ -584,7 +590,7 @@ endif;
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
  * - cutoff (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
- * - list_tag (can be: ul, ol, default ul)
+ * - list_tag (can be: ul, ol, none, default ul)
  * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
  * - cachename (it is used to enable the cache. Please see the FAQ)
  * - cache_only_when_visitor (if enabled, it doesn't serve a cached version of the popular posts to the users logged in, default 0)
