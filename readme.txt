@@ -3,7 +3,7 @@ Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.8.0
-Tested up to: 2.9.0
+Tested up to: 2.9.1
 Stable tag: 2.3.0
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
@@ -102,6 +102,22 @@ You can use these special markers in the `format` value:
 * `%post_comments%` the number of comments a post has
 * `%post_time%` the date/time of the post. You can set the format with *time_format*.
 
+= I want to show the list in a dedicated page/post! =
+Just add a shortcode like the one below, in your page/post:
+`[wp_popular_posts]`
+Of course you can customize the list, following the instructions in the
+previous question. Just add your customizations after `wp_popular_posts`,
+each one separed by a space.
+An example:
+`[wp_popular_posts title='' number=10 list_tag=ol format='<a href="%post_permalink%" title="%post_title_attribute%">%post_title%</a> (%post_views% views)<p>%post_excerpt%</p>' excerpt_length=200 cachename=popular-posts-page]`
+
+This example displays a nice top 10 list, complete with title, number of
+views, excerpt, and it's cached for performance.
+If you specify the `format` parameter, be SURE you paste this into the
+WP page in HTML or the editor will screw up the HTML formatting in the
+`format= parameter`.
+
+
 = How can I discover the ID of a post/page? =
 Log into your admin page, go to **Posts** or **Pages**; go with your mouse
 on your post's title, and in your status bar you should see something like
@@ -160,6 +176,10 @@ I'll add your translations to the plugin!
 
 
 == Changelog ==
+
+= 2.4.0 =
+* New Feature: added support for [wp_popular_posts] shortcode! Please read
+  the FAQ.
 
 = 2.3.0 =
 * New Feature: added support for subcategories. Now if you set a category,
