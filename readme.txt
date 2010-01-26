@@ -179,7 +179,7 @@ I'll add your translations to the plugin!
 
 = 2.4.0 =
 * New Feature: added support for [wp_popular_posts] shortcode! Please read
-  the FAQ.
+  the FAQ. Thanks to Tim Nicholson for this.
 * New Feature: added 'none' option to list tag, to improve customizability.
 
 = 2.3.0 =
