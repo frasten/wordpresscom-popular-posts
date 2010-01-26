@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2009-12-21 01:05+0100\n"
+"POT-Creation-Date: 2010-01-26 23:37+0100\n"
 "PO-Revision-Date: 2009-12-08 03:36+0000\n"
 "Last-Translator: zeugma <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -25,105 +25,109 @@ msgstr "Popüler Yayınlar"
 msgid "A list of your most popular posts"
 msgstr "En popüler mesaj listesi"
 
-#: wppp.php:407
+#: wppp.php:412
 msgid "Title"
 msgstr "Başlık"
 
-#: wppp.php:414
+#: wppp.php:419
 msgid "Number of links shown"
 msgstr "Bağlantıları sayıları gösterilir"
 
-#: wppp.php:421
+#: wppp.php:426
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:428
+#: wppp.php:433
 msgid "Show: "
 msgstr "Göster: "
 
-#: wppp.php:430
+#: wppp.php:435
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.php:431
+#: wppp.php:436
 msgid "only posts"
 msgstr "sadece mesaj"
 
-#: wppp.php:432
+#: wppp.php:437
 msgid "only pages"
 msgstr ""
 
-#: wppp.php:444
+#: wppp.php:449
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:451
+#: wppp.php:456
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.php:454 wppp.php:468
+#: wppp.php:459 wppp.php:473
 msgid " characters"
 msgstr " karakterler"
 
-#: wppp.php:458
+#: wppp.php:463
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:465
+#: wppp.php:470
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:472
+#: wppp.php:477
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:479
+#: wppp.php:484
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 
-#: wppp.php:482
+#: wppp.php:487
 msgid "(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:486
+#: wppp.php:491
 msgid "Kind of list"
 msgstr ""
 
-#: wppp.php:488
+#: wppp.php:493
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr ""
 
-#: wppp.php:489
+#: wppp.php:494
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr ""
 
-#: wppp.php:502
+#: wppp.php:495
+msgid "None (use custom format)"
+msgstr ""
+
+#: wppp.php:508
 msgid "Only show posts/pages in this category"
 msgstr ""
 
-#: wppp.php:503
+#: wppp.php:509
 msgid "&lt;All categories&gt;"
 msgstr ""
 
-#: wppp.php:517
+#: wppp.php:523
 msgid "Enable cache (improves speed)"
 msgstr ""
 
-#: wppp.php:525
+#: wppp.php:531
 msgid "Only show a cached version to the not logged in users"
 msgstr ""
 
-#: wppp.php:550
+#: wppp.php:556
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 
-#: wppp.php:623
+#: wppp.php:640
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
