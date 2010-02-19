@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
 "POT-Creation-Date: 2010-01-26 23:37+0100\n"
-"PO-Revision-Date: 2009-12-08 03:36+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
+"PO-Revision-Date: 2010-01-27 00:02+0000\n"
+"Last-Translator: Andrea Piccinelli <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-20 23:44+0000\n"
+"X-Launchpad-Export-Date: 2010-01-27 00:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: wppp.php:21 wppp.php:42
@@ -56,8 +56,9 @@ msgstr ""
 
 #: wppp.php:449
 msgid ""
-"Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
-"wordpresscom-popular-posts/faq/\">docs</a> for help"
+"Format of the links. See <a "
+"href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-"
+"posts/faq/\">docs</a> for help"
 msgstr ""
 
 #: wppp.php:456
@@ -70,9 +71,9 @@ msgstr " karakterler"
 
 #: wppp.php:463
 msgid ""
-"Date/time format (if %post_time% is used in the format above). See <a href="
-"\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
-"\">docs</a> for help"
+"Date/time format (if %post_time% is used in the format above). See <a "
+"href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-"
+"posts/faq/\">docs</a> for help"
 msgstr ""
 
 #: wppp.php:470
@@ -142,13 +143,15 @@ msgid "WordPress.com Popular Posts"
 msgstr ""
 
 #. Plugin URI of an extension
-msgid "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
+msgid ""
+"http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
 msgstr ""
 
 #. Description of an extension
 msgid ""
-"Shows the most popular posts, using data collected by <a href='http://"
-"wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin."
+"Shows the most popular posts, using data collected by <a "
+"href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> "
+"plugin."
 msgstr ""
 
 #. Author of an extension
