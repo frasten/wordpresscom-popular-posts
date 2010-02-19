@@ -55,13 +55,13 @@ class WPPP extends WP_Widget {
 			$instance = $args;
 
 			/* cache */
-			if ( $instance['cachename'] ) {
+			if ( ! empty( $instance['cachename'] ) ) {
 				$this->id = $instance['cachename'];
 			}
 		}
 
 		$from_shortcode = false;
-		if ( array_key_exists( 'from_shortcode', $instance ) && $instance['from_shortcode'] )
+		if ( ! empty( $instance['from_shortcode'] ) )
 			$from_shortcode = true;
 
 
@@ -86,7 +86,7 @@ class WPPP extends WP_Widget {
 						/* If it's called from the function, let's make some check to
 						 * see if the options have changed. */
 						$valid = true;
-						if ( array_key_exists( 'cachename', $instance ) && $instance['cachename'] ) {
+						if ( ! empty( $instance['cachename'] ) ) {
 							$settings_string = implode( '|', $instance );
 							$md5 = md5( $settings_string );
 							if ( $md5 != $widget_cache['settings_checksum'] )
