@@ -3,7 +3,7 @@ Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts
 Requires at least: 2.8.0
-Tested up to: 2.9.1
+Tested up to: 2.9.2
 Stable tag: 2.4.0
 
 This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
@@ -184,6 +184,9 @@ I'll add your translations to the plugin!
 
 
 == Changelog ==
+
+= 2.4.1 =
+* Added some check to make this plugin more robust with unexpected data.
 
 = 2.4.0 =
 * New Feature: added support for [wp_popular_posts] shortcode! Please read

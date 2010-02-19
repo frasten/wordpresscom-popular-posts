@@ -3,13 +3,14 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.0
+Version: 2.4.1
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
+License: GPL3
 */
 
-/* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
+/* Created by Frasten (email : frasten@gmail.com) */
 
 
 if ( ! class_exists( 'WPPP' ) && class_exists( 'WP_Widget' ) ) :
@@ -64,7 +65,7 @@ class WPPP extends WP_Widget {
 
 
 		/* Before the widget (as defined by the theme) */
-		if ( !$from_shortcode )
+		if ( ! $from_shortcode )
 			echo $before_widget;
 
 		/* CACHE SYSTEM */
@@ -92,7 +93,7 @@ class WPPP extends WP_Widget {
 						}
 						if ( $valid ) {
 							/* Print out the data from the cache. */
-							if ( !$from_shortcode ) {
+							if ( ! $from_shortcode ) {
 								echo $widget_cache['value'];
 								echo $after_widget;
 								return;
@@ -142,7 +143,7 @@ class WPPP extends WP_Widget {
 
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
-		if ( sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
+		if ( is_array( $excluded_ids ) && sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
 			$howmany += sizeof( $excluded_ids );
 		}
 
@@ -204,7 +205,7 @@ class WPPP extends WP_Widget {
 			$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
-		if ( sizeof( $top_posts ) ) {
+		if ( is_array( $top_posts ) && sizeof( $top_posts ) ) {
 			$temp_list = array();
 			foreach ( $top_posts as $p ) {
 				// If I set some posts to be excluded:
@@ -220,6 +221,12 @@ class WPPP extends WP_Widget {
 				$temp_list[] = $p;
 			}
 			$top_posts = $temp_list;
+		}
+		else {
+			/* No popular posts. Maybe something went wrong while fetching data.
+			 * Write a hidden debug message. */
+			echo "<!-- WPPP error: no top-posts fetched. -->\n";
+			return;
 		}
 
 
@@ -375,7 +382,7 @@ class WPPP extends WP_Widget {
 			$cache[$this->id]['settings_checksum'] = $md5;
 		}
 		update_option( 'wppp_cache', $cache );
-		if ( !$from_shortcode )
+		if ( ! $from_shortcode )
 			echo $output;
 		else
 			return $output;
