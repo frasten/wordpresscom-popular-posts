@@ -328,19 +328,19 @@ class WPPP extends WP_Widget {
 			);
 
 			// %post_category% stuff
-			if ( strpos( $instance['format'], '%post_category%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_category%' ) ) {
 				// RS account for multiple categories
 				$cat = get_the_category( $post['post_id'] );
 				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
 
 			// %post_comments% stuff
-			if ( strpos( $instance['format'], '%post_comments%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_comments%' ) ) {
 				$replace['%post_comments%'] = get_comments_number( $post['post_id'] );
 			}
 
 			// %post_excerpt% stuff
-			if ( strpos( $instance['format'], '%post_excerpt%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
 
@@ -359,7 +359,7 @@ class WPPP extends WP_Widget {
 			}
 
 			// %post_time% stuff
-			if ( strpos( $instance['format'], '%post_time%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_time%' ) ) {
 				/* If the first argument of get_the_time() is not set, it will use
 				 * the default DATE format. */
 				$replace['%post_time%'] = get_the_time( $instance['time_format'], $post['post_id'] );
