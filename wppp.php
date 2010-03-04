@@ -3,13 +3,14 @@
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
 Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.0
+Version: 2.4.2
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
+License: GPL3
 */
 
-/* Created by Frasten (email : frasten@gmail.com) under a GPL licence. */
+/* Created by Frasten (email : frasten@gmail.com) */
 
 
 if ( ! class_exists( 'WPPP' ) && class_exists( 'WP_Widget' ) ) :
@@ -54,17 +55,18 @@ class WPPP extends WP_Widget {
 			$instance = $args;
 
 			/* cache */
-			if ( $instance['cachename'] ) {
+			if ( ! empty( $instance['cachename'] ) ) {
 				$this->id = $instance['cachename'];
 			}
 		}
 
-		if ( array_key_exists( 'from_shortcode', $instance ) && $instance['from_shortcode'] )
+		$from_shortcode = false;
+		if ( ! empty( $instance['from_shortcode'] ) )
 			$from_shortcode = true;
 
 
 		/* Before the widget (as defined by the theme) */
-		if ( !$from_shortcode )
+		if ( ! $from_shortcode )
 			echo $before_widget;
 
 		/* CACHE SYSTEM */
@@ -84,7 +86,7 @@ class WPPP extends WP_Widget {
 						/* If it's called from the function, let's make some check to
 						 * see if the options have changed. */
 						$valid = true;
-						if ( $instance['cachename'] ) {
+						if ( ! empty( $instance['cachename'] ) ) {
 							$settings_string = implode( '|', $instance );
 							$md5 = md5( $settings_string );
 							if ( $md5 != $widget_cache['settings_checksum'] )
@@ -92,7 +94,7 @@ class WPPP extends WP_Widget {
 						}
 						if ( $valid ) {
 							/* Print out the data from the cache. */
-							if ( !$from_shortcode ) {
+							if ( ! $from_shortcode ) {
 								echo $widget_cache['value'];
 								echo $after_widget;
 								return;
@@ -142,7 +144,7 @@ class WPPP extends WP_Widget {
 
 		// If I set some posts to be excluded, I must ask for more data
 		$excluded_ids = explode( ',', $instance['exclude'] );
-		if ( sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
+		if ( is_array( $excluded_ids ) && sizeof( $excluded_ids ) && $excluded_ids[0] !== '' ) {
 			$howmany += sizeof( $excluded_ids );
 		}
 
@@ -204,7 +206,7 @@ class WPPP extends WP_Widget {
 			$output .= "<{$instance['list_tag']} class='wppp_list'>\n";
 
 		// Cleaning and filtering
-		if ( sizeof( $top_posts ) ) {
+		if ( is_array( $top_posts ) && sizeof( $top_posts ) ) {
 			$temp_list = array();
 			foreach ( $top_posts as $p ) {
 				// If I set some posts to be excluded:
@@ -220,6 +222,12 @@ class WPPP extends WP_Widget {
 				$temp_list[] = $p;
 			}
 			$top_posts = $temp_list;
+		}
+		else {
+			/* No popular posts. Maybe something went wrong while fetching data.
+			 * Write a hidden debug message. */
+			echo "<!-- WPPP error: no top-posts fetched. -->\n";
+			return;
 		}
 
 
@@ -320,19 +328,19 @@ class WPPP extends WP_Widget {
 			);
 
 			// %post_category% stuff
-			if ( strpos( $instance['format'], '%post_category%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_category%' ) ) {
 				// RS account for multiple categories
 				$cat = get_the_category( $post['post_id'] );
 				$replace['%post_category%'] = $cat[0]->cat_name;
 			}
 
 			// %post_comments% stuff
-			if ( strpos( $instance['format'], '%post_comments%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_comments%' ) ) {
 				$replace['%post_comments%'] = get_comments_number( $post['post_id'] );
 			}
 
 			// %post_excerpt% stuff
-			if ( strpos( $instance['format'], '%post_excerpt%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_excerpt%' ) ) {
 				// I get the excerpt for the post only if necessary, to save CPU time.
 				$temppost = &get_post( $post['post_id'] );
 
@@ -351,7 +359,7 @@ class WPPP extends WP_Widget {
 			}
 
 			// %post_time% stuff
-			if ( strpos( $instance['format'], '%post_time%' ) ) {
+			if ( FALSE !== strpos( $instance['format'], '%post_time%' ) ) {
 				/* If the first argument of get_the_time() is not set, it will use
 				 * the default DATE format. */
 				$replace['%post_time%'] = get_the_time( $instance['time_format'], $post['post_id'] );
@@ -375,7 +383,7 @@ class WPPP extends WP_Widget {
 			$cache[$this->id]['settings_checksum'] = $md5;
 		}
 		update_option( 'wppp_cache', $cache );
-		if ( !$from_shortcode )
+		if ( ! $from_shortcode )
 			echo $output;
 		else
 			return $output;
