@@ -185,6 +185,10 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
+= 2.4.2 =
+* Added Catalan translation & updated Spanish translation, thanks to
+  Octavi Ripollés i Querol.
+
 = 2.4.1 =
 * Added some check to make this plugin more robust with unexpected data.
 
