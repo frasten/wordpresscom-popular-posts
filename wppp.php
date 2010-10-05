@@ -26,6 +26,7 @@ class WPPP extends WP_Widget {
 													 ,'format' => "<a href='%post_permalink%' title='%post_title_attribute%'>%post_title%</a>"
 													 ,'excerpt_length' => '100'
 													 ,'title_length' => '0'
+													 ,'exclude_author' => ''
 													 ,'cutoff' => '0'
 													 ,'list_tag' => 'ul'
 													 ,'category' => '0'
@@ -148,7 +149,6 @@ class WPPP extends WP_Widget {
 			$howmany += sizeof( $excluded_ids );
 		}
 
-
 		/* TEMPORARY FIX FOR WP_STATS PLUGIN */
 		$reset_cache = false;
 		$stats_cache = get_option( 'stats_cache' );
@@ -258,10 +258,10 @@ class WPPP extends WP_Widget {
 			$instance['category'] = (int) $instance['category'];
 			$filter_category = $instance['category'] > 0;
 			if ( $filter_category ) {
-				$query = "SELECT p.id, p.post_title FROM $wpdb->posts AS p INNER JOIN $wpdb->term_relationships AS r ON r.object_id = p.id";
+				$query = "SELECT p.id, p.post_title, p.post_author FROM $wpdb->posts AS p INNER JOIN $wpdb->term_relationships AS r ON r.object_id = p.id";
 			}
 			else {
-				$query = "SELECT p.id, p.post_title FROM $wpdb->posts AS p";
+				$query = "SELECT p.id, p.post_title, p.post_author FROM $wpdb->posts AS p";
 			}
 			$query .= " WHERE p.id IN (" . implode( ',', $id_list ) . ")";
 			$query .= " AND p.post_status != 'draft' AND p.post_status != 'private' AND p.post_status != 'trash'";
@@ -292,6 +292,11 @@ class WPPP extends WP_Widget {
 
 				$query .= ')';
 			}
+
+		/* Check for exclude_author parameter */
+		if ( ! empty( $instance['exclude_author'] ) ) {
+			$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
+		}
 
 			$results = $wpdb->get_results( $query );
 			$valid_list = array();
@@ -337,6 +342,14 @@ class WPPP extends WP_Widget {
 			// %post_comments% stuff
 			if ( FALSE !== strpos( $instance['format'], '%post_comments%' ) ) {
 				$replace['%post_comments%'] = get_comments_number( $post['post_id'] );
+			}
+
+			// %post_author% stuff
+			if ( FALSE !== strpos( $instance['format'], '%post_author%' ) ) {
+				$temppost = &get_post ( $post['post_id'] );
+				$author = get_the_author_meta( 'display_name', $temppost->post_author );
+				$replace['%post_author%'] = $author;
+				unset( $temppost );
 			}
 
 			// %post_excerpt% stuff
@@ -404,8 +417,10 @@ class WPPP extends WP_Widget {
 			$this->defaults['show'];
 		$instance['excerpt_length'] = intval( $new_instance['excerpt_length'] );
 		$instance['title_length'] = intval( $new_instance['title_length'] );
-		// I want only digits or commas for this:
+		// I want only digits or commas for these:
 		$instance['exclude'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude'] );
+		$instance['exclude_author'] = preg_replace( '/[^0-9,]/', '', $new_instance['exclude_author'] );
+
 		$instance['cutoff'] = max( intval( $new_instance['cutoff'] ), 0 );
 		$instance['list_tag'] = in_array( $new_instance['list_tag'], array( 'ul', 'ol', 'none') ) ?
 			$new_instance['list_tag'] :
@@ -499,6 +514,14 @@ class WPPP extends WP_Widget {
 		echo ": <input style='width: 180px;' id='$field_id' name='" .
 			$this->get_field_name( 'exclude' ) . "' type='text' value='" .
 			esc_attr( $instance['exclude'] ) . "' /></label></p>";
+
+		/* Setup form field for parameter exclude_author */
+		$field_id = $this->get_field_id( 'exclude_author' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		_e( 'Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 180px;' id='$field_id' name='" .
+			$this->get_field_name( 'exclude_author' ) . "' type='text' value='" .
+			esc_attr( $instance['exclude_author'] ) . "' /></label></p>";
 
 		$field_id = $this->get_field_id( 'cutoff' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
@@ -610,6 +633,7 @@ endif;
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
+ * - exclude_author (the list of authors IDs to exclude, separated by commas)
  * - cutoff (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
  * - list_tag (can be: ul, ol, none, default ul)
  * - category (the ID of the category, see FAQ for info. Default 0, i.e. all categories)
@@ -634,6 +658,7 @@ endif;
  * %post_category% the category of the post
  * %post_comments% the number of comments a post has
  * %post_time% the date/time of the post. You can set the format with time_format.
+ * %post_author% the author of the post.
  *
  * */
 function WPPP_show_popular_posts( $user_args = '' ) {

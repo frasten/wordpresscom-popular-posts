@@ -75,6 +75,7 @@ Possible names are:
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
+* `exclude_author` (the list of authors IDs to exclude, separated by commas)
 * `cutoff` (don't show posts/pages with a view count under this number, default 0, i.e. unlimited)
 * `list_tag` (can be: ul, ol, none, default ul)
 * `category` (the ID of the category, see FAQ below for info. Default 0, i.e. all categories)
@@ -101,6 +102,7 @@ You can use these special markers in the `format` value:
 * `%post_category%` the category of the post
 * `%post_comments%` the number of comments a post has
 * `%post_time%` the date/time of the post. You can set the format with *time_format*.
+* `%post_author%` the author of the post.
 
 
 = I want to show the list in a dedicated page/post! =
@@ -186,6 +188,10 @@ I'll add your translations to the plugin!
 == Changelog ==
 
 = 2.5.0 =
+* New feature: %post_author% tag, to show the post author. Thanks to
+  Jean-Paul Horn, www.iphoneclub.nl
+* New feature: added an option to exclude posts written by some specific
+  authors. Thanks to Jean-Paul Horn, www.iphoneclub.nl
 * Added Serbian translation, thanks to Саша Стефановић.
 * Completed Turkish translation, thanks to Engin BAHADIR and cornetto.
 
