@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress.com Popular Posts 2.4.1\n"
+"Project-Id-Version: WordPress.com Popular Posts 2.4.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2010-03-04 23:21+0100\n"
+"POT-Creation-Date: 2010-10-06 21:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,117 +16,121 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: wppp.php:22 wppp.php:43
+#: patchata/wppp.php:22 patchata/wppp.php:44 wppp.php:22 wppp.php:44
 msgid "Popular Posts"
 msgstr ""
 
-#: wppp.php:40
+#: patchata/wppp.php:41 wppp.php:41
 msgid "A list of your most popular posts"
 msgstr ""
 
-#: wppp.php:433
+#: patchata/wppp.php:457 wppp.php:448
 msgid "Title"
 msgstr ""
 
-#: wppp.php:440
+#: patchata/wppp.php:464 wppp.php:455
 msgid "Number of links shown"
 msgstr ""
 
-#: wppp.php:447
+#: patchata/wppp.php:471 wppp.php:462
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:454
+#: patchata/wppp.php:478 wppp.php:469
 msgid "Show: "
 msgstr ""
 
-#: wppp.php:456
+#: patchata/wppp.php:480 wppp.php:471
 msgid "posts and pages"
 msgstr ""
 
-#: wppp.php:457
+#: patchata/wppp.php:481 wppp.php:472
 msgid "only posts"
 msgstr ""
 
-#: wppp.php:458
+#: patchata/wppp.php:482 wppp.php:473
 msgid "only pages"
 msgstr ""
 
-#: wppp.php:470
+#: patchata/wppp.php:494 wppp.php:485
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:477
+#: patchata/wppp.php:501 wppp.php:492
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.php:480 wppp.php:494
+#: patchata/wppp.php:504 patchata/wppp.php:518 wppp.php:495 wppp.php:509
 msgid " characters"
 msgstr ""
 
-#: wppp.php:484
+#: patchata/wppp.php:508 wppp.php:499
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:491
+#: patchata/wppp.php:515 wppp.php:506
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:498
+#: patchata/wppp.php:522 wppp.php:513
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:505
+#: patchata/wppp.php:530 wppp.php:521
+msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
+msgstr ""
+
+#: patchata/wppp.php:538 wppp.php:528
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 
-#: wppp.php:508
+#: patchata/wppp.php:541 wppp.php:531
 msgid "(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:512
+#: patchata/wppp.php:545 wppp.php:535
 msgid "Kind of list"
 msgstr ""
 
-#: wppp.php:514
+#: patchata/wppp.php:547 wppp.php:537
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr ""
 
-#: wppp.php:515
+#: patchata/wppp.php:548 wppp.php:538
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr ""
 
-#: wppp.php:516
+#: patchata/wppp.php:549 wppp.php:539
 msgid "None (use custom format)"
 msgstr ""
 
-#: wppp.php:529
+#: patchata/wppp.php:562 wppp.php:552
 msgid "Only show posts/pages in this category"
 msgstr ""
 
-#: wppp.php:530
+#: patchata/wppp.php:563 wppp.php:553
 msgid "&lt;All categories&gt;"
 msgstr ""
 
-#: wppp.php:544
+#: patchata/wppp.php:577 wppp.php:567
 msgid "Enable cache (improves speed)"
 msgstr ""
 
-#: wppp.php:552
+#: patchata/wppp.php:585 wppp.php:575
 msgid "Only show a cached version to the not logged in users"
 msgstr ""
 
-#: wppp.php:577
+#: patchata/wppp.php:610 wppp.php:600
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 
-#: wppp.php:663
+#: patchata/wppp.php:696 wppp.php:688
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
