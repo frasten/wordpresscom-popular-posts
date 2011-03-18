@@ -2,8 +2,11 @@
 /*
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
-Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.2
+Description: Shows the most popular posts, using data collected by
+<a href='http://wordpress.org/extend/plugins/jetpack/'>Jetpack</a>
+or <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a>
+plugins.
+Version: 2.5.0
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -293,10 +296,10 @@ class WPPP extends WP_Widget {
 				$query .= ')';
 			}
 
-		/* Check for exclude_author parameter */
-		if ( ! empty( $instance['exclude_author'] ) ) {
-			$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
-		}
+			/* Check for exclude_author parameter */
+			if ( ! empty( $instance['exclude_author'] ) ) {
+				$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
+			}
 
 			$results = $wpdb->get_results( $query );
 			$valid_list = array();
