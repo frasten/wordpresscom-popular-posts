@@ -2,8 +2,11 @@
 /*
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
-Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.2
+Description: Shows the most popular posts, using data collected by
+<a href='http://wordpress.org/extend/plugins/jetpack/'>Jetpack</a>
+or <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a>
+plugins.
+Version: 2.4.3
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
