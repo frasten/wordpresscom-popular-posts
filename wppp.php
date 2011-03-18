@@ -293,10 +293,10 @@ class WPPP extends WP_Widget {
 				$query .= ')';
 			}
 
-		/* Check for exclude_author parameter */
-		if ( ! empty( $instance['exclude_author'] ) ) {
-			$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
-		}
+			/* Check for exclude_author parameter */
+			if ( ! empty( $instance['exclude_author'] ) ) {
+				$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
+			}
 
 			$results = $wpdb->get_results( $query );
 			$valid_list = array();
