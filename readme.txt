@@ -17,6 +17,7 @@ This list can be used in the sidebar to show an indication of which are the most
 For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/).
 
 **Requires one of these plugins installed:**
+
 * [Jetpack](http://wordpress.org/extend/plugins/jetpack/) plugin
 * [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2
 
