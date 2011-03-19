@@ -3,54 +3,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2010-10-06 21:01+0200\n"
+"POT-Creation-Date: 2011-03-19 11:47+0100\n"
 "PO-Revision-Date: 2010-03-04 23:11+0000\n"
 "Last-Translator: Andrea Piccinelli <Unknown>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2010-10-06 17:22+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: patchata/wppp.php:22 patchata/wppp.php:44 wppp.php:22 wppp.php:44
+#: patchata/wppp.php:22 patchata/wppp.php:44 wppp.php:25 wppp.php:47
 msgid "Popular Posts"
 msgstr "Entradas Populares"
 
-#: patchata/wppp.php:41 wppp.php:41
+#: patchata/wppp.php:41 wppp.php:44
 msgid "A list of your most popular posts"
 msgstr "Una lista de tus entradas más populares"
 
-#: patchata/wppp.php:457 wppp.php:448
+#: patchata/wppp.php:457 wppp.php:451
 msgid "Title"
 msgstr "Título"
 
-#: patchata/wppp.php:464 wppp.php:455
+#: patchata/wppp.php:464 wppp.php:458
 msgid "Number of links shown"
 msgstr "Número de enlaces a mostrar"
 
-#: patchata/wppp.php:471 wppp.php:462
+#: patchata/wppp.php:471 wppp.php:465
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr "La extensión de tiempo deseada (en días).<br />(0 significa ilimitada)"
 
-#: patchata/wppp.php:478 wppp.php:469
+#: patchata/wppp.php:478 wppp.php:472
 msgid "Show: "
 msgstr "Mostrar: "
 
-#: patchata/wppp.php:480 wppp.php:471
+#: patchata/wppp.php:480 wppp.php:474
 msgid "posts and pages"
 msgstr "entradas y páginas"
 
-#: patchata/wppp.php:481 wppp.php:472
+#: patchata/wppp.php:481 wppp.php:475
 msgid "only posts"
 msgstr "sólo entradas"
 
-#: patchata/wppp.php:482 wppp.php:473
+#: patchata/wppp.php:482 wppp.php:476
 msgid "only pages"
 msgstr "sólo páginas"
 
-#: patchata/wppp.php:494 wppp.php:485
+#: patchata/wppp.php:494 wppp.php:488
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
@@ -58,16 +59,16 @@ msgstr ""
 "Formato de los enlaces. Ver <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> para más ayuda"
 
-#: patchata/wppp.php:501 wppp.php:492
+#: patchata/wppp.php:501 wppp.php:495
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Extensión del extracto (si %post_excerpt% se usa en el formato anterior)"
 
-#: patchata/wppp.php:504 patchata/wppp.php:518 wppp.php:495 wppp.php:509
+#: patchata/wppp.php:504 patchata/wppp.php:518 wppp.php:498 wppp.php:512
 msgid " characters"
 msgstr " caracteres"
 
-#: patchata/wppp.php:508 wppp.php:499
+#: patchata/wppp.php:508 wppp.php:502
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -77,67 +78,67 @@ msgstr ""
 "href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs</a> para ayuda"
 
-#: patchata/wppp.php:515 wppp.php:506
+#: patchata/wppp.php:515 wppp.php:509
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 "Máxima extensión del título de los enlaces<br />(0 significa ilimitado)"
 
-#: patchata/wppp.php:522 wppp.php:513
+#: patchata/wppp.php:522 wppp.php:516
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Excluir estas entradas: (separar las IDs con comas. Por ejemplo 1,42,52)"
 
-#: patchata/wppp.php:530 wppp.php:521
+#: patchata/wppp.php:530 wppp.php:524
 #, fuzzy
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Excluir estas entradas: (separar las IDs con comas. Por ejemplo 1,42,52)"
 
-#: patchata/wppp.php:538 wppp.php:528
+#: patchata/wppp.php:538 wppp.php:531
 msgid "Don't show posts/pages with a view count under"
 msgstr "No mostrar entradas/páginas con visitas menores a"
 
-#: patchata/wppp.php:541 wppp.php:531
+#: patchata/wppp.php:541 wppp.php:534
 msgid "(0 means unlimited)"
 msgstr "(0 significa ilimitadas)"
 
-#: patchata/wppp.php:545 wppp.php:535
+#: patchata/wppp.php:545 wppp.php:538
 msgid "Kind of list"
 msgstr "Clase de lista"
 
-#: patchata/wppp.php:547 wppp.php:537
+#: patchata/wppp.php:547 wppp.php:540
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Lista desordenada (&lt;ul&gt;)"
 
-#: patchata/wppp.php:548 wppp.php:538
+#: patchata/wppp.php:548 wppp.php:541
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Lista Ordenada (&lt;ol&gt;)"
 
-#: patchata/wppp.php:549 wppp.php:539
+#: patchata/wppp.php:549 wppp.php:542
 msgid "None (use custom format)"
 msgstr "Ninguna (usar formato propio)"
 
-#: patchata/wppp.php:562 wppp.php:552
+#: patchata/wppp.php:562 wppp.php:555
 msgid "Only show posts/pages in this category"
 msgstr "sólo mostrar entradas/páginas in esta categoría"
 
-#: patchata/wppp.php:563 wppp.php:553
+#: patchata/wppp.php:563 wppp.php:556
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Todas las categorías&gt;"
 
-#: patchata/wppp.php:577 wppp.php:567
+#: patchata/wppp.php:577 wppp.php:570
 msgid "Enable cache (improves speed)"
 msgstr "Permitir cache (mejora la velocidad)"
 
-#: patchata/wppp.php:585 wppp.php:575
+#: patchata/wppp.php:585 wppp.php:578
 msgid "Only show a cached version to the not logged in users"
 msgstr "Sólo mostrar una version guardada a usuarios no registrados"
 
-#: patchata/wppp.php:610 wppp.php:600
+#: patchata/wppp.php:610 wppp.php:603
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr "Número mágico (aumentar si ve menos enlaces de los que espera)"
 
-#: patchata/wppp.php:696 wppp.php:688
+#: patchata/wppp.php:696 wppp.php:691
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
@@ -148,8 +149,8 @@ msgid ""
 msgstr ""
 "Wordpress.com Entradas Populares  &gt;= 2.0.0 es compatible con WordPress "
 "&gt;=  Sólo 2.8.<br />\n"
-"\tPor favor, <a href='%s'>actualice</a> su versión de WordPress, <a href='%"
-"s'>o use la versión v1.3.6 del plugin</a> \n"
+"\tPor favor, <a href='%s'>actualice</a> su versión de WordPress, <a "
+"href='%s'>o use la versión v1.3.6 del plugin</a> \n"
 "\tor <a href='%s'>desinstalar</a>."
 
 #. Plugin Name of an extension
@@ -162,13 +163,8 @@ msgstr ""
 "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
 
 #. Description of an extension
-msgid ""
-"Shows the most popular posts, using data collected by <a href='http://"
-"wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin."
+msgid "Shows the most popular posts, using data collected by"
 msgstr ""
-"Muestra las entradas más populares, usando información recolectada por el "
-"paquete de estadísticas <a href='http://wordpress.org/extend/plugins/"
-"stats/'>WordPress.com stats</a>."
 
 #. Author of an extension
 msgid "Frasten"
@@ -177,3 +173,11 @@ msgstr "Frasten"
 #. Author URI of an extension
 msgid "http://polpoinodroidi.com"
 msgstr "http://polpoinodroidi.com"
+
+#~ msgid ""
+#~ "Shows the most popular posts, using data collected by <a href='http://"
+#~ "wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin."
+#~ msgstr ""
+#~ "Muestra las entradas más populares, usando información recolectada por el "
+#~ "paquete de estadísticas <a href='http://wordpress.org/extend/plugins/"
+#~ "stats/'>WordPress.com stats</a>."
