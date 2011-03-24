@@ -6,7 +6,7 @@ Description: Shows the most popular posts, using data collected by
 <a href='http://wordpress.org/extend/plugins/jetpack/'>Jetpack</a>
 or <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a>
 plugins.
-Version: 2.5.0
+Version: 2.5.1
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com

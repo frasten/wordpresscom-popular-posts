@@ -192,6 +192,10 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
+= 2.5.1 =
+* Fixed missing closing tag when there aren't any popular posts. Thanks
+  to sebmeric.
+
 = 2.5.0 =
 * New feature: %post_author% tag, to show the post author. Thanks to
   Jean-Paul Horn, www.iphoneclub.nl
