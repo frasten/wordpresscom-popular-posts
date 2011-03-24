@@ -230,6 +230,7 @@ class WPPP extends WP_Widget {
 			/* No popular posts. Maybe something went wrong while fetching data.
 			 * Write a hidden debug message. */
 			echo "<!-- WPPP error: no top-posts fetched. -->\n";
+			echo $after_widget;
 			return;
 		}
 
