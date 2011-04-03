@@ -245,10 +245,6 @@ class WPPP extends WP_Widget {
 
 		// If no top-posts, just do nothing gracefully
 		if ( sizeof( $id_list ) ) {
-			// Must unescape the CSV data, to avoid issues with truncate functions
-			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
-				$top_posts[$i]['post_title'] = stripslashes( htmlspecialchars_decode( $top_posts[$i]['post_title'] ) );
-			}
 
 			/* The data from WP-Stats aren't updated, so we must fetch them
 			 * from the DB, overwriting the old values.
@@ -312,7 +308,7 @@ class WPPP extends WP_Widget {
 			foreach ( $top_posts as $p ) {
 				if ( in_array( $p['post_id'], array_keys( $valid_list ) ) ) {
 					// Updating the title from the DB
-					$p['post_title'] = __( $valid_list[$p['post_id']]->post_title );
+					$p['post_title'] = strip_tags( __( $valid_list[$p['post_id']]->post_title ) );
 					$temp_list[] = $p;
 				}
 				// Limit the number of posts shown following user settings.
