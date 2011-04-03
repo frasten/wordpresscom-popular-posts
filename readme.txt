@@ -1,22 +1,25 @@
 === Plugin Name ===
 Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
-Tags: posts, widget, statistics, popular posts, popular
+Tags: posts, widget, statistics, popular posts, popular, jetpack, stats, wordpress.com
 Requires at least: 2.8.0
-Tested up to: 3.0
-Stable tag: 2.4.2
+Tested up to: 3.1
+Stable tag: 2.5.1
 
-This plugin can show the most popular articles in your sidebar, using data collected by Wordpress.com Stats plugin.
+This plugin can show the most popular articles in your sidebar, using data collected by Jetpack or Wordpress.com Stats plugins.
 
 == Description ==
 
 
-Wordpress.com Popular Posts lists the most popular posts on a wordpress powered weblog.
+Wordpress.com Popular Posts lists the most popular posts on a WordPress powered site.
 This list can be used in the sidebar to show an indication of which are the most visited pages.
 
 For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/).
 
-**Requires [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2**
+**Requires one of these plugins installed:**
+
+* [Jetpack](http://wordpress.org/extend/plugins/jetpack/) plugin
+* [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin, at least v1.2
 
 **From v2.0.0, it requires WordPress 2.8 or greater.**
 
@@ -24,7 +27,8 @@ For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plu
 
 Wordpress.com Popular Posts can be installed easily:
 
-1. Download and install [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin.
+1. Download and install [Jetpack](http://wordpress.org/extend/plugins/jetpack/)
+   or [Wordpress.com Stats](http://wordpress.org/extend/plugins/stats/) plugin.
 1. Download Wordpress.com Popular Posts .zip archive
 1. Extract the files in the .zip archive, and upload them (including subfolders) to your /wp-content/plugins/ directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress
@@ -35,8 +39,9 @@ Wordpress.com Popular Posts can be installed easily:
 
 = I added the widget, but nothing shows up =
 
-Check whether the Wordpress.com Stats plugin is installed and active.
-You must have at least version 1.2 of WP Stats.
+Check whether the Wordpress.com Stats or Jetpack plugins are installed
+and active.
+If you use WP Stats, you need at least version 1.2.
 
 
 = I chose to show 5 posts, but I only see 2/3... =
@@ -187,6 +192,12 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
+= 2.5.1 =
+* Fixed missing closing tag when there aren't any popular posts. Thanks
+  to sebmeric.
+* Strip HTML tags from the post titles. Please let me know if this
+  breaks something for you.
+
 = 2.5.0 =
 * New feature: %post_author% tag, to show the post author. Thanks to
   Jean-Paul Horn, www.iphoneclub.nl
@@ -194,6 +205,7 @@ I'll add your translations to the plugin!
   authors. Thanks to Jean-Paul Horn, www.iphoneclub.nl
 * Added Serbian translation, thanks to Саша Стефановић.
 * Completed Turkish translation, thanks to Engin BAHADIR and cornetto.
+* Added docs about new Wordpress.com Jetpack plugin.
 
 = 2.4.2 =
 * Added Catalan translation & updated Spanish translation, thanks to
