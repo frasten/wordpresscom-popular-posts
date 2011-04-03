@@ -195,6 +195,8 @@ I'll add your translations to the plugin!
 = 2.5.1 =
 * Fixed missing closing tag when there aren't any popular posts. Thanks
   to sebmeric.
+* Strip HTML tags from the post titles. Please let me know if this
+  breaks something for you.
 
 = 2.5.0 =
 * New feature: %post_author% tag, to show the post author. Thanks to
