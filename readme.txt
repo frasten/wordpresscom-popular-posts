@@ -3,8 +3,8 @@ Contributors: frasten
 Donate link: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/#donations
 Tags: posts, widget, statistics, popular posts, popular, jetpack, stats, wordpress.com
 Requires at least: 2.8.0
-Tested up to: 3.1
-Stable tag: 2.5.1
+Tested up to: 3.1.1
+Stable tag: 2.5.2
 
 This plugin can show the most popular articles in your sidebar, using data collected by Jetpack or Wordpress.com Stats plugins.
 
@@ -191,6 +191,9 @@ I'll add your translations to the plugin!
 
 
 == Changelog ==
+
+= 2.5.2 =
+* Fixed a PHP notice.
 
 = 2.5.1 =
 * Fixed missing closing tag when there aren't any popular posts. Thanks
