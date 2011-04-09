@@ -2,8 +2,11 @@
 /*
 Plugin Name: WordPress.com Popular Posts
 Plugin URI: http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/
-Description: Shows the most popular posts, using data collected by <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a> plugin.
-Version: 2.4.2
+Description: Shows the most popular posts, using data collected by
+<a href='http://wordpress.org/extend/plugins/jetpack/'>Jetpack</a>
+or <a href='http://wordpress.org/extend/plugins/stats/'>WordPress.com stats</a>
+plugins.
+Version: 2.5.2
 Text Domain: wordpresscom-popular-posts
 Author: Frasten
 Author URI: http://polpoinodroidi.com
@@ -227,6 +230,7 @@ class WPPP extends WP_Widget {
 			/* No popular posts. Maybe something went wrong while fetching data.
 			 * Write a hidden debug message. */
 			echo "<!-- WPPP error: no top-posts fetched. -->\n";
+			echo $after_widget;
 			return;
 		}
 
@@ -241,10 +245,6 @@ class WPPP extends WP_Widget {
 
 		// If no top-posts, just do nothing gracefully
 		if ( sizeof( $id_list ) ) {
-			// Must unescape the CSV data, to avoid issues with truncate functions
-			for ( $i = 0; $i < sizeof( $top_posts ); $i++ ) {
-				$top_posts[$i]['post_title'] = stripslashes( htmlspecialchars_decode( $top_posts[$i]['post_title'] ) );
-			}
 
 			/* The data from WP-Stats aren't updated, so we must fetch them
 			 * from the DB, overwriting the old values.
@@ -293,10 +293,10 @@ class WPPP extends WP_Widget {
 				$query .= ')';
 			}
 
-		/* Check for exclude_author parameter */
-		if ( ! empty( $instance['exclude_author'] ) ) {
-			$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
-		}
+			/* Check for exclude_author parameter */
+			if ( ! empty( $instance['exclude_author'] ) ) {
+				$query .= " AND p.post_author NOT IN (" . $instance['exclude_author'] . ")";
+			}
 
 			$results = $wpdb->get_results( $query );
 			$valid_list = array();
@@ -308,7 +308,7 @@ class WPPP extends WP_Widget {
 			foreach ( $top_posts as $p ) {
 				if ( in_array( $p['post_id'], array_keys( $valid_list ) ) ) {
 					// Updating the title from the DB
-					$p['post_title'] = __( $valid_list[$p['post_id']]->post_title );
+					$p['post_title'] = strip_tags( __( $valid_list[$p['post_id']]->post_title ) );
 					$temp_list[] = $p;
 				}
 				// Limit the number of posts shown following user settings.
@@ -390,7 +390,7 @@ class WPPP extends WP_Widget {
 		$cache = get_option( 'wppp_cache' );
 		if ( ! is_array($cache) ) $cache = array();
 		$cache[$this->id] = array( 'value' => $output, 'time' => time() );
-		if ( $md5 ) {
+		if ( ! empty( $md5 ) ) {
 			/* If I'm calling this from the function, I must save the checksum
 			 * for the settings, to reset the cache everytime I change the settings. */
 			$cache[$this->id]['settings_checksum'] = $md5;
