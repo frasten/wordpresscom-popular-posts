@@ -390,7 +390,7 @@ class WPPP extends WP_Widget {
 		$cache = get_option( 'wppp_cache' );
 		if ( ! is_array($cache) ) $cache = array();
 		$cache[$this->id] = array( 'value' => $output, 'time' => time() );
-		if ( $md5 ) {
+		if ( ! empty( $md5 ) ) {
 			/* If I'm calling this from the function, I must save the checksum
 			 * for the settings, to reset the cache everytime I change the settings. */
 			$cache[$this->id]['settings_checksum'] = $md5;
