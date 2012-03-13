@@ -192,6 +192,16 @@ I'll add your translations to the plugin!
 
 == Changelog ==
 
+= 2.6.0 =
+* Language: added romanian, thanks to [Web Geek Sciense](http://webhostinggeeks.com).
+* Language: added vietnamese, thanks to Lê Hoàng Phương.
+* Language: updated catalan, thanks to Ferran Rius.
+* Language: updated italian, thanks to Edoardo Maria Elidoro.
+* Language: updated serbian, thanks to Предраг Љубеновић.
+* Language: updated spanish, thanks to Fitoschido, Fzamudio, Sergio Arriaga,
+  hhlp, simon.
+* Language: updated turkish, thanks to Hamit Selahattin Naiboğlu.
+
 = 2.5.2 =
 * Fixed a PHP notice.
 
