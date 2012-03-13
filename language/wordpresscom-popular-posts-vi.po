@@ -1,75 +1,78 @@
+# Vietnamese translation for wordpresscom-popular-posts
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the wordpresscom-popular-posts package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
 "POT-Creation-Date: 2012-03-13 18:19+0100\n"
-"PO-Revision-Date: 2011-03-23 10:19+0000\n"
-"Last-Translator: Andrea Piccinelli <Unknown>\n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2011-04-08 17:43+0000\n"
+"Last-Translator: Lê Hoàng Phương <Unknown>\n"
+"Language-Team: Vietnamese <vi@li.org>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2012-03-13 09:04+0000\n"
 "X-Generator: Launchpad (build 14933)\n"
 
 #: wppp.php:25 wppp.php:47
 msgid "Popular Posts"
-msgstr "Articoli più letti"
+msgstr "Bài viết ưa chuộng"
 
 #: wppp.php:44
 msgid "A list of your most popular posts"
-msgstr "Gli articoli più visualizzati di questo blog"
+msgstr "Một danh sách các bài viết được ưa chuộng nhất của bạn"
 
 #: wppp.php:448
 msgid "Title"
-msgstr "Titolo"
+msgstr "Tên"
 
 #: wppp.php:455
 msgid "Number of links shown"
-msgstr "Numero di collegamenti mostrati"
+msgstr "Số liên kết hiển thị"
 
 #: wppp.php:462
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
-"La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
+"Chiều dài (theo ngày) của khung thời gian mong muốn.<br />(0 tức là không "
+"giới hạn)"
 
 #: wppp.php:469
 msgid "Show: "
-msgstr "Mostra: "
+msgstr "Hiển thị: "
 
 #: wppp.php:471
 msgid "posts and pages"
-msgstr "articoli e pagine"
+msgstr "bài viết và trang"
 
 #: wppp.php:472
 msgid "only posts"
-msgstr "solo articoli"
+msgstr "chỉ bài viết"
 
 #: wppp.php:473
 msgid "only pages"
-msgstr "solo pagine"
+msgstr "chỉ trang"
 
 #: wppp.php:485
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
 msgstr ""
-"Formato dei collegamenti. Leggere la <a href=\"http://wordpress.org/extend/"
-"plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per "
-"informazioni in merito"
+"Định dạng của các liên kết. Xem <a href=\"http://wordpress.org/extend/"
+"plugins/wordpresscom-popular-posts/faq/\">tài liệu</a> để được giúp đỡ"
 
 #: wppp.php:492
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
-"Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
-"sopra)"
+"Độ dài của tóm tắt (nếu %post_excerpt% được sử dụng trong định dạng bên trên)"
 
 #: wppp.php:495 wppp.php:509
 msgid " characters"
-msgstr " caratteri"
+msgstr " ký tự"
 
 #: wppp.php:499
 msgid ""
@@ -77,66 +80,66 @@ msgid ""
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs</a> for help"
 msgstr ""
-"Formato della data/ora (se %post_time% è utilizzato nel formato qui sopra). "
-"Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-"
-"popular-posts/faq/\">documentazione</a> per informazioni in merito"
+"Định dạng ngày/giờ (nếu %post_time% được sử dụng trong định dạng trên). Xem "
+"<a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
+"\">tài liệu</a> để được giúp đỡ"
 
 #: wppp.php:506
 msgid "Max length of the title links.<br />(0 means unlimited)"
-msgstr "Lunghezza massima dei titoli dei links.<br />(0 sta per illimitato)"
+msgstr ""
+"Chiều dài lớn nhất của các tên liên kết.<br />(0 tức là không giới hạn)"
 
 #: wppp.php:513
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
-msgstr "Escludi questi posts: (separa gli ID con virgole. Es. 1,42,52)"
+msgstr "Loại trừ các bài viết này: (tách các ID bởi dấu phẩy. Ví dụ: 1,42,52)"
 
 #: wppp.php:521
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
-msgstr "Escludi questi autori: (separa gli ID con virgole. Es. 1,42,52)"
+msgstr "Loại trừ các tác giả này: (tách các ID bởi dấu phẩy. Ví dụ: 1,42,52)"
 
 #: wppp.php:528
 msgid "Don't show posts/pages with a view count under"
-msgstr "Non mostrare posts/pagine con un numero di visite minore di"
+msgstr "Không hiện bài viết/trang với số lần xem bên dưới"
 
 #: wppp.php:531
 msgid "(0 means unlimited)"
-msgstr "(0 sta per illimitato)"
+msgstr "(0 tức là không giới hạn)"
 
 #: wppp.php:535
 msgid "Kind of list"
-msgstr "Tipo di lista"
+msgstr "Kiểu danh sách"
 
 #: wppp.php:537
 msgid "Unordered list (&lt;ul&gt;)"
-msgstr "Elenco puntato (&lt;ul&gt;)"
+msgstr "Danh sách không sắp xếp (&lt;ul&gt;)"
 
 #: wppp.php:538
 msgid "Ordered list (&lt;ol&gt;)"
-msgstr "Elenco numerato (&lt;ol&gt;)"
+msgstr "Danh sách sắp xếp (&lt;ol&gt;)"
 
 #: wppp.php:539
 msgid "None (use custom format)"
-msgstr "Nessuno (usa formato personalizzato)"
+msgstr "Không (sử dụng định dạng tùy chọn)"
 
 #: wppp.php:552
 msgid "Only show posts/pages in this category"
-msgstr "Mostra solo i posts/pagine di questa categoria"
+msgstr "Chỉ hiện bài viết/trang trong thể loại này"
 
 #: wppp.php:553
 msgid "&lt;All categories&gt;"
-msgstr "&lt;Tutte le categorie&gt;"
+msgstr "&lt;Mọi thể loại&gt;"
 
 #: wppp.php:567
 msgid "Enable cache (improves speed)"
-msgstr "Abilita la cache (migliora la velocità)"
+msgstr "Bật bộ đệm (cải thiện tốc độ)"
 
 #: wppp.php:575
 msgid "Only show a cached version to the not logged in users"
-msgstr "Mostra la versione in cache solo agli utenti non loggati"
+msgstr "Chỉ hiện phiên bản bộ đệm cho những người dùng chưa đăng nhập"
 
 #: wppp.php:600
 msgid "Magic number (raise it if you see less links than expected)"
-msgstr ""
-"Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
+msgstr "Số ma thuật (tăng lên nếu bạn thấy ít liên kết hơn mong đợi)"
 
 #: wppp.php:688
 #, php-format
@@ -147,15 +150,15 @@ msgid ""
 "href='%s'>downgrade this plugin</a> to v1.3.6\n"
 "\tor <a href='%s'>uninstall it</a>."
 msgstr ""
-"Wordpress.com Popular Post &gt;= 2.0.0 è compatibile solo con WordPress 2.8 "
-"e successivi.<br />\n"
-"\t<a href='%s'>Aggiorna</a> la tua installazione di WordPress, <a "
-"href='%s'>riporta questo plugin</a> alla v1.3.6\n"
-"\toppure <a href='%s'>disinstallalo</a>."
+"Bài Viết Ưa Chuông Wordpress.com &gt;= 2.0.0 chỉ tương thích với Wordpress "
+"&gt;= 2.8.<br />\n"
+"\tHãy <a href='%s'>cập nhật</a> cài đặt Wordpress của bạn, hoặc <a "
+"href='%s'>hạ phiên bản phần bổ sung này</a> xuống v1.3.6\n"
+"\thay <a href='%s'>gỡ cài đặt nó</a>."
 
 #. Plugin Name of an extension
 msgid "WordPress.com Popular Posts"
-msgstr "WordPress.com Popular Posts"
+msgstr "Bài Viết Ưa Chuộng WordPress.com"
 
 #. Plugin URI of an extension
 msgid "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
@@ -165,8 +168,8 @@ msgstr ""
 #. Description of an extension
 msgid "Shows the most popular posts, using data collected by"
 msgstr ""
-"Mostra gli articoli più visualizzati di questo blog, utilizzando i dati "
-"raccolti da"
+"Hiện các bài viết được ưa chuộng (xem nhiều) nhất, sử dụng dữ liệu thu thập "
+"bởi"
 
 #. Author of an extension
 msgid "Frasten"
