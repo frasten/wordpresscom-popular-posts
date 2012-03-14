@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-14 10:54+0100\n"
+"POT-Creation-Date: 2012-03-14 10:56+0100\n"
 "PO-Revision-Date: 2011-04-08 17:43+0000\n"
 "Last-Translator: Lê Hoàng Phương <Unknown>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
@@ -65,13 +65,13 @@ msgstr ""
 "Định dạng của các liên kết. Xem <a href=\"http://wordpress.org/extend/"
 "plugins/wordpresscom-popular-posts/faq/\">tài liệu</a> để được giúp đỡ"
 
-#: wppp.php:525
+#: wppp.php:526
 msgid ""
-"<em>Note: your current theme doesn't support post thumbnails: you won't be "
-"able to set them.</em>"
+"Note: your current theme doesn't support post thumbnails: you won't be able "
+"to set them."
 msgstr ""
 
-#: wppp.php:529
+#: wppp.php:531
 #, fuzzy
 msgid ""
 "Width/height of the thumbnail image (if %post_thumbnail% is used in the "
@@ -79,20 +79,20 @@ msgid ""
 msgstr ""
 "Độ dài của tóm tắt (nếu %post_excerpt% được sử dụng trong định dạng bên trên)"
 
-#: wppp.php:532
+#: wppp.php:534
 msgid " px"
 msgstr ""
 
-#: wppp.php:536
+#: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Độ dài của tóm tắt (nếu %post_excerpt% được sử dụng trong định dạng bên trên)"
 
-#: wppp.php:539 wppp.php:553
+#: wppp.php:541 wppp.php:555
 msgid " characters"
 msgstr " ký tự"
 
-#: wppp.php:543
+#: wppp.php:545
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -102,64 +102,64 @@ msgstr ""
 "<a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">tài liệu</a> để được giúp đỡ"
 
-#: wppp.php:550
+#: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 "Chiều dài lớn nhất của các tên liên kết.<br />(0 tức là không giới hạn)"
 
-#: wppp.php:557
+#: wppp.php:559
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Loại trừ các bài viết này: (tách các ID bởi dấu phẩy. Ví dụ: 1,42,52)"
 
-#: wppp.php:565
+#: wppp.php:567
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Loại trừ các tác giả này: (tách các ID bởi dấu phẩy. Ví dụ: 1,42,52)"
 
-#: wppp.php:572
+#: wppp.php:574
 msgid "Don't show posts/pages with a view count under"
 msgstr "Không hiện bài viết/trang với số lần xem bên dưới"
 
-#: wppp.php:575
+#: wppp.php:577
 msgid "(0 means unlimited)"
 msgstr "(0 tức là không giới hạn)"
 
-#: wppp.php:579
+#: wppp.php:581
 msgid "Kind of list"
 msgstr "Kiểu danh sách"
 
-#: wppp.php:581
+#: wppp.php:583
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Danh sách không sắp xếp (&lt;ul&gt;)"
 
-#: wppp.php:582
+#: wppp.php:584
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Danh sách sắp xếp (&lt;ol&gt;)"
 
-#: wppp.php:583
+#: wppp.php:585
 msgid "None (use custom format)"
 msgstr "Không (sử dụng định dạng tùy chọn)"
 
-#: wppp.php:596
+#: wppp.php:598
 msgid "Only show posts/pages in this category"
 msgstr "Chỉ hiện bài viết/trang trong thể loại này"
 
-#: wppp.php:597
+#: wppp.php:599
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Mọi thể loại&gt;"
 
-#: wppp.php:611
+#: wppp.php:613
 msgid "Enable cache (improves speed)"
 msgstr "Bật bộ đệm (cải thiện tốc độ)"
 
-#: wppp.php:619
+#: wppp.php:621
 msgid "Only show a cached version to the not logged in users"
 msgstr "Chỉ hiện phiên bản bộ đệm cho những người dùng chưa đăng nhập"
 
-#: wppp.php:644
+#: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr "Số ma thuật (tăng lên nếu bạn thấy ít liên kết hơn mong đợi)"
 
-#: wppp.php:734
+#: wppp.php:736
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

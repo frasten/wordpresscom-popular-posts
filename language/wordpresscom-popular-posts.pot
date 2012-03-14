@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress.com Popular Posts 2.6.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-14 10:54+0100\n"
+"POT-Creation-Date: 2012-03-14 10:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,94 +60,94 @@ msgid ""
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:525
+#: wppp.php:526
 msgid ""
-"<em>Note: your current theme doesn't support post thumbnails: you won't be "
-"able to set them.</em>"
+"Note: your current theme doesn't support post thumbnails: you won't be able "
+"to set them."
 msgstr ""
 
-#: wppp.php:529
+#: wppp.php:531
 msgid ""
 "Width/height of the thumbnail image (if %post_thumbnail% is used in the "
 "format above)"
 msgstr ""
 
-#: wppp.php:532
+#: wppp.php:534
 msgid " px"
 msgstr ""
 
-#: wppp.php:536
+#: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 
-#: wppp.php:539 wppp.php:553
+#: wppp.php:541 wppp.php:555
 msgid " characters"
 msgstr ""
 
-#: wppp.php:543
+#: wppp.php:545
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs</a> for help"
 msgstr ""
 
-#: wppp.php:550
+#: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:557
+#: wppp.php:559
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:565
+#: wppp.php:567
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 
-#: wppp.php:572
+#: wppp.php:574
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 
-#: wppp.php:575
+#: wppp.php:577
 msgid "(0 means unlimited)"
 msgstr ""
 
-#: wppp.php:579
+#: wppp.php:581
 msgid "Kind of list"
 msgstr ""
 
-#: wppp.php:581
+#: wppp.php:583
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr ""
 
-#: wppp.php:582
+#: wppp.php:584
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr ""
 
-#: wppp.php:583
+#: wppp.php:585
 msgid "None (use custom format)"
 msgstr ""
 
-#: wppp.php:596
+#: wppp.php:598
 msgid "Only show posts/pages in this category"
 msgstr ""
 
-#: wppp.php:597
+#: wppp.php:599
 msgid "&lt;All categories&gt;"
 msgstr ""
 
-#: wppp.php:611
+#: wppp.php:613
 msgid "Enable cache (improves speed)"
 msgstr ""
 
-#: wppp.php:619
+#: wppp.php:621
 msgid "Only show a cached version to the not logged in users"
 msgstr ""
 
-#: wppp.php:644
+#: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 
-#: wppp.php:734
+#: wppp.php:736
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

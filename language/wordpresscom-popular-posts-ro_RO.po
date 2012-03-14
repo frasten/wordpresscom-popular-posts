@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-14 10:54+0100\n"
+"POT-Creation-Date: 2012-03-14 10:56+0100\n"
 "PO-Revision-Date: 2012-02-02 17:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -64,13 +64,13 @@ msgstr ""
 "Формат линкова. Погледај <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">упутства</a> за помоћ"
 
-#: wppp.php:525
+#: wppp.php:526
 msgid ""
-"<em>Note: your current theme doesn't support post thumbnails: you won't be "
-"able to set them.</em>"
+"Note: your current theme doesn't support post thumbnails: you won't be able "
+"to set them."
 msgstr ""
 
-#: wppp.php:529
+#: wppp.php:531
 #, fuzzy
 msgid ""
 "Width/height of the thumbnail image (if %post_thumbnail% is used in the "
@@ -79,21 +79,21 @@ msgstr ""
 "Lungimea de extras (dacă % post_excerpt % este folosit în formatul de mai "
 "sus)"
 
-#: wppp.php:532
+#: wppp.php:534
 msgid " px"
 msgstr ""
 
-#: wppp.php:536
+#: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lungimea de extras (dacă % post_excerpt % este folosit în formatul de mai "
 "sus)"
 
-#: wppp.php:539 wppp.php:553
+#: wppp.php:541 wppp.php:555
 msgid " characters"
 msgstr " caractere"
 
-#: wppp.php:543
+#: wppp.php:545
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -103,74 +103,74 @@ msgstr ""
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">упутства</a> за помоћ"
 
-#: wppp.php:550
+#: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Max lungime de link-uri de titlul. < br />(0 means unlimited)"
 
-#: wppp.php:557
+#: wppp.php:559
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Exclude aceste posturi: (ID-uri se separă prin virgule. exemplu 1,42,52)Не "
 "укључуј следеће постове: (поделите ИД поста са зарезима, нпр. 1,42,52)"
 
-#: wppp.php:565
+#: wppp.php:567
 #, fuzzy
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Excluderea acestor autori: (ID-uri se separă prin virgule. exemplu 1,42,52)"
 "Не укључуј следеће постове: (поделите ИД поста са зарезима, нпр. 1,42,52)"
 
-#: wppp.php:572
+#: wppp.php:574
 msgid "Don't show posts/pages with a view count under"
 msgstr "Nu arată posturi/pagini cu un număr de vizualizare sub"
 
-#: wppp.php:575
+#: wppp.php:577
 msgid "(0 means unlimited)"
 msgstr "(0 înseamnă nelimitat)"
 
-#: wppp.php:579
+#: wppp.php:581
 msgid "Kind of list"
 msgstr "Tip de listă"
 
-#: wppp.php:581
+#: wppp.php:583
 #, fuzzy
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Listă neordonată (<ul>)"
 
-#: wppp.php:582
+#: wppp.php:584
 #, fuzzy
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Listă ordonată (<ol>)"
 
-#: wppp.php:583
+#: wppp.php:585
 msgid "None (use custom format)"
 msgstr "Nici unul (utilizare format particularizat)"
 
-#: wppp.php:596
+#: wppp.php:598
 msgid "Only show posts/pages in this category"
 msgstr "Doar arată posturi/paginile din această categorie"
 
-#: wppp.php:597
+#: wppp.php:599
 #, fuzzy
 msgid "&lt;All categories&gt;"
 msgstr "< toate categoriile >"
 
-#: wppp.php:611
+#: wppp.php:613
 msgid "Enable cache (improves speed)"
 msgstr "Permite cache (îmbunătăţeşte viteza)"
 
-#: wppp.php:619
+#: wppp.php:621
 msgid "Only show a cached version to the not logged in users"
 msgstr "Doar arată o versiune cache nu logat utilizatori"
 
-#: wppp.php:644
+#: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 "Număr Magic (raise it dacă tu a vedea link-uri mai puţin decât de aşteptat)"
 "Магични број (повећајте га уколико видите мање линкова него што сте "
 "очекивали)"
 
-#: wppp.php:734
+#: wppp.php:736
 #, fuzzy, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

@@ -522,7 +522,9 @@ class WPPP extends WP_Widget {
 
 		// If the theme doesn't support post thumbnails, echo a notice.
 		if ( ! function_exists( 'current_theme_supports' ) || ! current_theme_supports( 'post-thumbnails' ) ) {
-			_e( "<em>Note: your current theme doesn't support post thumbnails: you won't be able to set them.</em>", 'wordpresscom-popular-posts' );
+			echo '<em>';
+			_e( "Note: your current theme doesn't support post thumbnails: you won't be able to set them.", 'wordpresscom-popular-posts' );
+			echo '</em>';
 		}
 		$field_id = $this->get_field_id( 'thumbnail_size' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";

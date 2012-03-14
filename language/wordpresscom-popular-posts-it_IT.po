@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-14 10:54+0100\n"
+"POT-Creation-Date: 2012-03-14 10:56+0100\n"
 "PO-Revision-Date: 2011-03-23 10:19+0000\n"
 "Last-Translator: Andrea Piccinelli <Unknown>\n"
 "Language-Team: \n"
@@ -61,13 +61,13 @@ msgstr ""
 "plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per "
 "informazioni in merito"
 
-#: wppp.php:525
+#: wppp.php:526
 msgid ""
-"<em>Note: your current theme doesn't support post thumbnails: you won't be "
-"able to set them.</em>"
+"Note: your current theme doesn't support post thumbnails: you won't be able "
+"to set them."
 msgstr ""
 
-#: wppp.php:529
+#: wppp.php:531
 #, fuzzy
 msgid ""
 "Width/height of the thumbnail image (if %post_thumbnail% is used in the "
@@ -76,21 +76,21 @@ msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.php:532
+#: wppp.php:534
 msgid " px"
 msgstr ""
 
-#: wppp.php:536
+#: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.php:539 wppp.php:553
+#: wppp.php:541 wppp.php:555
 msgid " characters"
 msgstr " caratteri"
 
-#: wppp.php:543
+#: wppp.php:545
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -100,64 +100,64 @@ msgstr ""
 "Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-"
 "popular-posts/faq/\">documentazione</a> per informazioni in merito"
 
-#: wppp.php:550
+#: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Lunghezza massima dei titoli dei links.<br />(0 sta per illimitato)"
 
-#: wppp.php:557
+#: wppp.php:559
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Escludi questi posts: (separa gli ID con virgole. Es. 1,42,52)"
 
-#: wppp.php:565
+#: wppp.php:567
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Escludi questi autori: (separa gli ID con virgole. Es. 1,42,52)"
 
-#: wppp.php:572
+#: wppp.php:574
 msgid "Don't show posts/pages with a view count under"
 msgstr "Non mostrare posts/pagine con un numero di visite minore di"
 
-#: wppp.php:575
+#: wppp.php:577
 msgid "(0 means unlimited)"
 msgstr "(0 sta per illimitato)"
 
-#: wppp.php:579
+#: wppp.php:581
 msgid "Kind of list"
 msgstr "Tipo di lista"
 
-#: wppp.php:581
+#: wppp.php:583
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Elenco puntato (&lt;ul&gt;)"
 
-#: wppp.php:582
+#: wppp.php:584
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Elenco numerato (&lt;ol&gt;)"
 
-#: wppp.php:583
+#: wppp.php:585
 msgid "None (use custom format)"
 msgstr "Nessuno (usa formato personalizzato)"
 
-#: wppp.php:596
+#: wppp.php:598
 msgid "Only show posts/pages in this category"
 msgstr "Mostra solo i posts/pagine di questa categoria"
 
-#: wppp.php:597
+#: wppp.php:599
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Tutte le categorie&gt;"
 
-#: wppp.php:611
+#: wppp.php:613
 msgid "Enable cache (improves speed)"
 msgstr "Abilita la cache (migliora la velocità)"
 
-#: wppp.php:619
+#: wppp.php:621
 msgid "Only show a cached version to the not logged in users"
 msgstr "Mostra la versione in cache solo agli utenti non loggati"
 
-#: wppp.php:644
+#: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 "Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
 
-#: wppp.php:734
+#: wppp.php:736
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

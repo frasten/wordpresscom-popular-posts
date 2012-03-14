@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-14 10:54+0100\n"
+"POT-Creation-Date: 2012-03-14 10:56+0100\n"
 "PO-Revision-Date: 2011-02-19 15:49+0000\n"
 "Last-Translator: Ferran Rius <frius64@hotmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -65,32 +65,32 @@ msgstr ""
 "Format dels enllaços. Vegeu <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs (en anglès)</a> per obtenir ajuda"
 
-#: wppp.php:525
+#: wppp.php:526
 msgid ""
-"<em>Note: your current theme doesn't support post thumbnails: you won't be "
-"able to set them.</em>"
+"Note: your current theme doesn't support post thumbnails: you won't be able "
+"to set them."
 msgstr ""
 
-#: wppp.php:529
+#: wppp.php:531
 #, fuzzy
 msgid ""
 "Width/height of the thumbnail image (if %post_thumbnail% is used in the "
 "format above)"
 msgstr "Longitud del resum (si s'utilitza %post_excerpt% en el format de dalt)"
 
-#: wppp.php:532
+#: wppp.php:534
 msgid " px"
 msgstr ""
 
-#: wppp.php:536
+#: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr "Longitud del resum (si s'utilitza %post_excerpt% en el format de dalt)"
 
-#: wppp.php:539 wppp.php:553
+#: wppp.php:541 wppp.php:555
 msgid " characters"
 msgstr " caràcters"
 
-#: wppp.php:543
+#: wppp.php:545
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -100,69 +100,69 @@ msgstr ""
 "<a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">docs (en anglès)</a> per obtenir ajuda."
 
-#: wppp.php:550
+#: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 "Longitud màxima dels títols dels enllaços.<br />(0 fa que no hi hagi límit)"
 
-#: wppp.php:557
+#: wppp.php:559
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Excloure aquestes entrades: (separeu els identificadors de les entrades amb "
 "comes. e.g. 1,42,52)"
 
-#: wppp.php:565
+#: wppp.php:567
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr ""
 "Exclou aquests autors: (separeu els identificadors de les entrades amb "
 "comes. e.g. 1,42,52)"
 
-#: wppp.php:572
+#: wppp.php:574
 msgid "Don't show posts/pages with a view count under"
 msgstr "No mostris entrades/pàgines amb un comptador de visites inferior a"
 
-#: wppp.php:575
+#: wppp.php:577
 msgid "(0 means unlimited)"
 msgstr "(0 vol dir il·limitat)"
 
-#: wppp.php:579
+#: wppp.php:581
 msgid "Kind of list"
 msgstr "Tipus de llista"
 
-#: wppp.php:581
+#: wppp.php:583
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Llista no ordenada (&lt;ul&gt;)"
 
-#: wppp.php:582
+#: wppp.php:584
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Llista ordenada (&lt;ol&gt;)"
 
-#: wppp.php:583
+#: wppp.php:585
 msgid "None (use custom format)"
 msgstr "Cap (fer servir format propi)"
 
-#: wppp.php:596
+#: wppp.php:598
 msgid "Only show posts/pages in this category"
 msgstr "Mostrar només les entrades/pàgines d'aquesta categoria"
 
-#: wppp.php:597
+#: wppp.php:599
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Totes les categories&gt;"
 
-#: wppp.php:611
+#: wppp.php:613
 msgid "Enable cache (improves speed)"
 msgstr "Habilitar caché (millora la velocitat)"
 
-#: wppp.php:619
+#: wppp.php:621
 msgid "Only show a cached version to the not logged in users"
 msgstr ""
 "Mostrar només la versió en caché als usuaris que tinguin sessió iniciada"
 
-#: wppp.php:644
+#: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr "Nombre màgic (apuja'l si veus menys enllaços dels que esperaves)"
 
-#: wppp.php:734
+#: wppp.php:736
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
