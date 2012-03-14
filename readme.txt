@@ -23,6 +23,19 @@ For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plu
 
 **From v2.0.0, it requires WordPress 2.8 or greater.**
 
+**Features**
+* Catch your visitors' eye with a list of your most interesting contents!
+* It doesn't overload your site: all the stats are stored on WordPress.com
+* Support for multiple (and different) widgets on a page
+* Support for shortcodes to embed the list inside a page/post
+* Choose how many links to show, the time period of the stats...
+* Support for filters: by category, ID, authors, visits...
+* The format of the link is completely customizable
+* Support for displaying post thumbnails in the list
+* Support for displaying post excerpt
+* Support for displaying post visits
+* Internal caching system, to be faster than light
+
 == Installation ==
 
 Wordpress.com Popular Posts can be installed easily:
