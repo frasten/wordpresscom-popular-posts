@@ -36,6 +36,8 @@ For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plu
 * Support for displaying post visits
 * Internal caching system, to be faster than light
 
+You can follow the development on [Github](https://github.com/frasten/wordpresscom-popular-posts).
+
 == Installation ==
 
 Wordpress.com Popular Posts can be installed easily:
