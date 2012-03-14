@@ -35,6 +35,7 @@ Wordpress.com Popular Posts can be installed easily:
 1. Inside the WordPress admin, go to Design > Widgets, and add the 'Popular Posts' widget where you want, then save the changes.
 1. If you want, you can customize some settings for the widget, in that page.
 
+
 == Frequently Asked Questions ==
 
 = I added the widget, but nothing shows up =
@@ -59,6 +60,7 @@ options.
 
 
 = How can I integrate this plugin in my non-widget-ready theme? =
+
 If your theme supports widgets, you can place the widget named 'Popular Posts' where you want.
 
 If it doesn't, put this code inside the file sidebar.php, in your theme files:
