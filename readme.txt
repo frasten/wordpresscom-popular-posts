@@ -228,6 +228,11 @@ where *topposts1* is a name you must choose for your list. This allows you
 to have different lists with different caches.
 
 
+= What is the refresh time in the cache? =
+
+It's 600 seconds (10 minutes).
+
+
 = I want to change the time format! =
 
 Just set the time format as you wish.
