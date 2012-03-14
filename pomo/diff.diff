@@ -1,0 +1,24 @@
+--- makepot.php	2009-08-20 15:57:09.000000000 +0200
++++ makepot.php.1	2009-10-21 18:46:53.000000000 +0200
+@@ -113,7 +113,9 @@
+ 
+ 	function wp($dir, $output) {
+ 		$placeholders = array();
+-		if (preg_match('/\$wp_version\s*=\s*\'(.*?)\';/', file_get_contents($dir.'/wp-includes/version.php'), $matches)) {
++		$version_php = $dir.'/wp-includes/version.php';
++		if (!is_readable($version_php)) return false;
++		if (preg_match('/\$wp_version\s*=\s*\'(.*?)\';/', file_get_contents($version_php), $matches)) {
+ 			$placeholders['version'] = $matches[1];
+ 		}
+ 		$output = is_null($output)? 'wordpress.pot' : $output;
+@@ -261,8 +263,8 @@
+ $included_files = get_included_files();
+ if ($included_files[0] == __FILE__) {
+ 	$makepot = new MakePOT;
+-	if ((3 == count($argv) || 4 == count($argv) || 5 == count($argv)) && in_array($method = str_replace('-', '_', $argv[1]), get_class_methods($makepot))) {
+-		$res = call_user_func(array(&$makepot, $method), realpath($argv[2]), isset($argv[3])? $argv[3] : null, isset($argv[4])? $argv[4] : null);
++	if ((3 == count($argv) || 4 == count($argv)) && in_array($method = str_replace('-', '_', $argv[1]), get_class_methods($makepot))) {
++		$res = call_user_func(array(&$makepot, $method), realpath($argv[2]), isset($argv[3])? $argv[3] : null);
+ 		if (false === $res) {
+ 			fwrite(STDERR, "Couldn't generate POT file!\n");
+ 		}
