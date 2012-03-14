@@ -38,7 +38,7 @@ cd $GITPATH
 echo -e "Enter a commit message for this new version: \c"
 #read COMMITMSG
 #COMMITMSG="Tagging version $NEWVERSION1"
-#git commit -am "$COMMITMSG"
+git commit -am "$COMMITMSG"
 
 echo "Tagging new version in git"
 git tag -sa "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
@@ -67,10 +67,11 @@ pomo
 .gitignore" "$SVNPATH/trunk/"
 
 echo "Preparing the banner image for WP plugin directory"
+# TODO: check if it does work or not.
 cp -r assets $SVNPATH/
 
 echo "Changing directory to SVN and committing to trunk"
-cd $SVNPATH/trunk/
+cd $SVNPATH/
 # Add all new files that are not set to be ignored
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
 #svn commit --username=$SVNUSER -m "$COMMITMSG"
