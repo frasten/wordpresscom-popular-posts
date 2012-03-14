@@ -268,7 +268,7 @@ I'll add your translations to the plugin!
 
 = 2.6.0 =
 * New feature: added %post_thumbnail% to show the post thumbnail! Please read
-  the FAQ.
+  the FAQ. Thanks to [Rocco Agostino](blog.roccoagostino.eu).
 * Language: added romanian, thanks to [Web Geek Sciense](http://webhostinggeeks.com).
 * Language: added vietnamese, thanks to Lê Hoàng Phương.
 * Language: updated catalan, thanks to Ferran Rius.
