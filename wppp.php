@@ -37,6 +37,7 @@ class WPPP extends WP_Widget {
 													 ,'cache_only_when_visitor' => '0'
 													 ,'time_format' => ''
 													 ,'magic_number' => '1'
+													 ,'thumbnail_size' => '50'
 		);
 
 
@@ -378,6 +379,37 @@ class WPPP extends WP_Widget {
 				$replace['%post_time%'] = get_the_time( $instance['time_format'], $post['post_id'] );
 			}
 
+			// %post_thumbnail% stuff, WP 2.9+ only.
+			if ( FALSE !== strpos( $instance['format'], '%post_thumbnail%' ) ) {
+				// Check for mandatory functions (from WP 2.9 only)
+				if ( function_exists( 'get_the_post_thumbnail' ) && function_exists( 'has_post_thumbnail' ) ) {
+					if ( has_post_thumbnail( $post['post_id'] ) ) {
+						$replace['%post_thumbnail%'] = get_the_post_thumbnail(
+							$post['post_id'],
+							array( $instance['thumbnail_size'], $instance['thumbnail_size'] )
+						);
+					}
+					else {
+						// No image found, show a default image, from Gravatar.
+						$hash = md5( $post['post_id'] );
+						$replace['%post_thumbnail%'] = "<img src='http://www.gravatar.com/avatar/$hash?d=identicon'" .
+							" style='width: $instance[thumbnail_size]px; height: $instance[thumbnail_size]px'" .
+							" class='no-grav'" . // To avoid a mouseover effect in late versions of WP
+							" alt='' />";
+					}
+				}
+				else {
+					// If the theme doesn't support post thumbnails:
+					$replace['%post_thumbnail%'] = '';
+				}
+			}
+			/*
+			TODO:
+			we could use $args["widget_id"] to distinct settings from multiple
+			instances of this widget, and add CSS code by default.
+			*/
+
+
 			$output .= wp_kses( strtr( $instance['format'], $replace ), $allowedposttags );
 
 			if ( $instance['list_tag'] != 'none' )
@@ -430,6 +462,7 @@ class WPPP extends WP_Widget {
 		$instance['cache_only_when_visitor'] = ( $new_instance['cache_only_when_visitor'] ? 1 : 0 );
 		$instance['magic_number'] = floatval( $new_instance['magic_number'] );
 		$instance['time_format'] = $new_instance['time_format'];
+		$instance['thumbnail_size'] = max( 1, intval( $new_instance['thumbnail_size'] ) ); // >= 1px
 
 		/* Reset cache */
 		$cache = get_option( 'wppp_cache' );
@@ -486,6 +519,17 @@ class WPPP extends WP_Widget {
 		echo ": <input style='width: 300px;' id='$field_id' name='" .
 			$this->get_field_name( 'format' ) . "' type='text' value='" .
 			esc_attr( $instance['format'] ) . "' /></label></p>";
+
+		// If the theme doesn't support post thumbnails, echo a notice.
+		if ( ! function_exists( 'current_theme_supports' ) || ! current_theme_supports( 'post-thumbnails' ) ) {
+			_e( "<em>Note: your current theme doesn't support post thumbnails: you won't be able to set them.</em>", 'wordpresscom-popular-posts' );
+		}
+		$field_id = $this->get_field_id( 'thumbnail_size' );
+		echo "<p style='text-align:right;'><label for='$field_id'>";
+		_e( 'Width/height of the thumbnail image (if %post_thumbnail% is used in the format above)', 'wordpresscom-popular-posts' );
+		echo ": <input style='width: 40px;' id='$field_id' name='" .
+			$this->get_field_name( 'thumbnail_size' ) . "' type='text' value='" .
+			intval( $instance['thumbnail_size'] ) . "' />" . __(' px', 'wordpresscom-popular-posts' ) . "</label></p>";
 
 		$field_id = $this->get_field_id( 'excerpt_length' );
 		echo "<p style='text-align:right;'><label for='$field_id'>";
@@ -630,6 +674,7 @@ endif;
  * - show (can be: both, posts, pages, default both)
  * - format (the format of the links shown, default: <a href='%post_permalink%' title='%post_title%'>%post_title%</a>)
  * - time_format (the format used with %post_time%, see http://codex.wordpress.org/Formatting_Date_and_Time)
+ * - thumbnail_size (the width/height in pixels of the post's thumbnail image)
  * - excerpt_length (the length of the excerpt, if %post_excerpt% is used in the format)
  * - title_length (the length of the title links, default 0, i.e. unlimited)
  * - exclude (the list of post/page IDs to exclude, separated by commas)
@@ -654,6 +699,7 @@ endif;
  * %post_title% the title the post
  * %post_title_attribute% the title of the post; use this in attributes, e.g. <a title='%post_title_attribute%'
  * %post_views% number of views
+ * %post_thumbnail% the thumbnail image of the post.
  * %post_excerpt% the first n characters of the content. Set n with excerpt_length.
  * %post_category% the category of the post
  * %post_comments% the number of comments a post has
