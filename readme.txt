@@ -77,6 +77,7 @@ Possible names are:
 * `show` (can be: both, posts, pages; default both)
 * `format` (the format of the links shown, default: `<a href='%post_permalink%' title='%post_title%'>%post_title%</a>`)
 * `time_format` (the format used with %post_time%, see [Formatting Date and Time](http://codex.wordpress.org/Formatting_Date_and_Time) )
+* `thumbnail_size` (the width/height in pixels of the post's thumbnail image)
 * `excerpt_length` (the length of the excerpt, if `%post_excerpt%` is used in the format)
 * `title_length` (the length of the title links, default 0, i.e. unlimited)
 * `exclude` (the list of post/page IDs to exclude, separated by commas. Read the following FAQ for instructions)
@@ -104,6 +105,7 @@ You can use these special markers in the `format` value:
 * `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
 * `%post_views%` number of views
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
+* `%post_thumbnail` the thumbnail image of the post
 * `%post_category%` the category of the post
 * `%post_comments%` the number of comments a post has
 * `%post_time%` the date/time of the post. You can set the format with *time_format*.
@@ -132,7 +134,64 @@ WP page in HTML or the editor will screw up the HTML formatting in the
 `format= parameter`.
 
 
+= How can I enable the thumbnail feature? =
+
+You must add %post_thumbnail% to your format field, in the widget's settings.
+For example, you could use this format:
+`<a href='%post_permalink%' title='%post_title_attribute%'>%post_thumbnail%%post_title%</a>`
+
+You can customize the image size in the settings.
+
+Note that your theme should support Post Thumbnails, and your posts should
+have an image set. If they don't, a default image will be displayed.
+You can read a guide to set the posts' thumbnail
+[here](http://codex.wordpress.org/Post_Thumbnails#Setting_a_Post_Thumbnail).
+
+However you can do this automatically for you, please read the other FAQs
+below.
+
+Also note that probably the image will not look nice by default, please see
+below.
+
+
+= I added %post_thumbnail% in the format, but don't see any image. =
+
+The thumbnail function is only compatible with WordPress 2.9+, please check
+your WP version. Furthermore, try to disable and re-enable the widget's cache
+in its options.
+
+
+= I added %post_thumbnail% in the format, the image are displayed but I don't like their style! =
+
+This is very theme-dependent, but a good starting point could be adding this
+CSS code to your `/wp-content/themes/YOURTHEME/style.css file (note that
+creating a [Child Theme](http://codex.wordpress.org/Child_Themes) would be a
+nicer choice):
+
+`
+  ul.wppp_list li {
+    min-height: 65px;
+    display: block;
+    list-style: none outside none;
+  }
+
+  ul.wppp_list img {
+    float: left;
+    margin-right: 4px;
+    border: 2px solid #ECEFF5;
+  }
+`
+
+
+= I didn't set featured images for old posts. Do I have to set them by hand? =
+
+Fortunately not, there are some nice plugins that can set the first image in
+the posts as featured image.
+One plugin could be: [Auto Post Thumbnail](http://wordpress.org/extend/plugins/auto-post-thumbnail/).
+
+
 = How can I discover the ID of a post/page? =
+
 Log into your admin page, go to **Posts** or **Pages**; go with your mouse
 on your post's title, and in your status bar you should see something like
 this: http://YOURSITE.com/wp-admin/post.php?action=edit&post=14
@@ -193,6 +252,8 @@ I'll add your translations to the plugin!
 == Changelog ==
 
 = 2.6.0 =
+* New feature: added %post_thumbnail% to show the post thumbnail! Please read
+  the FAQ.
 * Language: added romanian, thanks to [Web Geek Sciense](http://webhostinggeeks.com).
 * Language: added vietnamese, thanks to Lê Hoàng Phương.
 * Language: updated catalan, thanks to Ferran Rius.
@@ -353,3 +414,9 @@ I'll add your translations to the plugin!
 
 = 0.1.0 =
 * First working release with the widget.
+
+
+== Upgrade Notice ==
+
+= 2.6.0 =
+Upgrade to add the capability to display post thumbnails.
