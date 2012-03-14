@@ -4,8 +4,8 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
 "POT-Creation-Date: 2012-03-14 10:56+0100\n"
-"PO-Revision-Date: 2011-03-23 10:19+0000\n"
-"Last-Translator: Andrea Piccinelli <Unknown>\n"
+"PO-Revision-Date: 2012-03-14 10:58+0100\n"
+"Last-Translator: Andrea Piccinelli <frasten@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,8 @@ msgstr ""
 "X-Launchpad-Export-Date: 2012-03-13 09:04+0000\n"
 "X-Generator: Launchpad (build 14933)\n"
 
-#: wppp.php:25 wppp.php:48
+#: wppp.php:25
+#: wppp.php:48
 msgid "Popular Posts"
 msgstr "Articoli più letti"
 
@@ -31,10 +32,8 @@ msgid "Number of links shown"
 msgstr "Numero di collegamenti mostrati"
 
 #: wppp.php:495
-msgid ""
-"The length (in days) of the desired time frame.<br />(0 means unlimited)"
-msgstr ""
-"La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
+msgid "The length (in days) of the desired time frame.<br />(0 means unlimited)"
+msgstr "La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
 
 #: wppp.php:502
 msgid "Show: "
@@ -53,52 +52,33 @@ msgid "only pages"
 msgstr "solo pagine"
 
 #: wppp.php:518
-msgid ""
-"Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
-"wordpresscom-popular-posts/faq/\">docs</a> for help"
-msgstr ""
-"Formato dei collegamenti. Leggere la <a href=\"http://wordpress.org/extend/"
-"plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per "
-"informazioni in merito"
+msgid "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/\">docs</a> for help"
+msgstr "Formato dei collegamenti. Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per informazioni in merito"
 
 #: wppp.php:526
-msgid ""
-"Note: your current theme doesn't support post thumbnails: you won't be able "
-"to set them."
-msgstr ""
+msgid "Note: your current theme doesn't support post thumbnails: you won't be able to set them."
+msgstr "Attenzione: il tuo tema corrente non supporta le immagini in evidenza: non potrai impostarle."
 
 #: wppp.php:531
-#, fuzzy
-msgid ""
-"Width/height of the thumbnail image (if %post_thumbnail% is used in the "
-"format above)"
-msgstr ""
-"Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
-"sopra)"
+msgid "Width/height of the thumbnail image (if %post_thumbnail% is used in the format above)"
+msgstr "Larghezza/altezza delle immagini in evidenza (se %post_thumbnail% è utilizzato nel formato qui sopra)"
 
 #: wppp.php:534
 msgid " px"
-msgstr ""
+msgstr "px"
 
 #: wppp.php:538
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
-msgstr ""
-"Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
-"sopra)"
+msgstr "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui sopra)"
 
-#: wppp.php:541 wppp.php:555
+#: wppp.php:541
+#: wppp.php:555
 msgid " characters"
 msgstr " caratteri"
 
 #: wppp.php:545
-msgid ""
-"Date/time format (if %post_time% is used in the format above). See <a href="
-"\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
-"\">docs</a> for help"
-msgstr ""
-"Formato della data/ora (se %post_time% è utilizzato nel formato qui sopra). "
-"Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-"
-"popular-posts/faq/\">documentazione</a> per informazioni in merito"
+msgid "Date/time format (if %post_time% is used in the format above). See <a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/\">docs</a> for help"
+msgstr "Formato della data/ora (se %post_time% è utilizzato nel formato qui sopra). Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per informazioni in merito"
 
 #: wppp.php:552
 msgid "Max length of the title links.<br />(0 means unlimited)"
@@ -154,22 +134,17 @@ msgstr "Mostra la versione in cache solo agli utenti non loggati"
 
 #: wppp.php:646
 msgid "Magic number (raise it if you see less links than expected)"
-msgstr ""
-"Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
+msgstr "Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
 
 #: wppp.php:736
 #, php-format
 msgid ""
-"Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
-"2.8 only.<br />\n"
-"\tPlease either <a href='%s'>update</a> your WordPress installation, <a "
-"href='%s'>downgrade this plugin</a> to v1.3.6\n"
+"Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= 2.8 only.<br />\n"
+"\tPlease either <a href='%s'>update</a> your WordPress installation, <a href='%s'>downgrade this plugin</a> to v1.3.6\n"
 "\tor <a href='%s'>uninstall it</a>."
 msgstr ""
-"Wordpress.com Popular Post &gt;= 2.0.0 è compatibile solo con WordPress 2.8 "
-"e successivi.<br />\n"
-"\t<a href='%s'>Aggiorna</a> la tua installazione di WordPress, <a "
-"href='%s'>riporta questo plugin</a> alla v1.3.6\n"
+"Wordpress.com Popular Post &gt;= 2.0.0 è compatibile solo con WordPress 2.8 e successivi.<br />\n"
+"\t<a href='%s'>Aggiorna</a> la tua installazione di WordPress, <a href='%s'>riporta questo plugin</a> alla v1.3.6\n"
 "\toppure <a href='%s'>disinstallalo</a>."
 
 #. Plugin Name of an extension
@@ -178,14 +153,11 @@ msgstr "WordPress.com Popular Posts"
 
 #. Plugin URI of an extension
 msgid "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
-msgstr ""
-"http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
+msgstr "http://polpoinodroidi.com/wordpress-plugins/wordpresscom-popular-posts/"
 
 #. Description of an extension
 msgid "Shows the most popular posts, using data collected by"
-msgstr ""
-"Mostra gli articoli più visualizzati di questo blog, utilizzando i dati "
-"raccolti da"
+msgstr "Mostra gli articoli più visualizzati di questo blog, utilizzando i dati raccolti da"
 
 #. Author of an extension
 msgid "Frasten"
@@ -194,3 +166,4 @@ msgstr "Frasten"
 #. Author URI of an extension
 msgid "http://polpoinodroidi.com"
 msgstr "http://polpoinodroidi.com"
+
