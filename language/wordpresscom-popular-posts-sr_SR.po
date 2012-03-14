@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-13 18:34+0100\n"
+"POT-Creation-Date: 2012-03-14 10:54+0100\n"
 "PO-Revision-Date: 2011-08-07 22:04+0000\n"
 "Last-Translator: Предраг Љубеновић <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -18,46 +18,46 @@ msgstr ""
 "X-Launchpad-Export-Date: 2012-03-13 09:04+0000\n"
 "X-Generator: Launchpad (build 14933)\n"
 
-#: wppp.php:25 wppp.php:47
+#: wppp.php:25 wppp.php:48
 msgid "Popular Posts"
 msgstr "Популарне објаве"
 
-#: wppp.php:44
+#: wppp.php:45
 msgid "A list of your most popular posts"
 msgstr "Списак ваших најпопуларнијих објава"
 
-#: wppp.php:448
+#: wppp.php:481
 msgid "Title"
 msgstr "Наслов"
 
-#: wppp.php:455
+#: wppp.php:488
 msgid "Number of links shown"
 msgstr "Број приказаних линкова"
 
-#: wppp.php:462
+#: wppp.php:495
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 "Дужина (број дана) жељеног временског интервала.<br />(остави 0 за "
 "бесконачно)"
 
-#: wppp.php:469
+#: wppp.php:502
 msgid "Show: "
 msgstr "Прикажи: "
 
-#: wppp.php:471
+#: wppp.php:504
 msgid "posts and pages"
 msgstr "објаве и странице"
 
-#: wppp.php:472
+#: wppp.php:505
 msgid "only posts"
 msgstr "само објаве"
 
-#: wppp.php:473
+#: wppp.php:506
 msgid "only pages"
 msgstr "само странице"
 
-#: wppp.php:485
+#: wppp.php:518
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
@@ -65,15 +65,32 @@ msgstr ""
 "Формат линкова. Погледај <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">упутства</a> за помоћ"
 
-#: wppp.php:492
+#: wppp.php:525
+msgid ""
+"<em>Note: your current theme doesn't support post thumbnails: you won't be "
+"able to set them.</em>"
+msgstr ""
+
+#: wppp.php:529
+#, fuzzy
+msgid ""
+"Width/height of the thumbnail image (if %post_thumbnail% is used in the "
+"format above)"
+msgstr "Дужина текста (уколико се %post_excerpt% користи)"
+
+#: wppp.php:532
+msgid " px"
+msgstr ""
+
+#: wppp.php:536
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr "Дужина текста (уколико се %post_excerpt% користи)"
 
-#: wppp.php:495 wppp.php:509
+#: wppp.php:539 wppp.php:553
 msgid " characters"
 msgstr " карактера"
 
-#: wppp.php:499
+#: wppp.php:543
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -83,65 +100,65 @@ msgstr ""
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">упутства</a> за помоћ"
 
-#: wppp.php:506
+#: wppp.php:550
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Максимална дужина наслова <br />(остави 0 за без лимита)"
 
-#: wppp.php:513
+#: wppp.php:557
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Не укључуј следеће објаве: (поделите ИД са зарезима, нпр. 1,42,52)"
 
-#: wppp.php:521
+#: wppp.php:565
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Не укључуј следеће ауторе: (поделите ИД са зарезима, нпр. 1,42,52)"
 
-#: wppp.php:528
+#: wppp.php:572
 msgid "Don't show posts/pages with a view count under"
 msgstr "Не приказуј објаве/странице са бројем прегледа испод"
 
-#: wppp.php:531
+#: wppp.php:575
 msgid "(0 means unlimited)"
 msgstr "(0 значи неограничено)"
 
-#: wppp.php:535
+#: wppp.php:579
 msgid "Kind of list"
 msgstr "Тип списка"
 
-#: wppp.php:537
+#: wppp.php:581
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Несортиран списак (&lt;ul&gt;)"
 
-#: wppp.php:538
+#: wppp.php:582
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Сортиран списак (&lt;ol&gt;)"
 
-#: wppp.php:539
+#: wppp.php:583
 msgid "None (use custom format)"
 msgstr "Никакав (користи свој формат)"
 
-#: wppp.php:552
+#: wppp.php:596
 msgid "Only show posts/pages in this category"
 msgstr "Приказуј само објаве/странице у овој категорији"
 
-#: wppp.php:553
+#: wppp.php:597
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Све категорије&gt;"
 
-#: wppp.php:567
+#: wppp.php:611
 msgid "Enable cache (improves speed)"
 msgstr "Омогући кеш (побољшава брзину)"
 
-#: wppp.php:575
+#: wppp.php:619
 msgid "Only show a cached version to the not logged in users"
 msgstr "Приказуј само кеширану верзију не пријављеним корисницима"
 
-#: wppp.php:600
+#: wppp.php:644
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 "Магични број (повећајте га уколико видите мање линкова него што сте "
 "очекивали)"
 
-#: wppp.php:688
+#: wppp.php:734
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

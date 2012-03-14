@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-13 18:34+0100\n"
+"POT-Creation-Date: 2012-03-14 10:54+0100\n"
 "PO-Revision-Date: 2011-03-23 10:19+0000\n"
 "Last-Translator: Andrea Piccinelli <Unknown>\n"
 "Language-Team: \n"
@@ -14,45 +14,45 @@ msgstr ""
 "X-Launchpad-Export-Date: 2012-03-13 09:04+0000\n"
 "X-Generator: Launchpad (build 14933)\n"
 
-#: wppp.php:25 wppp.php:47
+#: wppp.php:25 wppp.php:48
 msgid "Popular Posts"
 msgstr "Articoli più letti"
 
-#: wppp.php:44
+#: wppp.php:45
 msgid "A list of your most popular posts"
 msgstr "Gli articoli più visualizzati di questo blog"
 
-#: wppp.php:448
+#: wppp.php:481
 msgid "Title"
 msgstr "Titolo"
 
-#: wppp.php:455
+#: wppp.php:488
 msgid "Number of links shown"
 msgstr "Numero di collegamenti mostrati"
 
-#: wppp.php:462
+#: wppp.php:495
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr ""
 "La quantità di giorni dell'intervallo di tempo.<br />(0 sta per illimitato)"
 
-#: wppp.php:469
+#: wppp.php:502
 msgid "Show: "
 msgstr "Mostra: "
 
-#: wppp.php:471
+#: wppp.php:504
 msgid "posts and pages"
 msgstr "articoli e pagine"
 
-#: wppp.php:472
+#: wppp.php:505
 msgid "only posts"
 msgstr "solo articoli"
 
-#: wppp.php:473
+#: wppp.php:506
 msgid "only pages"
 msgstr "solo pagine"
 
-#: wppp.php:485
+#: wppp.php:518
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
@@ -61,17 +61,36 @@ msgstr ""
 "plugins/wordpresscom-popular-posts/faq/\">documentazione</a> per "
 "informazioni in merito"
 
-#: wppp.php:492
+#: wppp.php:525
+msgid ""
+"<em>Note: your current theme doesn't support post thumbnails: you won't be "
+"able to set them.</em>"
+msgstr ""
+
+#: wppp.php:529
+#, fuzzy
+msgid ""
+"Width/height of the thumbnail image (if %post_thumbnail% is used in the "
+"format above)"
+msgstr ""
+"Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
+"sopra)"
+
+#: wppp.php:532
+msgid " px"
+msgstr ""
+
+#: wppp.php:536
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr ""
 "Lunghezza del riassunto (se %post_excerpt% è utilizzato nel formato qui "
 "sopra)"
 
-#: wppp.php:495 wppp.php:509
+#: wppp.php:539 wppp.php:553
 msgid " characters"
 msgstr " caratteri"
 
-#: wppp.php:499
+#: wppp.php:543
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -81,64 +100,64 @@ msgstr ""
 "Leggere la <a href=\"http://wordpress.org/extend/plugins/wordpresscom-"
 "popular-posts/faq/\">documentazione</a> per informazioni in merito"
 
-#: wppp.php:506
+#: wppp.php:550
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr "Lunghezza massima dei titoli dei links.<br />(0 sta per illimitato)"
 
-#: wppp.php:513
+#: wppp.php:557
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Escludi questi posts: (separa gli ID con virgole. Es. 1,42,52)"
 
-#: wppp.php:521
+#: wppp.php:565
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Escludi questi autori: (separa gli ID con virgole. Es. 1,42,52)"
 
-#: wppp.php:528
+#: wppp.php:572
 msgid "Don't show posts/pages with a view count under"
 msgstr "Non mostrare posts/pagine con un numero di visite minore di"
 
-#: wppp.php:531
+#: wppp.php:575
 msgid "(0 means unlimited)"
 msgstr "(0 sta per illimitato)"
 
-#: wppp.php:535
+#: wppp.php:579
 msgid "Kind of list"
 msgstr "Tipo di lista"
 
-#: wppp.php:537
+#: wppp.php:581
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Elenco puntato (&lt;ul&gt;)"
 
-#: wppp.php:538
+#: wppp.php:582
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Elenco numerato (&lt;ol&gt;)"
 
-#: wppp.php:539
+#: wppp.php:583
 msgid "None (use custom format)"
 msgstr "Nessuno (usa formato personalizzato)"
 
-#: wppp.php:552
+#: wppp.php:596
 msgid "Only show posts/pages in this category"
 msgstr "Mostra solo i posts/pagine di questa categoria"
 
-#: wppp.php:553
+#: wppp.php:597
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Tutte le categorie&gt;"
 
-#: wppp.php:567
+#: wppp.php:611
 msgid "Enable cache (improves speed)"
 msgstr "Abilita la cache (migliora la velocità)"
 
-#: wppp.php:575
+#: wppp.php:619
 msgid "Only show a cached version to the not logged in users"
 msgstr "Mostra la versione in cache solo agli utenti non loggati"
 
-#: wppp.php:600
+#: wppp.php:644
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr ""
 "Numero magico (incrementalo se appaiono meno collegamenti del previsto)"
 
-#: wppp.php:688
+#: wppp.php:734
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wordpresscom-popular-posts\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wppp\n"
-"POT-Creation-Date: 2012-03-13 18:34+0100\n"
+"POT-Creation-Date: 2012-03-14 10:54+0100\n"
 "PO-Revision-Date: 2011-04-10 12:57+0000\n"
 "Last-Translator: Hamit Selahattin Naiboğlu <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "X-Launchpad-Export-Date: 2012-03-13 09:04+0000\n"
 "X-Generator: Launchpad (build 14933)\n"
 
-#: wppp.php:25 wppp.php:47
+#: wppp.php:25 wppp.php:48
 msgid "Popular Posts"
 msgstr "Popüler Mesajlar"
 
-#: wppp.php:44
+#: wppp.php:45
 msgid "A list of your most popular posts"
 msgstr "En popüler mesaj listesi"
 
-#: wppp.php:448
+#: wppp.php:481
 msgid "Title"
 msgstr "Başlık"
 
-#: wppp.php:455
+#: wppp.php:488
 msgid "Number of links shown"
 msgstr "Gösterilen bağlantı sayısı"
 
-#: wppp.php:462
+#: wppp.php:495
 msgid ""
 "The length (in days) of the desired time frame.<br />(0 means unlimited)"
 msgstr "İstenilen zaman aralığı (gün olarak).<br />(limitsiz için 0 giriniz)"
 
-#: wppp.php:469
+#: wppp.php:502
 msgid "Show: "
 msgstr "Göster: "
 
-#: wppp.php:471
+#: wppp.php:504
 msgid "posts and pages"
 msgstr "mesajlar ve sayfalar"
 
-#: wppp.php:472
+#: wppp.php:505
 msgid "only posts"
 msgstr "sadece mesajlar"
 
-#: wppp.php:473
+#: wppp.php:506
 msgid "only pages"
 msgstr "sadece sayfalar"
 
-#: wppp.php:485
+#: wppp.php:518
 msgid ""
 "Format of the links. See <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">docs</a> for help"
@@ -63,15 +63,32 @@ msgstr ""
 "Bağlantı formatı. Yardım için <a href=\"http://wordpress.org/extend/plugins/"
 "wordpresscom-popular-posts/faq/\">belgeler</a> içeriğini okuyunuz"
 
-#: wppp.php:492
+#: wppp.php:525
+msgid ""
+"<em>Note: your current theme doesn't support post thumbnails: you won't be "
+"able to set them.</em>"
+msgstr ""
+
+#: wppp.php:529
+#, fuzzy
+msgid ""
+"Width/height of the thumbnail image (if %post_thumbnail% is used in the "
+"format above)"
+msgstr "Alıntı boyutu ( %post_excerpt% biçiminde kullanılırsa)"
+
+#: wppp.php:532
+msgid " px"
+msgstr ""
+
+#: wppp.php:536
 msgid "Length of the excerpt (if %post_excerpt% is used in the format above)"
 msgstr "Alıntı boyutu ( %post_excerpt% biçiminde kullanılırsa)"
 
-#: wppp.php:495 wppp.php:509
+#: wppp.php:539 wppp.php:553
 msgid " characters"
 msgstr " karakterler"
 
-#: wppp.php:499
+#: wppp.php:543
 msgid ""
 "Date/time format (if %post_time% is used in the format above). See <a href="
 "\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
@@ -81,65 +98,65 @@ msgstr ""
 "href=\"http://wordpress.org/extend/plugins/wordpresscom-popular-posts/faq/"
 "\">belgeler</a> bölümüne bakınız"
 
-#: wppp.php:506
+#: wppp.php:550
 msgid "Max length of the title links.<br />(0 means unlimited)"
 msgstr ""
 "Başlık bağlantıları için maksimum uzunluk.<br /> (Limitsiz için 0 yazınız)"
 
-#: wppp.php:513
+#: wppp.php:557
 msgid "Exclude these posts: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Bu mesajlar hariç: (ID leri virgül ile ayırınız. örn. 1,42,52)"
 
-#: wppp.php:521
+#: wppp.php:565
 msgid "Exclude these authors: (separate the IDs by commas. e.g. 1,42,52)"
 msgstr "Bu yazarları hariç tut: (ID' leri virgül ile ayırınız. örn. 1,42,52)"
 
-#: wppp.php:528
+#: wppp.php:572
 msgid "Don't show posts/pages with a view count under"
 msgstr ""
 "Belli bir görüntüleme sayısı altında kalan sayfaları/mesajları gösterme"
 
-#: wppp.php:531
+#: wppp.php:575
 msgid "(0 means unlimited)"
 msgstr "(limitsiz için 0)"
 
-#: wppp.php:535
+#: wppp.php:579
 msgid "Kind of list"
 msgstr "Listenin türü"
 
-#: wppp.php:537
+#: wppp.php:581
 msgid "Unordered list (&lt;ul&gt;)"
 msgstr "Sıralanmamış liste (&lt;ul&gt;)"
 
-#: wppp.php:538
+#: wppp.php:582
 msgid "Ordered list (&lt;ol&gt;)"
 msgstr "Sıralı liste (&lt;ol&gt;)"
 
-#: wppp.php:539
+#: wppp.php:583
 msgid "None (use custom format)"
 msgstr "Hiçbiri (özel biçim kullan)"
 
-#: wppp.php:552
+#: wppp.php:596
 msgid "Only show posts/pages in this category"
 msgstr "Sadece bu kategorideki Mesajları/Sayfaları göster"
 
-#: wppp.php:553
+#: wppp.php:597
 msgid "&lt;All categories&gt;"
 msgstr "&lt;Bütün kategoriler&gt;"
 
-#: wppp.php:567
+#: wppp.php:611
 msgid "Enable cache (improves speed)"
 msgstr "Önbelleği etkinleştir (hız artışı sağlar)"
 
-#: wppp.php:575
+#: wppp.php:619
 msgid "Only show a cached version to the not logged in users"
 msgstr "Giriş yapmayan kullanıcılara sadece önbelleğe alınmış şeklini göster"
 
-#: wppp.php:600
+#: wppp.php:644
 msgid "Magic number (raise it if you see less links than expected)"
 msgstr "Sihirli sayı (beklenenden daha az link görürseniz artırın)"
 
-#: wppp.php:688
+#: wppp.php:734
 #, php-format
 msgid ""
 "Wordpress.com Popular Post &gt;= 2.0.0 is compatible with WordPress &gt;= "
