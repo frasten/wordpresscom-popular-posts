@@ -24,6 +24,7 @@ For further info visit [plugin homepage](http://polpoinodroidi.com/wordpress-plu
 **From v2.0.0, it requires WordPress 2.8 or greater.**
 
 **Features**
+
 * Catch your visitors' eye with a list of your most interesting contents!
 * It doesn't overload your site: all the stats are stored on WordPress.com
 * Support for multiple (and different) widgets on a page
@@ -147,8 +148,7 @@ This example displays a nice top 10 list, complete with title, number of
 views, excerpt, and it's cached for performance.
 
 If you specify the `format` parameter, be SURE you paste this into the
-WP page in HTML or the editor will screw up the HTML formatting in the
-`format= parameter`.
+WP page in HTML or the editor will screw up the HTML formatting in the `format= parameter`.
 
 
 = How can I enable the thumbnail feature? =
@@ -171,7 +171,7 @@ Also note that probably the image will not look nice by default, please see
 below.
 
 
-= I added %post_thumbnail% in the format, but don't see any image. =
+= I added %post_thumbnail% in the format, but I don't see any image. =
 
 The thumbnail function is only compatible with WordPress 2.9+, please check
 your WP version. Furthermore, try to disable and re-enable the widget's cache
