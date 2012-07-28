@@ -123,7 +123,7 @@ You can use these special markers in the `format` value:
 * `%post_title_attribute%` the title of the post; use this in attributes, e.g. `<a title='%post_title_attribute%'...`
 * `%post_views%` number of views
 * `%post_excerpt%` the first n characters of the content. Set n with *excerpt_length*.
-* `%post_thumbnail` the thumbnail image of the post
+* `%post_thumbnail%` the thumbnail image of the post
 * `%post_category%` the category of the post
 * `%post_comments%` the number of comments a post has
 * `%post_time%` the date/time of the post. You can set the format with *time_format*.
@@ -148,7 +148,8 @@ This example displays a nice top 10 list, complete with title, number of
 views, excerpt, and it's cached for performance.
 
 If you specify the `format` parameter, be SURE you paste this into the
-WP page in HTML or the editor will screw up the HTML formatting in the `format= parameter`.
+WP page in HTML, otherwise the editor will screw up the HTML formatting in
+the `format= parameter`.
 
 
 = How can I enable the thumbnail feature? =
