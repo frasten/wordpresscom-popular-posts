@@ -30,6 +30,7 @@ class WPPP extends WP_Widget {
 													 ,'excerpt_length' => '100'
 													 ,'title_length' => '0'
 													 ,'exclude_author' => ''
+													 ,'exclude' => ''
 													 ,'cutoff' => '0'
 													 ,'list_tag' => 'ul'
 													 ,'category' => '0'
