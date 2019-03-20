@@ -21,7 +21,7 @@ class WPPP extends WP_Widget {
 	var $defaults;
 	var $cache_expire = 600;
 
-	function WPPP() {
+	function __construct() {
 		$this->defaults = array('title'	 => __( 'Popular Posts', 'wordpresscom-popular-posts' )
 													 ,'number' => '5'
 													 ,'days'	 => '0'
@@ -46,7 +46,7 @@ class WPPP extends WP_Widget {
 												 'description' => __( "A list of your most popular posts", 'wordpresscom-popular-posts' )
 												);
 		$control_ops = array( 'width' => 350, 'height' => 300 );
-		$this->WP_Widget( 'wppp', __( 'Popular Posts', 'wordpresscom-popular-posts' ), $widget_ops, $control_ops );
+		parent::__construct( 'wppp', __( 'Popular Posts', 'wordpresscom-popular-posts' ), $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance = null ) {
